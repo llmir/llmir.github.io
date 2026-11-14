@@ -1,0 +1,128 @@
+[
+  {
+    "number": "CN118134946B",
+    "year": 2026,
+    "kind": "grant",
+    "assignee": "SUSTech",
+    "title": "Medical image segmentation with learnable prompts and personalized federated aggregation",
+    "titleZh": "基于可学习提示与个性化联邦聚合的医学图像分割",
+    "source": "https://patents.google.com/patent/CN118134946B/en",
+    "sourceZh": "https://patents.google.com/patent/CN118134946B/zh"
+  },
+  {
+    "number": "CN116229070B",
+    "year": 2026,
+    "kind": "grant",
+    "assignee": "SUSTech",
+    "title": "Federated image segmentation with cyclic knowledge distillation",
+    "titleZh": "基于循环知识蒸馏的联邦图像分割",
+    "source": "https://patents.google.com/patent/CN116229070B/en",
+    "sourceZh": "https://patents.google.com/patent/CN116229070B/zh"
+  },
+  {
+    "number": "CN116740075B",
+    "year": 2026,
+    "kind": "grant",
+    "assignee": "SUSTech",
+    "title": "Personalized federated segmentation with adaptive head aggregation",
+    "titleZh": "基于自适应头部聚合的个性化联邦图像分割",
+    "source": "https://patents.google.com/patent/CN116740075B/en",
+    "sourceZh": "https://patents.google.com/patent/CN116740075B/zh"
+  },
+  {
+    "number": "CN115965631B",
+    "year": 2025,
+    "kind": "grant",
+    "assignee": "SUSTech",
+    "title": "Weakly supervised curvilinear segmentation with synthetic training images",
+    "titleZh": "基于图像合成的弱监督曲线结构分割",
+    "source": "https://patents.google.com/patent/CN115965631B/en",
+    "sourceZh": "https://patents.google.com/patent/CN115965631B/zh"
+  },
+  {
+    "number": "CN115880250B",
+    "year": 2025,
+    "kind": "grant",
+    "assignee": "SUSTech",
+    "title": "Medical image quality assessment with learned representations and clustering",
+    "titleZh": "基于表征学习与聚类的医学图像质量评估",
+    "source": "https://patents.google.com/patent/CN115880250B/en",
+    "sourceZh": "https://patents.google.com/patent/CN115880250B/zh"
+  },
+  {
+    "number": "CN110786824B",
+    "year": 2021,
+    "kind": "grant",
+    "assignee": "SYSU",
+    "title": "Lesion detection from coarse annotations via bounding-box refinement",
+    "titleZh": "基于边界框修正的粗标注病灶检测",
+    "source": "https://patents.google.com/patent/CN110786824B/en",
+    "sourceZh": "https://patents.google.com/patent/CN110786824B/zh"
+  },
+  {
+    "number": "CN121119113A",
+    "year": 2025,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Efficient text reasoning with cascaded teacher–student models",
+    "titleZh": "基于级联教师与学生模型的高效文本推理",
+    "source": "https://eureka.patsnap.com/patent/CN121119113A"
+  },
+  {
+    "number": "CN120689607A",
+    "year": 2025,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Multimodal liver tumor segmentation with modality-conditioned synthesis",
+    "titleZh": "基于模态条件合成的多模态肝肿瘤分割",
+    "source": "https://patents.google.com/patent/CN120689607A/en",
+    "sourceZh": "https://patents.google.com/patent/CN120689607A/zh"
+  },
+  {
+    "number": "CN120689606A",
+    "year": 2025,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Multimodal MRI segmentation with complementary masked modeling",
+    "titleZh": "基于掩码互补建模的多模态 MRI 分割",
+    "source": "https://eureka.patsnap.com/patent/CN120689606A"
+  },
+  {
+    "number": "CN120635108A",
+    "year": 2025,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Prompt-based segmentation across retinal annotation granularities",
+    "titleZh": "基于提示学习的多粒度视网膜层分割",
+    "source": "https://eureka.patsnap.com/patent/CN120635108A"
+  },
+  {
+    "number": "CN119540608A",
+    "year": 2025,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Image recognition with parameter-efficient adaptation of pretrained models",
+    "titleZh": "基于预训练模型参数高效适配的图像识别",
+    "source": "https://eureka.patsnap.com/patent/CN119540608A"
+  },
+  {
+    "number": "CN117373102A",
+    "year": 2024,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Ophthalmic image analysis with multimodal pretraining",
+    "titleZh": "基于多模态预训练的眼部图像解析",
+    "source": "https://patents.google.com/patent/CN117373102A/en",
+    "sourceZh": "https://patents.google.com/patent/CN117373102A/zh"
+  },
+  {
+    "number": "CN116206110A",
+    "year": 2023,
+    "kind": "application",
+    "assignee": "SUSTech",
+    "title": "Fundus image segmentation",
+    "titleZh": "眼底图像分割方法",
+    "source": "https://patents.google.com/patent/CN116206110A/en",
+    "sourceZh": "https://patents.google.com/patent/CN116206110A/zh"
+  }
+]

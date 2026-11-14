@@ -1,0 +1,290 @@
+"""Build both languages and the full chronological publication index."""
+from pathlib import Path
+from html import escape
+from itertools import groupby
+import argparse,json,re
+
+import academic_cv
+import homepage
+
+ROOT=Path(__file__).resolve().parents[1]
+CONTENT,SITE=ROOT/'content',ROOT/'site'
+cli=argparse.ArgumentParser()
+cli.add_argument('--preview',action='store_true',help='write local noindex preview; keep analytics off')
+args=cli.parse_args()
+
+def load(name):
+    return json.loads((CONTENT/(name+'.json')).read_text(encoding='utf8'))
+
+p,s,papers=(load(n) for n in ('profile','scholar','publications'))
+figures={d['id']:d for d in load('figures')}
+
+def visitor_links():
+    config = p.get('visitors')
+    if args.preview or config is None:
+        return None
+    key, stats_id = config.get('key', ''), config.get('statsId', '')
+    if not (re.fullmatch(r'[a-zA-Z0-9_-]{15,120}', key)
+            and re.fullmatch(r'[a-zA-Z0-9]{3,24}', stats_id)):
+        raise ValueError('Supply your MapMyVisitors widget key and statistics ID.')
+    return (f'https://mapmyvisitors.com/map.png?d={key}&cl=ffffff',
+            f'https://mapmyvisitors.com/web/{stats_id}')
+
+visitors = visitor_links()
+visitor_privacy = 'https://mapmyvisitors.com/b/policy'
+date=s['asOf']
+year=int(date[:4])
+since=year-1
+dblp='https://dblp.org/pid/38/4000-6.html'
+catl='https://www.catl.com/en/news/6308.html'
+catl_zh='https://www.catl.com/news/8099.html'
+thesis='https://hub.hku.hk/handle/10722/370810'
+review_venues=load('review-venues')
+venue_metrics=load('venue-metrics')
+
+def e(x):
+    return escape(str(x),quote=True)
+
+def a(u,label='',cls=''):
+    return f'<a href="{e(u)}"{f" class={chr(34)}{cls}{chr(34)}" if cls else ""}>{e(label or u)}</a>'
+
+def venue_metric(name):
+    metric = venue_metrics.get(name)
+    if not metric:
+        return ''
+    label, metric_year, url = metric
+    title = f'{label} · {metric_year}'
+    return f' <a class="venue-metric" href="{e(url)}" title="{e(title)}">({e(label)})</a>'
+
+def author_line(paper, zh):
+    people=[]
+    for name in paper['authors'].replace('，',',').split(','):
+        name=name.strip()
+        person=name.rstrip(' *†')
+        owner=person in {'Li Lin','L Lin','林立'}
+        joint=person in paper.get('equalAuthors',[]) or '*' in name or owner and paper.get('role')=='Joint first author'
+        correspond=person in paper.get('correspondingAuthors',[]) or '†' in name or owner and paper.get('correspondence')
+        marks=[]
+        if joint:
+            label='共同第一作者' if zh else 'Joint first author'
+            marks.append(f'<sup class="author-mark joint" aria-label="{label}">*</sup>')
+        if correspond:
+            label='通讯作者' if zh else 'Corresponding author'
+            marks.append(f'<sup class="author-mark correspondence" aria-label="{label}">†</sup>')
+        text=f'<strong>{e(person)}</strong>' if owner else e(person)
+        people.append(f'<span class="author-name">{text}{"".join(marks)}</span>')
+    return ', '.join(people)
+
+def author_credit(paper, zh):
+    role=paper.get('roleZh' if zh else 'role')
+    correspondence=paper.get('correspondenceZh' if zh else 'correspondence')
+    labels=[('first' if paper.get('role')=='First author' else 'joint',role),('correspondence',correspondence)]
+    return ''.join(f' <span class="contrib {css}">{e(label)}</span>' for css,label in labels if label)
+
+def header(zh,page='home'):
+    L=lambda x,y:y if zh else x
+    home=L('index.html','zh.html')
+    cv=L('cv.html','cv-zh.html')
+    en,cn={'home':('index.html','zh.html'),'archive':('publications.html','publications-zh.html'),'cv':('cv.html','cv-zh.html')}[page]
+    file=L(en,cn)
+    canonical=p['site']+(file if file!='index.html' else '')
+    index='' if page=='home' else home
+    ttl=L('Li Lin','林立 Li Lin')+{'home':'','archive':' · '+L('Publications','论文目录'),'cv':' · '+L('Academic CV','学术简历')}[page]
+    return f'''<!doctype html>
+<html lang="{L('en','zh-CN')}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{L('Li Lin — AI for Science, Agentic AI, and AI for Healthcare. Research and publications in medical image analysis, data-efficient learning, and federated learning.','林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。')}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+{'<meta name="robots" content="noindex,nofollow">' if args.preview else ''}
+<link rel="canonical" href="{e(canonical)}">
+<link rel="alternate" hreflang="en" href="{e(p['site']+(en if en!='index.html' else ''))}">
+<link rel="alternate" hreflang="zh-CN" href="{e(p['site']+cn)}">
+<title>{ttl}</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script src="assets/site.js" defer></script>
+</head>
+<body id="Home"{' class="cv-document"' if page=='cv' else ''}>
+<a class="skip" href="#main">{L('Skip to content','跳到正文')}</a>
+<header class="site-header"><div class="container header-inner">
+{a(home,L('Li Lin','林立'))}
+<nav aria-label="{L('Primary navigation','主导航')}">
+{a(index+'#Biography',L('Biography','个人简介'))}
+{a(index+'#News',L('News','动态'))}
+{a(index+'#Experience',L('Experience','经历'))}
+{a(index+'#Publications',L('Publications','论文'))}
+{a(index+'#Service',L('Service','学术服务'))}
+<a href="{cv}"{(' aria-current="page"') if page=='cv' else ''}>{L('CV','简历')}</a>
+</nav>
+<details class="language-switcher">
+<summary aria-label="{L('Switch language','切换语言')}">
+<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+{L('Language','语言')}<span class="language-chevron" aria-hidden="true"></span>
+</summary>
+<ul aria-label="{L('Available languages','可用语言')}">
+<li><a data-language-option href="{en}" hreflang="en" lang="en"{' aria-current="true"' if not zh else ''}>English</a></li>
+<li><a data-language-option href="{cn}" hreflang="zh-CN" lang="zh-CN"{' aria-current="true"' if zh else ''}>简体中文</a></li>
+</ul></details></div></header>'''
+
+def footer(zh, track_visit=False):
+    L=lambda x,y:y if zh else x
+    pixel = ''
+    if visitors and track_visit:
+        pixel = (f'<img src="{e(visitors[0])}" alt="" width="1" height="1"'
+                 ' loading="eager" fetchpriority="low" hidden>')
+        privacy = a(visitor_privacy, L('Visitor privacy','访客隐私'))
+        pixel += f'<p>{privacy}</p>'
+    return f'''<footer class="container footer">
+<p>© {year} {L('Li Lin','林立')} · <a href="#Home">{L('Back to top','回到顶部')} ↑</a></p>
+{pixel}
+</footer>
+<dialog id="figure" aria-labelledby="fig-title">
+<div class="dialog-bar"><h2 id="fig-title"></h2><button type="button" data-close autofocus>{L('Close','关闭')} <span aria-hidden="true">×</span></button></div>
+<div class="fig-scroll"><img alt=""></div>
+<div class="dialog-meta"><p data-fig-desc></p><a data-fig-source href="{e(p['scholar'])}">{L('Open figure source','打开原图出处')} ↗</a></div>
+</dialog></body></html>'''
+
+def paper_figure(figure, zh):
+    L=lambda en,cn:cn if zh else en
+    parts=[figure]
+    if figure.get('results'):
+        parts.append(figure['results'])
+    orientation = figure.get('pairAxis', 'rows') if len(parts) > 1 else None
+    layout = f' paired paired-{orientation}' if orientation else ''
+    split = f' style="--pair-first:{int(figure["pairSplit"])}%"' if figure.get('pairSplit') else ''
+    anchors=[]
+    sources=[]
+    for i,f in enumerate(parts):
+        number=f['figure']
+        edition=L(f['edition'],{
+            'Publisher Early Access':'出版方在线优先版',
+            'Official CVF proceedings copy':'CVF 官方论文集开放版',
+            'Official IEEE conference proceedings copy':'IEEE 官方论文集版',
+            'Published version':'正式发表版',
+            'arXiv preprint':'arXiv 预印本',
+            'Research Square preprint':'Research Square 预印本',
+        }[f['edition']])
+        desc=L(f'Fig. {number}',f'图 {number}')
+        if f.get('page'):
+            desc+=' · '+L(f"PDF p. {f['page']}",f"PDF 第 {f['page']} 页")
+        desc+=' · '+edition
+        if len(parts)>1:
+            role = L('Method','方法') if i == 0 else L(f.get('panelType', 'Results'), f.get('panelTypeZh', '结果'))
+            desc+=' · '+role
+            img=f['pairThumb']
+            w,h=f.get('pairSize', [960,270])
+        else:
+            img,w,h=f['thumb'],f['thumbWidth'],f['thumbHeight']
+        label=e(f['label'])
+        anchors.append(f'''<a class="pub-figure-link" data-figure href="{e(f['file'])}" data-source="{e(f['source'])}"
+data-desc="{e(desc)}" data-caption="{label}" aria-label="{L('Enlarge figure','放大论文图')} {number} · {label}">
+<img src="{e(img)}" alt="{label}" width="{w}" height="{h}" loading="lazy" decoding="async"><span class="zoom" aria-hidden="true">+</span></a>''')
+        link_text=L(f'Fig. {number}',f'图 {number}') if len(parts)>1 else L('Source','原文出处')
+        sources.append(a(f['source'],link_text))
+    if len(parts)==1:
+        sources.insert(0,L(f"Fig. {figure['figure']}",f"图 {figure['figure']}"))
+    if figure.get('licenseUrl'):
+        sources.append(a(figure['licenseUrl'],figure['license']))
+    return f'''<figure class="pub-figure"><div class="pub-figure-area{layout}"{split}>{''.join(anchors)}</div>
+<figcaption>{' · '.join(sources)}</figcaption></figure>'''
+
+def row(paper,zh):
+    L=lambda x,y:y if zh else x
+    f=figures.get(paper['id'])
+    figure=paper_figure(f,zh) if f else ''
+    status=paper['status']
+    label,desc=(L('Paper','论文'),paper.get('keywordsZh' if zh else 'keywords',''))
+    if paper['linkType']=='scholar':
+        label=L('Scholar record','Scholar 记录')
+    if paper['linkType']=='preprint':
+        label=paper.get('preprintLabel','arXiv')
+    tag=(f'<span class="status">{L("Preprint","预印本")}</span>' if status=='preprint' else
+         f'<span class="status">{L("Venue unconfirmed","发表信息待核")}</span>' if status=='unconfirmed' else '')
+    reading=' '.join(a(paper[k],L(x,y),'pub-link') for k,x,y in [('preprint','arXiv','arXiv'),('code','Code','代码'),('data','Data','数据')] if paper.get(k))
+    dv=paper.get('zh' if zh else 'desc')
+    venue=e(paper['venue'])
+    yr='' if not venue or paper['linkType']=='scholar' else f' {paper["year"]}'
+    return f'''<article class="pub-row{" with-figure" if f else ""}" id="{paper['id']}" data-year="{paper['year']}" data-status="{status}">
+{figure}<div class="pub-text">
+{f'<p class="pub-keywords">{e(desc)}</p>' if desc else ''}
+<h3 lang="{'zh-CN' if paper['id']=='scholar-68' else 'en'}">{a(paper['url'],paper['title'])}</h3>
+<p class="pub-authors">{author_line(paper,zh)}{author_credit(paper,zh)}</p>
+{f'<p class="pub-desc">{e(dv)}</p>' if dv else ''}
+<div class="pub-meta"><span class="pub-venue">{venue}{yr}{venue_metric(paper['venue'])}</span>{tag}{a(paper['url'],label,'pub-link')}{reading}</div>
+</div></article>'''
+
+def rows(records,zh):
+    return ''.join(f'<section class="pub-group" aria-label="{y}"><h3 class="pub-year">{y}</h3>'+''.join(row(paper,zh) for paper in rows)+'</section>'
+      for y,rows in groupby(records,key=lambda p:p['year']))
+
+def stats(zh):
+    L=lambda x,y:y if zh else x
+    basemap=f'<img src="assets/visitor-world.svg" width="804" height="367" alt="{L("World map","世界地图")}">'
+    fallback=f'<div class="visitor-off" data-visitor-fallback{" hidden" if visitors else ""}>{basemap}</div>'
+    if visitors:
+        map_url,detail=visitors
+        mapbody=f'''<a class="visitor-image" data-visitor-widget href="{detail}"><img src="{e(map_url + '&w=420')}" width="420" height="229" loading="eager" fetchpriority="low" alt="{L('Red-dot visitor world map and pageview count','红点访客世界地图及页面浏览量')}"></a>
+{fallback}<p class="map-status" data-visitor-unavailable hidden>{L('Visitor map unavailable','访客地图暂不可用')}</p>
+<p class="map-note">{a(detail,L('Visitor Map','访客地图'))} · {L('Approximate locations from IP addresses','地理位置为 IP 估算')} · {a(visitor_privacy,L('Privacy','隐私说明'))}</p>'''
+    else:
+        mapbody=f'''{fallback}<div class="visitor-metrics">
+<div><span>{L('Visits','访问次数')}</span><strong>—</strong></div>
+<div><span>{L('Pageviews','页面浏览量')}</span><strong>—</strong></div>
+<p>{L('Visitor Map','访客地图')}</p></div>'''
+    entries=s['yearly']; xmax=max(100,100*((max(v for _,v in entries)+99)//100))
+    bar=''.join(f'<div><span>{v}</span><div class="chart-well"><i class="{"partial" if y==s["partialYear"] else ""}" style="height:{100*v/xmax:.2f}%"></i></div><span>{y}{"*" if y==s["partialYear"] else ""}</span></div>' for y,v in entries)
+    accessible=', '.join(f'{y}: {v}' for y,v in entries)
+    statrow=''.join(f'<div><strong>{n}</strong><span>{label}</span></div>' for n,label in [(s['hIndex'],L('h-index','h 指数')),(s['i10Index'],L('i10-index','i10 指数')),(s['indexedRecords'],L('Scholar records','收录条目'))])
+    return f'''<aside class="stats-section" id="Contact" aria-label="{L('Citation and visitor statistics','引用与访客统计')}">
+<div class="footer-widgets">
+<section class="scholar-card" aria-labelledby="sch-title">
+<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span><time datetime="{date}">{date}</time></div>
+<div class="scholar-total"><strong>{s['citations']:,}</strong><span>{L('TOTAL CITATIONS','总被引次数')}</span></div>
+<div class="scholar-metrics">{statrow}</div>
+<div class="scholar-chart"><p>{L('Citations by year','年度引用')}</p><div class="chart-bars" role="img" aria-label="{e(accessible)}">{bar}</div>
+<p class="chart-note">* {L('2026 through the snapshot date','2026 年数据截至上方日期')}</p></div>
+</section>
+<section class="visitor-card visitors" aria-label="{L('Visitor Map','访客地图')}">{mapbody}</section>
+</div></aside>'''
+
+def home(zh):
+    L=lambda x,y:y if zh else x
+    idx=L('publications.html','publications-zh.html')
+    recent=[w for w in papers if w['year']>=since]
+    institution=catl_zh if zh else catl
+    return header(zh)+f'''<main id="main">
+{homepage.intro(zh,p)}
+{homepage.biography(zh,thesis,p['primaryEmail'],stats(zh))}
+{homepage.news(zh,institution,thesis)}
+{homepage.experience(zh,L('cv.html','cv-zh.html'))}
+<section class="container section publications" aria-labelledby="Publications">
+<div class="section-title"><h2 id="Publications">{L('Publications','学术论文')}</h2><div>{a(idx,L('Full publication index','完整论文目录'))} <span>·</span> {a(p['scholar'],'Google Scholar')}</div></div>
+<p class="section-note">{L(f'{since}–{year}',f'{since}–{year} 年')}</p>
+{rows(recent,zh)}<p class="all-pubs">{a(idx,L('All years and preprints','查看全部年份和预印本'))} →</p></section>
+{homepage.peer_review(zh,review_venues,venue_metric)}
+</main>{footer(zh)}'''
+
+def archive(zh):
+    L=lambda x,y:y if zh else x
+    return header(zh,'archive')+f'''<main id="main" class="container archive">
+<div class="section-title"><h1>{L('Publication Index','完整论文目录')}</h1><div>{a(p['scholar'],'Google Scholar')} <span>·</span> {a(dblp,'DBLP')}</div></div>
+<p class="section-note">{L('Journal articles, conference papers and preprints, organized by year. Venue metrics link to their sources.','按年份收录期刊论文、会议论文和预印本。期刊影响因子和会议评级均链接至数据来源。')}</p>
+<div id="filters" class="filters" hidden>
+<label>{L('Search','搜索')}<input type="search" id="find" placeholder="{L('Title, author, venue','题名、作者、期刊或会议')}"></label>
+<label>{L('Year','年份')}<select id="year"><option value="">{L('All years','全部年份')}</option>{''.join(f'<option>{y}</option>' for y in sorted({a["year"] for a in papers},reverse=True))}</select></label>
+</div>
+<p id="count" class="section-note" aria-live="polite" data-template="{L('{n} records','{n} 条记录')}">{len(papers)} {L('records','条记录')}</p>
+<div id="pub-index">{rows(papers,zh)}</div>
+<p id="empty" hidden>{L('No publications match your search.','没有符合条件的论文。')}</p>
+</main>{footer(zh, track_visit=True)}'''
+
+def cv(zh):
+    return academic_cv.render(zh, p, papers, load('patents'), thesis,
+                              header, footer, a, e, author_line, author_credit, venue_metric)
+
+if __name__=='__main__':
+    for name,html in [('index',home(False)),('zh',home(True)),('publications',archive(False)),('publications-zh',archive(True)),('cv',cv(False)),('cv-zh',cv(True))]:
+        (SITE/(name+'.html')).write_text(html+'\n',encoding='utf8')
+    (SITE/'scholar.json').write_text(json.dumps(s,indent=2,ensure_ascii=False)+'\n',encoding='utf8')

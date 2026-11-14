@@ -1,0 +1,25 @@
+{
+  "journals": [
+    "Medical Image Analysis (MedIA)",
+    "IEEE Transactions on Medical Imaging (TMI)",
+    "IEEE Transactions on Image Processing (TIP)",
+    "IEEE Journal of Biomedical and Health Informatics (JBHI)",
+    "Information Fusion",
+    "Pattern Recognition (PR)",
+    "Neural Networks",
+    "Knowledge-Based Systems (KBS)",
+    "Computers in Biology and Medicine (CIBM)",
+    "Computerized Medical Imaging and Graphics (CMIG)",
+    "Artificial Intelligence in Medicine (AIIM)",
+    "Neurocomputing",
+    "Scientific Reports"
+  ],
+  "conferences": [
+    "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "IEEE/CVF International Conference on Computer Vision (ICCV)",
+    "AAAI Conference on Artificial Intelligence (AAAI)",
+    "Annual Meeting of the Association for Computational Linguistics (ACL)",
+    "International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI)",
+    "IEEE International Symposium on Biomedical Imaging (ISBI)"
+  ]
+}
