@@ -263,7 +263,7 @@ def home(zh):
 <div class="section-title"><h2 id="Publications">{L('Publications','学术论文')}</h2><div>{a(idx,L('Full publication index','完整论文目录'))} <span>·</span> {a(p['scholar'],'Google Scholar')}</div></div>
 <p class="section-note">{L(f'{since}–{year}',f'{since}–{year} 年')}</p>
 {rows(recent,zh)}<p class="all-pubs">{a(idx,L('All years and preprints','查看全部年份和预印本'))} →</p></section>
-{homepage.peer_review(zh,review_venues,venue_metric)}
+{homepage.peer_review(zh,review_venues,venue_metric,venue_metrics)}
 </main>{footer(zh)}'''
 
 def archive(zh):

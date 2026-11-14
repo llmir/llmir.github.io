@@ -180,19 +180,31 @@ def experience(zh, cv_url):
 <ul class="experience-list">{''.join(entry(*item) for item in items)}</ul></section>'''
 
 
-def peer_review(zh, review_venues, venue_metric):
+def peer_review(zh, review_venues, venue_metric, metrics):
     L = lambda en, cn: cn if zh else en
     groups = (
         ('journals', L('Journal peer review', '期刊审稿')),
         ('conferences', L('Conference peer review', '会议审稿')),
     )
-    def venue_row(venue, conferences):
+    def metric_key(venue, conferences):
+        if not venue.endswith(')'):
+            return venue
         title, _, suffix = venue.rpartition(' (')
-        metric_name = suffix.removesuffix(')') if conferences else title
-        return f'<li>{escape(venue)}{venue_metric(metric_name or venue)}</li>'
+        return suffix.removesuffix(')') if conferences else title
+
+    def metric_order(venue, conferences):
+        label, *_ = metrics.get(metric_key(venue, conferences), ('',))
+        if label.startswith('JIF '):
+            return -float(label.removeprefix('JIF '))
+        return {'CCF A': -3, 'CCF B': -2, 'CCF C': -1}.get(label, 0)
+
+    def venue_rows(key):
+        conferences = key == 'conferences'
+        venues = sorted(review_venues[key], key=lambda name: metric_order(name, conferences))
+        return ''.join(f'<li>{escape(name)}{venue_metric(metric_key(name, conferences))}</li>' for name in venues)
 
     entries = ''.join(
-        f'<div><dt>{label}</dt><dd><ul>{"".join(venue_row(venue, key == "conferences") for venue in review_venues[key])}</ul></dd></div>'
+        f'<div><dt>{label}</dt><dd><ul>{venue_rows(key)}</ul></dd></div>'
         for key, label in groups
     )
     return f'''<section class="container section service-section" aria-labelledby="Service">
