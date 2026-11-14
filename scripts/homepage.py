@@ -27,8 +27,9 @@ def intro(zh, profile, cv_url):
     )
     return f'''<section id="About" class="intro-band" aria-labelledby="name">
 <div class="container intro-grid">
-<div class="portrait-frame"><img class="portrait" src="{escape(profile['portrait'])}" width="1300" height="1565"
-alt="{L('Li Lin', '林立的照片')}" fetchpriority="high"></div>
+<a class="portrait-frame" href="{escape(profile['portraitLarge'])}" data-figure data-portrait data-caption="{L('Li Lin', '林立')}"
+aria-label="{L('Enlarge portrait of Li Lin', '放大查看林立的照片')}" aria-haspopup="dialog"><img class="portrait"
+src="{escape(profile['portrait'])}" width="408" height="491" alt="{L('Li Lin', '林立的照片')}" fetchpriority="high"></a>
 <div class="intro-text">
 <div class="identity"><h1 id="name">{L('Li Lin', '林立')} <span class="alternate-name"
 lang="{L('zh-CN', 'en')}">{L('林立', 'Li Lin')}</span></h1></div>
@@ -48,14 +49,15 @@ def wechat_dialog(zh, profile):
         return ''
     title = '微信' if zh else 'WeChat'
     close = '关闭' if zh else 'Close'
-    instruction = '使用微信扫描二维码添加好友。' if zh else 'Scan this code in WeChat to connect.'
+    instruction = ('请用微信扫描二维码，添加时简要介绍自己并注明来意。' if zh else
+                   'Scan in WeChat and include a brief introduction and the reason for reaching out in your friend request.')
     return f'''<dialog class="wechat-dialog" id="wechat-dialog" aria-labelledby="wechat-title">
 <div class="dialog-bar"><h2 id="wechat-title">{title}</h2><form method="dialog"><button autofocus>{close} <span aria-hidden="true">×</span></button></form></div>
 <div class="wechat-body"><img src="{escape(profile['wechatQr'])}" width="884" height="884" alt="{'微信二维码' if zh else 'WeChat contact QR code'}" loading="lazy" decoding="async"><p>{instruction}</p></div>
 </dialog>'''
 
 
-def biography(zh, thesis_url, email, sidebar):
+def biography(zh, thesis_url, profile, sidebar):
     L = lambda en, cn: cn if zh else en
     thesis = f'<a href="{escape(thesis_url)}">{L("doctoral thesis", "博士论文")}</a>'
     current = L(
@@ -86,10 +88,19 @@ def biography(zh, thesis_url, email, sidebar):
     ))
     def directions(items):
         return '<ul class="bio-methods">' + ''.join(f'<li>{item}</li>' for item in items) + '</ul>'
+    email = f'<a href="mailto:{escape(profile["primaryEmail"])}">{L("email me", "给我发邮件")}</a>'
     collab = L(
-        f'If you’re interested in collaborating on Agentic AI, AI for Science, AI for Healthcare, computer vision, multimodal AI, or related topics, please <a href="mailto:{escape(email)}">feel free to email me</a>.',
-        f'如果您有兴趣在智能体 AI、科学智能、医疗人工智能、计算机视觉或多模态 AI 等方向开展合作，欢迎<a href="mailto:{escape(email)}">给我发邮件</a>。',
+        f'For collaborations in Agentic AI, recursive self-improvement (RSI), AI for Science, AI for Healthcare, computer vision, multimodal AI, or related areas, feel free to {email}',
+        f'欢迎在智能体 AI、递归自我改进（RSI）、科学智能、医疗人工智能、计算机视觉、多模态 AI 等方向开展合作。您可以{email}',
     )
+    if qr := profile.get('wechatQr'):
+        wechat = f'<a href="{escape(qr)}" data-wechat aria-haspopup="dialog">{L("connect on WeChat", "微信")}</a>'
+        collab += L(
+            f' or {wechat}. In your WeChat request, please briefly introduce yourself and mention what you’d like to discuss.',
+            f'，也可以通过{wechat}联系我。添加微信时，请在好友验证信息中简要介绍自己并注明来意。',
+        )
+    else:
+        collab += L('.', '。')
     return f'''<section class="container section bio-section" aria-labelledby="Biography">
 <h2 id="Biography">{L('Biography', '个人简介')}</h2>
 <div class="biography-layout">{sidebar}

@@ -279,7 +279,7 @@ def home(language):
     institution=catl_zh if zh else catl
     return header(language)+f'''<main id="main">
 {homepage.intro(zh,p,cv_url)}
-{homepage.biography(zh,thesis,p['primaryEmail'],stats(zh))}
+{homepage.biography(zh,thesis,p,stats(zh))}
 {homepage.news(zh,institution,thesis)}
 {homepage.experience(zh,cv_url)}
 <section class="container section publications" aria-labelledby="Publications">

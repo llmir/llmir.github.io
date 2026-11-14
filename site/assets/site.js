@@ -30,18 +30,29 @@
     const caption = dialog.querySelector('h2');
     const desc = dialog.querySelector('[data-fig-desc]');
     const source = dialog.querySelector('[data-fig-source]');
+    const meta = dialog.querySelector('.dialog-meta');
     let opener;
     for (const link of document.querySelectorAll('[data-figure]')) {
       link.addEventListener('click', e => {
         if (e.metaKey || e.altKey || e.shiftKey || e.ctrlKey) return;
         e.preventDefault();
         opener = link;
-        image.src = link.href;
+        const portrait = link.hasAttribute('data-portrait');
+        image.src = portrait ? link.querySelector('img').src : link.href;
         image.alt = caption.textContent = link.dataset.caption;
-        desc.textContent = link.dataset.desc;
-        source.href = link.dataset.source;
+        dialog.classList.toggle('portrait-dialog', portrait);
+        desc.textContent = link.dataset.desc || '';
+        meta.hidden = portrait;
+        if (!portrait) source.href = link.dataset.source;
         dialog.showModal();
         document.documentElement.classList.add('figure-open');
+        if (portrait) {
+          const largePortrait = new Image();
+          largePortrait.src = link.href;
+          largePortrait.decode().then(() => {
+            if (dialog.open && opener === link) image.src = largePortrait.src;
+          }).catch(() => {});
+        }
       });
     }
     dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
@@ -56,14 +67,17 @@
     });
   }
   const wechat = document.querySelector('#wechat-dialog');
-  const wechatLink = document.querySelector('[data-wechat]');
-  if (wechat?.showModal && wechatLink) {
-    wechatLink.addEventListener('click', event => {
-      if (event.metaKey || event.altKey || event.shiftKey || event.ctrlKey) return;
-      event.preventDefault();
-      wechat.showModal();
-    });
-    wechat.addEventListener('close', () => wechatLink.focus({preventScroll: true}));
+  if (wechat?.showModal) {
+    let opener;
+    for (const link of document.querySelectorAll('[data-wechat]')) {
+      link.addEventListener('click', event => {
+        if (event.metaKey || event.altKey || event.shiftKey || event.ctrlKey) return;
+        event.preventDefault();
+        opener = link;
+        wechat.showModal();
+      });
+    }
+    wechat.addEventListener('close', () => opener?.focus({preventScroll: true}));
   }
   const widget = document.querySelector('[data-visitor-widget]');
   if (widget) {
