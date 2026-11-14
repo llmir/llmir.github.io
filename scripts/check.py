@@ -67,6 +67,11 @@ for row in data:
     assert (first in {"Li Lin", "L Lin", "林立"}) == (row.get("role") == "First author"), row["id"]
     assert bool(row.get("correspondence")) == bool(row.get("correspondenceZh")), row["id"]
     assert row.get("desc") and row.get("zh"), row["id"]
+    assert row.get("titleZh"), row["id"]
+    for field in ("keywords", "keywordsZh"):
+        terms = row[field]
+        assert len(terms) == 3 and len(set(terms)) == 3, (row["id"], field)
+        assert all(term.strip() == term and term and '·' not in term for term in terms), (row["id"], field)
 assert len({p["number"][:-1] for p in patents}) == len(patents)
 assert all(p["number"].endswith("B" if p["kind"] == "grant" else "A") for p in patents)
 editions = {"Published version", "Publisher Early Access", "Official CVF proceedings copy", "Official IEEE conference proceedings copy", "arXiv preprint", "Research Square preprint"}
@@ -81,19 +86,31 @@ for f in figs:
     assert sha256((site / f["thumb"]).read_bytes()).hexdigest() == f["thumbSha256"]
 flagged = {f[k] for f in figs for k in ("file","thumb")}
 for f in figs:
-    if extra := f.get("results"):
-        assert extra["id"] == f["id"] and extra["figure"] != f["figure"]
+    extras = [*f.get("additionalFigures", [])]
+    if f.get("results"):
+        extras.append(f["results"])
+    if not extras:
+        continue
+    parts = [f, *extras]
+    assert len({part["figure"] for part in parts}) == len(parts), f["id"]
+    for extra in extras:
+        assert extra["id"] == f["id"]
         assert extra["edition"] in editions
         assert extra["source"].startswith("https://")
         assert sha256((site / extra["file"]).read_bytes()).hexdigest() == extra["fileSha256"]
         flagged.add(extra["file"])
-        for part in (f, extra):
-            assert sha256((site / part["pairThumb"]).read_bytes()).hexdigest() == part["pairThumbSha256"]
-            flagged.add(part["pairThumb"])
-        first_size, second_size = [part.get("pairSize", [960, 270]) for part in (f, extra)]
-        if f.get("pairAxis") == "columns":
-            assert first_size[0] + second_size[0] == 960 and first_size[1] == second_size[1] == 540
-        else:
-            assert first_size[1] + second_size[1] == 540 and first_size[0] == second_size[0] == 960
+    for part in parts:
+        assert sha256((site / part["pairThumb"]).read_bytes()).hexdigest() == part["pairThumbSha256"]
+        flagged.add(part["pairThumb"])
+    sizes = [part.get("pairSize", [960, 270]) for part in parts]
+    match f.get("pairAxis", "rows"):
+        case "grid":
+            assert len(parts) == 6 and all(size == [320, 270] for size in sizes), f["id"]
+        case "columns":
+            assert len(parts) == 2 and sum(width for width, _ in sizes) == 960 and all(height == 540 for _, height in sizes), f["id"]
+        case "rows":
+            assert len(parts) == 2 and sum(height for _, height in sizes) == 540 and all(width == 960 for width, _ in sizes), f["id"]
+        case _:
+            raise ValueError(f["pairAxis"])
 assert set(p.relative_to(site).as_posix() for p in (site / "assets/papers").iterdir()) == flagged
 print(f"Checked {len(parsers)} pages, {len(data)} publication records and {len(figs)} sourced illustrations.")

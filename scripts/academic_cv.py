@@ -142,8 +142,8 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
 
     def citations(rows):
         return ''.join(
-            f'<li><div>{work(row["id"],row["title"])}'
-            f'<small>{author_line(row,zh)}{author_credit(row,zh)} · {e(row["venue"])}{venue_metric(row["venue"])}'
+            f'<li><div>{work(row["id"],row[L("title","titleZh")])}'
+            f'<small>{author_line(row,zh)}{author_credit(row,zh)} · {e(row.get(L("venue","venueZh"),row["venue"]))}{venue_metric(row["venue"])}'
             f'{edition(row)}</small></div></li>'
             for row in rows
         )

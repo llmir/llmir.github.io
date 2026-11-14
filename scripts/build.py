@@ -59,13 +59,14 @@ def venue_metric(name):
     metric = venue_metrics.get(name)
     if not metric:
         return ''
-    label, metric_year, url = metric
-    title = f'{label} · {metric_year}'
+    label, metric_year, url, *notes = metric
+    title = notes[0] if notes else f'{label} · {metric_year}'
     return f' <a class="venue-metric" href="{e(url)}" title="{e(title)}">({e(label)})</a>'
 
 def author_line(paper, zh):
     people=[]
-    for name in paper['authors'].replace('，',',').split(','):
+    authors = paper.get('authorsZh', paper['authors']) if zh else paper['authors']
+    for name in authors.replace('，',',').split(','):
         name=name.strip()
         person=name.rstrip(' *†')
         owner=person in {'Li Lin','L Lin','林立'}
@@ -162,7 +163,7 @@ def footer(zh, track_visit=False):
 
 def paper_figure(figure, zh):
     L=lambda en,cn:cn if zh else en
-    parts=[figure]
+    parts=[figure, *figure.get('additionalFigures', [])]
     if figure.get('results'):
         parts.append(figure['results'])
     orientation = figure.get('pairAxis', 'rows') if len(parts) > 1 else None
@@ -185,16 +186,19 @@ def paper_figure(figure, zh):
             desc+=' · '+L(f"PDF p. {f['page']}",f"PDF 第 {f['page']} 页")
         desc+=' · '+edition
         if len(parts)>1:
-            role = L('Method','方法') if i == 0 else L(f.get('panelType', 'Results'), f.get('panelTypeZh', '结果'))
+            default_role = L('Method','方法') if i == 0 else L('Results','结果')
+            role = f.get(L('panelType', 'panelTypeZh'), default_role)
             desc+=' · '+role
             img=f['pairThumb']
             w,h=f.get('pairSize', [960,270])
         else:
             img,w,h=f['thumb'],f['thumbWidth'],f['thumbHeight']
-        label=e(f['label'])
+        label=e(f.get(L('label','labelZh'), f['label']))
+        marker = (f'<span class="figure-number" aria-hidden="true">{number}</span>' if orientation == 'grid'
+                  else '<span class="zoom" aria-hidden="true">+</span>')
         anchors.append(f'''<a class="pub-figure-link" data-figure href="{e(f['file'])}" data-source="{e(f['source'])}"
 data-desc="{e(desc)}" data-caption="{label}" aria-label="{L('Enlarge figure','放大论文图')} {number} · {label}">
-<img src="{e(img)}" alt="{label}" width="{w}" height="{h}" loading="lazy" decoding="async"><span class="zoom" aria-hidden="true">+</span></a>''')
+<img src="{e(img)}" alt="{label}" width="{w}" height="{h}" loading="lazy" decoding="async">{marker}</a>''')
         link_text=L(f'Fig. {number}',f'图 {number}') if len(parts)>1 else L('Source','原文出处')
         sources.append(a(f['source'],link_text))
     if len(parts)==1:
@@ -209,7 +213,10 @@ def row(paper,zh):
     f=figures.get(paper['id'])
     figure=paper_figure(f,zh) if f else ''
     status=paper['status']
-    label,desc=(L('Paper','论文'),paper.get('keywordsZh' if zh else 'keywords',''))
+    label=L('Paper','论文')
+    keywords=' · '.join(paper[L('keywords','keywordsZh')])
+    title=paper[L('title','titleZh')]
+    source_title=f' data-original-title="{e(paper["title"])}"' if zh and title != paper['title'] else ''
     if paper['linkType']=='scholar':
         label=L('Scholar record','Scholar 记录')
     if paper['linkType']=='preprint':
@@ -218,12 +225,12 @@ def row(paper,zh):
          f'<span class="status">{L("Venue unconfirmed","发表信息待核")}</span>' if status=='unconfirmed' else '')
     reading=' '.join(a(paper[k],L(x,y),'pub-link') for k,x,y in [('preprint','arXiv','arXiv'),('code','Code','代码'),('data','Data','数据')] if paper.get(k))
     dv=paper.get('zh' if zh else 'desc')
-    venue=e(paper['venue'])
+    venue=e(paper.get(L('venue','venueZh'), paper['venue']))
     yr='' if not venue or paper['linkType']=='scholar' else f' {paper["year"]}'
-    return f'''<article class="pub-row{" with-figure" if f else ""}" id="{paper['id']}" data-year="{paper['year']}" data-status="{status}">
+    return f'''<article class="pub-row{" with-figure" if f else ""}" id="{paper['id']}" data-year="{paper['year']}" data-status="{status}"{source_title}>
 {figure}<div class="pub-text">
-{f'<p class="pub-keywords">{e(desc)}</p>' if desc else ''}
-<h3 lang="{'zh-CN' if paper['id']=='scholar-68' else 'en'}">{a(paper['url'],paper['title'])}</h3>
+<p class="pub-keywords">{e(keywords)}</p>
+<h3>{a(paper['url'],title)}</h3>
 <p class="pub-authors">{author_line(paper,zh)}{author_credit(paper,zh)}</p>
 {f'<p class="pub-desc">{e(dv)}</p>' if dv else ''}
 <div class="pub-meta"><span class="pub-venue">{venue}{yr}{venue_metric(paper['venue'])}</span>{tag}{a(paper['url'],label,'pub-link')}{reading}</div>
@@ -314,6 +321,6 @@ if __name__=='__main__':
         for name, render in zip(pages, (home, archive, cv), strict=True):
             html = render(language)
             if language == 'zh-Hant':
-                html = localize(html).replace('<h3 lang="zh-CN">', '<h3 lang="zh-Hant">')
+                html = localize(html)
             (SITE/name).write_text(html+'\n',encoding='utf8')
     (SITE/'scholar.json').write_text(json.dumps(s,indent=2,ensure_ascii=False)+'\n',encoding='utf8')

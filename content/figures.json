@@ -2477,7 +2477,52 @@
     ],
     "thumbFill": 0.639,
     "fileSha256": "0a4e7b54355079720022c13aef8a170f01fb9f742930d95643242c5347c781d1",
-    "thumbSha256": "1096110330175ff76884a339ebbf7824a2ee2974106e265995996a3e8c3a04fe"
+    "thumbSha256": "1096110330175ff76884a339ebbf7824a2ee2974106e265995996a3e8c3a04fe",
+    "pairAxis": "rows",
+    "pairSplit": 61,
+    "results": {
+      "id": "scholar-25",
+      "figure": 4,
+      "label": "Qualitative comparison of vessel segmentation on DRIVE and STARE",
+      "edition": "Published version",
+      "source": "https://link.springer.com/chapter/10.1007/978-981-16-1160-5_1/figures/4",
+      "imageSource": "https://media.springernature.com/full/springer-static/image/chp%3A10.1007%2F978-981-16-1160-5_1/MediaObjects/512616_1_En_1_Fig4_HTML.png",
+      "doi": "10.1007/978-981-16-1160-5_1",
+      "width": 1415,
+      "height": 1097,
+      "file": "assets/papers/published-scholar-25-fig4.webp",
+      "fileSha256": "bf3467b5e062eb1ca8cb5a8db9c69c9203fd33bc2245e02005e2c3a643dad7a4",
+      "inputSha256": "f61119cdcc9c4e3fba84a8a1bf4ca91fcb83836327d110acc053e42f09753643",
+      "inputType": "Complete figure from publisher image asset",
+      "previewCrop": [
+        0,
+        0,
+        1,
+        0.2917046490428441
+      ],
+      "pairThumb": "assets/papers/pair-scholar-25-fig4.webp",
+      "pairSize": [
+        960,
+        211
+      ],
+      "pairFill": 0.975,
+      "pairThumbSha256": "761a7a0d096d8c0a8c949a5d64cbb28f61f85765cc48f466ee38310204ea0641",
+      "labelZh": "DRIVE 与 STARE 数据集的血管分割结果对比"
+    },
+    "previewCrop": [
+      0,
+      0.11372549019607843,
+      1,
+      1
+    ],
+    "pairThumb": "assets/papers/pair-scholar-25-fig1.webp",
+    "pairSize": [
+      960,
+      329
+    ],
+    "pairFill": 0.921,
+    "pairThumbSha256": "3a5027a6708854ae5c885eaea034a2cc255fa28d7e44e55b45aba8592a682818",
+    "labelZh": "BLU-GAN 视网膜血管分割框架"
   },
   {
     "id": "scholar-55",
@@ -2536,7 +2581,7 @@
   {
     "id": "scholar-44",
     "figure": 1,
-    "label": "Cyclic-prefix-aided faster-than-Nyquist transmission model",
+    "label": "Cyclic-prefix-aided FTN transmission model",
     "edition": "Published version",
     "source": "https://ieeexplore.ieee.org/document/8359642/figures#fig1",
     "imageSource": "https://ieeexplore.ieee.org/document/8359642/",
@@ -2547,26 +2592,208 @@
     "pdfSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
     "page": 2,
     "cropBox": [
-      0.554,
-      0.091,
-      0.683,
-      0.148
+      0.544,
+      0.088,
+      0.677,
+      0.162
     ],
-    "inputType": "Complete figure cropped from the publisher PDF",
+    "inputType": "Complete figure as embedded and printed in the publisher PDF",
     "file": "assets/papers/published-scholar-44-fig1.webp",
-    "width": 293,
-    "height": 168,
+    "width": 302,
+    "height": 218,
     "thumb": "assets/papers/thumb-scholar-44-fig1.webp",
     "thumbWidth": 960,
     "thumbHeight": 540,
     "thumbVisibleBox": [
-      5,
-      11,
-      282,
-      155
+      27,
+      20,
+      302,
+      164
     ],
-    "thumbFill": 0.924,
-    "fileSha256": "01427cdd500ff8a1567a5c9e6d92864887395a91395b6748d25af3b52cf1222a",
-    "thumbSha256": "6f06242396990329f50edbb3bd909a09b41adfcdb5469d81c079fb882497c66d"
+    "thumbFill": 0.931,
+    "fileSha256": "2e50863be7c450a07f330ab667a5e321c0e108ee7b2071a2f5f39a5756b307e8",
+    "thumbSha256": "e9f870cbe0df274380725e56736d2514367382addaed169258289ff70e73db4f",
+    "labelZh": "循环前缀辅助的超奈奎斯特传输模型",
+    "panelType": "Transmission model",
+    "panelTypeZh": "传输模型",
+    "pairThumb": "assets/papers/pair-scholar-44-fig1.webp",
+    "pairSize": [
+      320,
+      270
+    ],
+    "pairThumbSha256": "efe41249dc9b8f6d2f97867e7e2ece534a91f84d0d5269e253c7ed939ee95384",
+    "pairAxis": "grid",
+    "additionalFigures": [
+      {
+        "id": "scholar-44",
+        "figure": 2,
+        "label": "Finite-tap modeling error across time-acceleration factors",
+        "edition": "Published version",
+        "source": "https://ieeexplore.ieee.org/document/8359642/figures#fig2",
+        "imageSource": "https://ieeexplore.ieee.org/document/8359642/",
+        "doi": "10.1109/icct.2017.8359642",
+        "license": "IEEE copyright",
+        "licenseUrl": "https://journals.ieeeauthorcenter.ieee.org/choose-a-publishing-agreement/avoid-infringement-upon-ieee-copyright/",
+        "inputSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "pdfSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "page": 3,
+        "cropBox": [
+          0.117,
+          0.09,
+          0.438,
+          0.288
+        ],
+        "inputType": "Complete figure cropped from the publisher PDF",
+        "file": "assets/papers/published-scholar-44-fig2.webp",
+        "width": 728,
+        "height": 582,
+        "fileSha256": "79d9627f6d722488a07451286e08a671af8221cd070649f06662f5e26129937b",
+        "labelZh": "不同时间压缩因子下的有限抽头建模误差",
+        "panelType": "Modeling error",
+        "panelTypeZh": "建模误差",
+        "pairThumb": "assets/papers/pair-scholar-44-fig2.webp",
+        "pairSize": [
+          320,
+          270
+        ],
+        "pairThumbSha256": "909a46df5492d0227a65450b1b752c6b322724d5cf0c69a32768ad85057a16f5"
+      },
+      {
+        "id": "scholar-44",
+        "figure": 3,
+        "label": "Channel estimation error for different redundant prefix lengths",
+        "edition": "Published version",
+        "source": "https://ieeexplore.ieee.org/document/8359642/figures#fig3",
+        "imageSource": "https://ieeexplore.ieee.org/document/8359642/",
+        "doi": "10.1109/icct.2017.8359642",
+        "license": "IEEE copyright",
+        "licenseUrl": "https://journals.ieeeauthorcenter.ieee.org/choose-a-publishing-agreement/avoid-infringement-upon-ieee-copyright/",
+        "inputSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "pdfSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "page": 4,
+        "cropBox": [
+          0.117,
+          0.095,
+          0.438,
+          0.289
+        ],
+        "inputType": "Complete figure cropped from the publisher PDF",
+        "file": "assets/papers/published-scholar-44-fig3.webp",
+        "width": 728,
+        "height": 570,
+        "fileSha256": "76363aeea88d39c385f56f0ed9f38fe9384f4eade63486dba4258a342d3b0d8d",
+        "labelZh": "不同冗余循环前缀长度下的信道估计误差",
+        "panelType": "Cyclic-prefix length",
+        "panelTypeZh": "循环前缀长度",
+        "pairThumb": "assets/papers/pair-scholar-44-fig3.webp",
+        "pairSize": [
+          320,
+          270
+        ],
+        "pairThumbSha256": "b3c00b2b7c179081b4c701590f6656f9bca69ded4df1977e2251815cedd1978e"
+      },
+      {
+        "id": "scholar-44",
+        "figure": 4,
+        "label": "Effect of the pulse-shaping roll-off factor on channel estimation",
+        "edition": "Published version",
+        "source": "https://ieeexplore.ieee.org/document/8359642/figures#fig4",
+        "imageSource": "https://ieeexplore.ieee.org/document/8359642/",
+        "doi": "10.1109/icct.2017.8359642",
+        "license": "IEEE copyright",
+        "licenseUrl": "https://journals.ieeeauthorcenter.ieee.org/choose-a-publishing-agreement/avoid-infringement-upon-ieee-copyright/",
+        "inputSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "pdfSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "page": 4,
+        "cropBox": [
+          0.547,
+          0.095,
+          0.867,
+          0.293
+        ],
+        "inputType": "Complete figure cropped from the publisher PDF",
+        "file": "assets/papers/published-scholar-44-fig4.webp",
+        "width": 726,
+        "height": 581,
+        "fileSha256": "7ee3dbb73fc059c6ac8ff1fd5a0b25949ace205c7fc971d43c7744b671510f55",
+        "labelZh": "成形滤波器滚降因子对信道估计的影响",
+        "panelType": "Pulse shaping",
+        "panelTypeZh": "脉冲成形",
+        "pairThumb": "assets/papers/pair-scholar-44-fig4.webp",
+        "pairSize": [
+          320,
+          270
+        ],
+        "pairThumbSha256": "04a4aa9a230bcbe477c0bc2df0ac2d21c492037e66b529315df9ffe28879fc77"
+      },
+      {
+        "id": "scholar-44",
+        "figure": 5,
+        "label": "Channel estimation error versus SNR for different FTN pilot designs",
+        "edition": "Published version",
+        "source": "https://ieeexplore.ieee.org/document/8359642/figures#fig5",
+        "imageSource": "https://ieeexplore.ieee.org/document/8359642/",
+        "doi": "10.1109/icct.2017.8359642",
+        "license": "IEEE copyright",
+        "licenseUrl": "https://journals.ieeeauthorcenter.ieee.org/choose-a-publishing-agreement/avoid-infringement-upon-ieee-copyright/",
+        "inputSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "pdfSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "page": 4,
+        "cropBox": [
+          0.547,
+          0.339,
+          0.867,
+          0.536
+        ],
+        "inputType": "Complete figure cropped from the publisher PDF",
+        "file": "assets/papers/published-scholar-44-fig5.webp",
+        "width": 726,
+        "height": 579,
+        "fileSha256": "a0ededb28c19c9e3aae265e2f36cd992ac9745be85d6589d81be344081d6acb3",
+        "labelZh": "不同导频设计下信道估计误差与信噪比的关系",
+        "panelType": "Pilot design comparison",
+        "panelTypeZh": "导频设计比较",
+        "pairThumb": "assets/papers/pair-scholar-44-fig5.webp",
+        "pairSize": [
+          320,
+          270
+        ],
+        "pairThumbSha256": "e271a63678db1b6c7630e6239e69788550dda73446e72206c7d3d1f0f1365967"
+      },
+      {
+        "id": "scholar-44",
+        "figure": 6,
+        "label": "Pilot ratio versus channel length for time- and frequency-domain estimation",
+        "edition": "Published version",
+        "source": "https://ieeexplore.ieee.org/document/8359642/figures#fig6",
+        "imageSource": "https://ieeexplore.ieee.org/document/8359642/",
+        "doi": "10.1109/icct.2017.8359642",
+        "license": "IEEE copyright",
+        "licenseUrl": "https://journals.ieeeauthorcenter.ieee.org/choose-a-publishing-agreement/avoid-infringement-upon-ieee-copyright/",
+        "inputSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "pdfSha256": "37c0824ccff2c02a6a0a551077ae02e28aa03993db84b9afcf01bb1808105aa9",
+        "page": 4,
+        "cropBox": [
+          0.547,
+          0.598,
+          0.867,
+          0.797
+        ],
+        "inputType": "Complete figure cropped from the publisher PDF",
+        "file": "assets/papers/published-scholar-44-fig6.webp",
+        "width": 726,
+        "height": 585,
+        "fileSha256": "e1116ffbbd484486c7c5d9be9f7bf3281ec61b4e9d186569a8e0db1568bb0c1b",
+        "labelZh": "时域和频域估计中导频比例与信道长度的关系",
+        "panelType": "Pilot overhead",
+        "panelTypeZh": "导频开销",
+        "pairThumb": "assets/papers/pair-scholar-44-fig6.webp",
+        "pairSize": [
+          320,
+          270
+        ],
+        "pairThumbSha256": "6d547598130ce53a57aaba600293b8ff90ecb660e21c2d05ddca75e41d65965a"
+      }
+    ]
   }
 ]

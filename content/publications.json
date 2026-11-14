@@ -11,14 +11,23 @@
     "desc": "EyeGraph trains one vision–language model for image-level diagnosis, anatomical localization, and report generation using the IT-Retinal instruction dataset. At inference, G2T retrieves relationships from the UMLS knowledge graph and uses them to improve factual consistency in generated reports.",
     "zh": "EyeGraph 利用 IT-Retinal 指令数据，将影像级诊断、解剖结构定位与报告生成纳入同一视觉语言模型。报告生成时，G2T 从 UMLS 知识图谱检索相关关系，为推理提供依据，提升报告的事实一致性。",
     "month": "2026-10",
-    "keywords": "Vision–Language Models · Knowledge Graph Reasoning",
-    "keywordsZh": "视觉语言模型 · 知识图谱推理",
+    "keywords": [
+      "Vision–Language Foundation Models",
+      "Knowledge Graph Reasoning",
+      "Ophthalmic Image Interpretation"
+    ],
+    "keywordsZh": [
+      "视觉语言基础模型",
+      "知识图谱推理",
+      "眼科影像解读"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:t6usbXjVLHcC",
     "equalAuthors": [
       "Zhiyuan Cai",
       "Yiwei Ren"
-    ]
+    ],
+    "titleZh": "EyeGraph：以知识图谱推理支持眼科影像解读的多粒度医学视觉语言基础模型"
   },
   {
     "id": "mfmcm",
@@ -32,8 +41,16 @@
     "zh": "MF-MCM 先融合多序列脑 MRI，再在融合通道间分配互补掩码，以原始序列重建与融合系数回归为联合预训练目标。研究在五个数据集上评估分割迁移，并考察少标注与序列缺失时的表现。",
     "code": "https://github.com/liangjianwen01/MF-MCM",
     "month": "2026-09",
-    "keywords": "Self-Supervised Pretraining · Multimodal MRI",
-    "keywordsZh": "自监督预训练 · 多模态 MRI",
+    "keywords": [
+      "Self-Supervised Pretraining",
+      "Masked Complementary Modeling",
+      "Multimodal MRI Segmentation"
+    ],
+    "keywordsZh": [
+      "自监督预训练",
+      "掩码互补建模",
+      "多模态磁共振分割"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:kRWSkSYxWN8C",
     "role": "Joint first author",
@@ -41,7 +58,8 @@
     "equalAuthors": [
       "Jianwen Liang",
       "Li Lin"
-    ]
+    ],
+    "titleZh": "基于模态融合与掩码互补建模的脑肿瘤分割预训练"
   },
   {
     "id": "unioctsegplus",
@@ -55,8 +73,16 @@
     "zh": "UniOCTSeg++ 面向不同数据集的视网膜层标注协议，用成对的前景与背景提示显式表示解剖层级，并在粗、细粒度预测之间施加双向一致性约束。在论文构建的 HROCT-Bench 上，联合利用无标注扫描时，仅使用 30% 的有标注数据即可接近全监督基线。",
     "code": "https://github.com/Halcyon1010/UniOCTSeg-plus",
     "month": "2026-09",
-    "keywords": "Domain Generalization · Hierarchical Prompting",
-    "keywordsZh": "跨域泛化 · 层级提示学习",
+    "keywords": [
+      "Hierarchical Prompting",
+      "Bidirectional Consistency Learning",
+      "Multi-Granularity Segmentation"
+    ],
+    "keywordsZh": [
+      "层级提示",
+      "双向一致性学习",
+      "多粒度分割"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:bnK-pcrLprsC",
     "role": "Joint first author",
@@ -67,7 +93,8 @@
     ],
     "correspondingAuthors": [
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "UniOCTSeg++：基于细化层级提示与双向渐进一致性学习的通用 OCT 视网膜层分割"
   },
   {
     "id": "focus",
@@ -82,8 +109,16 @@
     "desc": "FOCUS integrates slice quality assessment with a fine-tuned VisionFM backbone for abnormality detection and disease classification. Attention-weighted aggregation of abnormal slices yields patient-level diagnoses. In external validation on 1,345 patients across four centers, the pooled patient-level F1 was 94.05%.",
     "zh": "FOCUS 将切片质控、基于 VisionFM 的异常检测与多病种分类纳入三维 OCT 诊断流程，再基于注意力聚合异常切片的特征，得到患者级诊断。四家外部中心共纳入 1,345 名患者，合并计算的患者级 F1 为 94.05%。",
     "month": "2026-08",
-    "keywords": "3D Foundation Models · Diagnostic Workflows",
-    "keywordsZh": "三维基础模型 · 辅助诊断流程",
+    "keywords": [
+      "Vision Foundation Models",
+      "Volumetric OCT",
+      "Patient-Level Diagnostic Workflows"
+    ],
+    "keywordsZh": [
+      "视觉基础模型",
+      "三维光学相干断层成像",
+      "患者级诊断流程"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:olpn-zPbct0C",
     "equalAuthors": [
@@ -97,7 +132,8 @@
       "Jin Yuan",
       "Peng Xiao"
     ],
-    "preprint": "https://arxiv.org/abs/2602.03302"
+    "preprint": "https://arxiv.org/abs/2602.03302",
+    "titleZh": "基础模型驱动的三维 OCT 视网膜疾病诊断全流程自动化"
   },
   {
     "id": "synlits",
@@ -110,8 +146,16 @@
     "desc": "SynLiTS synthesizes liver tumors at matched locations across CT phases using phase-conditioned diffusion. A context-aware segmentation model learns from both the aligned synthetic data and real scans with residual misalignment. The study also introduces MPLiTS, a real multiphase liver tumor dataset.",
     "zh": "SynLiTS 以 CT 期相为条件进行扩散生成，在各期相对齐的位置合成肝肿瘤。上下文感知融合使分割模型能够联合利用空间对齐的合成数据和存在配准误差的真实影像。研究同时构建了真实多期相肝肿瘤数据集 MPLiTS。",
     "month": "2026-06",
-    "keywords": "Diffusion Models · Multiphase CT",
-    "keywordsZh": "扩散模型 · 多期相 CT",
+    "keywords": [
+      "Phase-Conditioned Diffusion",
+      "Context-Aware Fusion",
+      "Multiphase CT Segmentation"
+    ],
+    "keywordsZh": [
+      "期相条件扩散",
+      "上下文感知融合",
+      "多期相 CT 分割"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:mvPsJ3kp5DgC",
     "role": "Joint first author",
@@ -123,7 +167,8 @@
     ],
     "correspondingAuthors": [
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "SynLiTS：以期相提示驱动扩散合成与上下文感知融合的未配准肝肿瘤分割"
   },
   {
     "id": "animerplus",
@@ -136,8 +181,16 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:D_sINldO8mEC",
     "month": "2026-03",
-    "keywords": "3D Vision · Multi-Species Pose and Shape",
-    "keywordsZh": "三维视觉 · 跨物种姿态与形状",
+    "keywords": [
+      "Multi-Species 3D Reconstruction",
+      "Taxon-Aware Modeling",
+      "Diffusion-Based Data Synthesis"
+    ],
+    "keywordsZh": [
+      "跨物种三维重建",
+      "类群感知建模",
+      "扩散数据合成"
+    ],
     "desc": "AniMer+ learns one model for 3D pose and shape reconstruction across quadrupedal mammals and birds by combining shared Transformer layers with taxon-specific experts. Diffusion-generated training sets add pixel-aligned 3D annotations, and evaluation includes the out-of-domain Animal Kingdom benchmark.",
     "zh": "AniMer+ 结合共享 Transformer 层与类群专属专家，在统一模型中重建四足哺乳动物和鸟类的三维姿态与形状。研究以扩散生成补充像素对齐的三维标注，并在分布外的 Animal Kingdom 基准上评估迁移表现。",
     "equalAuthors": [
@@ -145,7 +198,8 @@
       "Jin Lyu"
     ],
     "code": "https://github.com/AniMerPlus/AniMerPlus",
-    "preprint": "https://arxiv.org/abs/2508.00298"
+    "preprint": "https://arxiv.org/abs/2508.00298",
+    "titleZh": "AniMer+：基于类群感知 Transformer 的哺乳类与鸟类统一姿态及形状估计"
   },
   {
     "id": "mirage",
@@ -159,10 +213,19 @@
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:BrmTIyaxlBUC",
     "month": "2026-03",
     "code": "https://github.com/QtacierP/MIRAGE",
-    "keywords": "Vision–Language Pretraining · Robustness",
-    "keywordsZh": "视觉语言预训练 · 鲁棒性",
+    "keywords": [
+      "Medical Vision–Language Pretraining",
+      "Optimal Transport",
+      "Robust Contrastive Learning"
+    ],
+    "keywordsZh": [
+      "医学图文预训练",
+      "最优传输",
+      "鲁棒对比学习"
+    ],
     "desc": "MIRAGE addresses mismatched image–report pairs and clinically related samples treated as negatives in contrastive pretraining. Optimal transport estimates pairwise correspondence using cross-modal neighbors, and adaptive gradient balancing limits the effect of noisy supervision. Transfer is evaluated on six tasks across 14 datasets.",
-    "zh": "MIRAGE 针对医学图文对比预训练中的错误配对和假负例，以跨模态近邻为先验，用最优传输估计样本之间的匹配关系，再通过自适应梯度平衡减轻噪声监督的影响。研究在 14 个数据集、六项任务上评估了表征迁移。"
+    "zh": "MIRAGE 针对医学图文对比预训练中的错误配对和假负例，以跨模态近邻为先验，用最优传输估计样本之间的匹配关系，再通过自适应梯度平衡减轻噪声监督的影响。研究在 14 个数据集、六项任务上评估了表征迁移。",
+    "titleZh": "MIRAGE：面向噪声环境的鲁棒医学图文预训练"
   },
   {
     "id": "scholar-61",
@@ -174,10 +237,19 @@
     "linkType": "paper",
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:wbdj-CoPYUoC",
-    "keywords": "Annotation-Efficient Learning · Synthetic Data",
-    "keywordsZh": "标注高效学习 · 数据合成",
+    "keywords": [
+      "Annotation-Free Learning",
+      "Fourier-Domain Synthesis",
+      "Cerebrovascular Segmentation"
+    ],
+    "keywordsZh": [
+      "无标注学习",
+      "傅里叶域合成",
+      "脑血管分割"
+    ],
     "desc": "This annotation-free approach generates branching vascular trees and blends them into vessel-suppressed TOF-MRA backgrounds in the Fourier domain. Synthetic image–mask pairs provide dense supervision for cerebrovascular segmentation, and the trained model is evaluated on real scans.",
-    "zh": "该方法以空间殖民算法生成三维血管树，再通过频域融合将合成血管嵌入去除血管信号的 TOF-MRA 背景。合成图像及其掩码为脑血管分割提供稠密监督，无需人工描绘血管，训练后在真实扫描上进行评估。"
+    "zh": "该方法以空间殖民算法生成三维血管树，再通过频域融合将合成血管嵌入去除血管信号的 TOF-MRA 背景。合成图像及其掩码为脑血管分割提供稠密监督，无需人工描绘血管，训练后在真实扫描上进行评估。",
+    "titleZh": "无标注脑血管分割：面向 TOF-MRA 的合成数据范式"
   },
   {
     "id": "scholar-62",
@@ -189,10 +261,19 @@
     "linkType": "paper",
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:J-pR_7NvFogC",
-    "keywords": "Diffusion Models · PET Reconstruction",
-    "keywordsZh": "扩散模型 · PET 重建",
+    "keywords": [
+      "Anatomical Priors",
+      "Diffusion-Based CT Synthesis",
+      "PET Attenuation Correction"
+    ],
+    "keywordsZh": [
+      "解剖先验",
+      "扩散 CT 合成",
+      "PET 衰减校正"
+    ],
     "desc": "DAPS deformably aligns a brain template and uses the resulting anatomical prior to guide diffusion-based CT synthesis from uncorrected PET. A correction network combines the synthetic CT with the original PET. The pipeline is evaluated on two public PET/CT datasets.",
-    "zh": "DAPS 将脑部模板形变配准至未经校正的个体 PET，以所得解剖先验引导扩散模型合成 CT。校正网络再融合合成 CT 与原始 PET，估计衰减校正后的图像。研究在两个公开 PET/CT 数据集上评估该流程。"
+    "zh": "DAPS 将脑部模板形变配准至未经校正的个体 PET，以所得解剖先验引导扩散模型合成 CT。校正网络再融合合成 CT 与原始 PET，估计衰减校正后的图像。研究在两个公开 PET/CT 数据集上评估该流程。",
+    "titleZh": "DAPS：基于扩散与解剖先验引导的 CT 合成用于 PET 衰减校正"
   },
   {
     "id": "lumos",
@@ -207,8 +288,16 @@
     "preprint": "https://arxiv.org/abs/2604.05388",
     "role": "Joint first author",
     "roleZh": "共同第一作者",
-    "keywords": "Semi-Supervised Learning · Multi-Granularity Segmentation",
-    "keywordsZh": "半监督学习 · 多粒度分割",
+    "keywords": [
+      "Semi-Supervised Learning",
+      "Reliability-Aware Mutual Learning",
+      "Multi-Granularity OCT Segmentation"
+    ],
+    "keywordsZh": [
+      "半监督学习",
+      "可靠性感知互学习",
+      "多粒度 OCT 分割"
+    ],
     "desc": "LUMOS uses unlabeled OCT scans alongside annotations drawn at different anatomical granularities. Hierarchical prompts condition two decoders, and region-level reliability weights the pseudo-labels exchanged across annotation levels. Evaluation spans six OCT datasets.",
     "zh": "LUMOS 面向标注有限且解剖粒度各异的 OCT 数据，结合无标注扫描与多粒度标注训练。层级提示调节双解码器，通过区域级可靠性加权在不同标注粒度之间交换伪标签。实验覆盖六个 OCT 数据集。",
     "equalAuthors": [
@@ -218,7 +307,8 @@
     ],
     "correspondingAuthors": [
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "LUMOS：基于层级可靠互学习的通用半监督 OCT 视网膜层分割"
   },
   {
     "id": "scholar-59",
@@ -230,11 +320,20 @@
     "linkType": "paper",
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:1qzjygNMrQYC",
-    "keywords": "Long-Tailed Recognition · Representation Learning",
-    "keywordsZh": "长尾识别 · 表征学习",
+    "keywords": [
+      "Long-Tailed Recognition",
+      "Tail-Class Synthesis",
+      "Class-Balanced Contrastive Learning"
+    ],
+    "keywordsZh": [
+      "长尾识别",
+      "尾类样本合成",
+      "类别均衡对比学习"
+    ],
     "desc": "TailBoost combines lesion-preserving synthesis with class-balanced representation learning for long-tailed skin lesion recognition. Saliency maps guide the construction of minority-class examples from common and rare cases, while center rebalancing modifies the supervised contrastive objective. The study evaluates the combination on three skin lesion datasets.",
     "zh": "TailBoost 将少数类样本合成与均衡表征学习结合，用显著性引导的局部混合保留少数类病灶特征，再以类别中心重平衡修正监督对比目标。研究在三个皮损数据集上验证了该方法对长尾分类的作用。",
-    "code": "https://github.com/Yancy10-1/SPMix/tree/TailBoost"
+    "code": "https://github.com/Yancy10-1/SPMix/tree/TailBoost",
+    "titleZh": "TailBoost：基于尾类样本合成的长尾皮肤癌图像分类"
   },
   {
     "id": "scholar-57",
@@ -248,10 +347,19 @@
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:XiVPGOgt02cC",
     "preprintLabel": "Research Square",
     "code": "https://github.com/TiTiPlu/DRAgent",
-    "keywords": "Agentic AI / Clinical Decision Support",
-    "keywordsZh": "Agentic AI／临床决策支持",
+    "keywords": [
+      "Multi-Agent Deliberation",
+      "Multimodal Clinical Data",
+      "Guideline-Based Evaluation"
+    ],
+    "keywordsZh": [
+      "多智能体协作推理",
+      "多模态临床数据",
+      "基于临床指南的评估"
+    ],
     "desc": "DRAgent frames diabetic retinopathy treatment planning as deliberation among specialty-specific agents using fundus images and clinical records. The preprint contributes a linked treatment-planning dataset and evaluates the resulting recommendations with guideline checks, clinician review, and specialist-agent ablations.",
-    "zh": "DRAgent 将糖尿病视网膜病变的治疗规划建模为基于影像与病历的多专科智能体协作。预印本构建了关联眼底照、病历和治疗方案的数据集，并用指南符合性、医生评价及专科智能体消融检验方案质量。"
+    "zh": "DRAgent 将糖尿病视网膜病变的治疗规划建模为基于影像与病历的多专科智能体协作。预印本构建了关联眼底照、病历和治疗方案的数据集，并用指南符合性、医生评价及专科智能体消融检验方案质量。",
+    "titleZh": "面向糖尿病视网膜病变治疗规划的多学科智能体框架"
   },
   {
     "id": "scholar-37",
@@ -263,10 +371,19 @@
     "linkType": "paper",
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:SeFeTyx0c_EC",
-    "keywords": "Computer Vision / Materials Control",
-    "keywordsZh": "计算机视觉／材料驱动控制",
+    "keywords": [
+      "Computer Vision",
+      "Closed-Loop Control",
+      "Liquid Crystal Elastomer Actuation"
+    ],
+    "keywordsZh": [
+      "计算机视觉",
+      "闭环控制",
+      "液晶弹性体致动"
+    ],
     "desc": "This work closes the control loop on light-responsive liquid crystal elastomers by estimating bending angle from video and using the measurement as feedback. Experiments examine whether the actuator holds target angles under changes in illumination, wind, and the surrounding medium.",
-    "zh": "该研究从视觉序列估计液晶弹性体的弯曲角度，并将测量值反馈至光驱动控制回路，评估致动器在光照、气流和周围介质变化时维持目标角度的能力。"
+    "zh": "该研究从视觉序列估计液晶弹性体的弯曲角度，并将测量值反馈至光驱动控制回路，评估致动器在光照、气流和周围介质变化时维持目标角度的能力。",
+    "titleZh": "计算机视觉辅助的光驱动液晶弹性体致动器精准抗干扰控制"
   },
   {
     "id": "animer",
@@ -279,10 +396,19 @@
     "desc": "AniMer learns a single-image 3D reconstruction model across quadruped families. Family-supervised contrastive learning structures the Transformer’s representation, and CtrlAni3D adds diffusion-generated images with pixel-aligned mesh labels. The study tests reconstruction on both annotated 3D benchmarks and out-of-domain images.",
     "zh": "AniMer 面向跨类群的四足动物单目三维重建。模型以动物类群监督的对比学习组织 Transformer 表征，并借助 CtrlAni3D 补充具有像素对齐网格标注的扩散合成图像，在三维标注基准及分布外影像上评估重建表现。",
     "code": "https://github.com/luoxue-star/AniMer",
-    "keywords": "3D Vision · Family-Aware Representation Learning",
-    "keywordsZh": "三维视觉 · 动物类别感知表征",
+    "keywords": [
+      "Single-Image 3D Reconstruction",
+      "Family-Supervised Contrastive Learning",
+      "Animal Pose and Shape"
+    ],
+    "keywordsZh": [
+      "单图三维重建",
+      "科级分类监督的对比学习",
+      "动物姿态与形状估计"
+    ],
     "status": "published",
-    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:fPk4N6BV_jEC"
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:fPk4N6BV_jEC",
+    "titleZh": "AniMer：基于科级分类感知 Transformer 的动物姿态与形状估计"
   },
   {
     "id": "diff4mmlits",
@@ -297,14 +423,23 @@
     "preprint": "https://arxiv.org/abs/2412.20418",
     "role": "Joint first author",
     "roleZh": "共同第一作者",
-    "keywords": "Diffusion Models · Multimodal Segmentation",
-    "keywordsZh": "扩散模型 · 多模态分割",
+    "keywords": [
+      "Mask-Conditioned Latent Diffusion",
+      "Cross-Phase Alignment",
+      "Liver Tumor Segmentation"
+    ],
+    "keywordsZh": [
+      "掩码条件潜空间扩散",
+      "跨期相配准",
+      "肝肿瘤分割"
+    ],
     "desc": "Diff4MMLiTS constructs voxel-aligned liver tumor supervision for multiphase CT. It registers the liver at organ level, inpaints existing lesions, and uses mask-conditioned latent diffusion to insert a new tumor at a common location across phases for segmentation training.",
     "zh": "Diff4MMLiTS 为多期相 CT 构造体素级对齐的肝肿瘤监督。该流程先作器官级配准并修复原病灶区域，再以掩码为条件进行潜空间扩散，在各期相对应位置合成新肿瘤，以训练分割模型。",
     "equalAuthors": [
       "Shiyun Chen",
       "Li Lin"
-    ]
+    ],
+    "titleZh": "Diff4MMLiTS：基于扩散图像合成与配准的多模态肝肿瘤分割"
   },
   {
     "id": "fedlppa",
@@ -320,15 +455,24 @@
     "desc": "FedLPPA uses distinct prompts to encode shared knowledge, site-specific imaging distributions, and annotation sparsity. Prompt similarity guides pseudo-labeling in a dual-decoder design, while parameter-wise aggregation personalizes each local decoder. Evaluation spans four segmentation tasks with heterogeneous weak supervision.",
     "zh": "FedLPPA 将共享知识、站点影像分布和标注稀疏性分别编码为可学习提示。提示相似度引导双解码器生成伪标签，逐参数聚合则使解码器适配各站点。研究在四项分割任务上评估了异构弱标注下的联邦学习。",
     "preprint": "https://arxiv.org/abs/2402.17502",
-    "keywords": "Personalized Federated Learning · Weak Supervision",
-    "keywordsZh": "个性化联邦学习 · 弱监督",
+    "keywords": [
+      "Personalized Federated Learning",
+      "Prompt Learning",
+      "Heterogeneous Weak Supervision"
+    ],
+    "keywordsZh": [
+      "个性化联邦学习",
+      "提示学习",
+      "异构弱监督"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:pyW8ca7W8N0C",
     "equalAuthors": [
       "Li Lin",
       "Yixiang Liu",
       "Jiewei Wu"
-    ]
+    ],
+    "titleZh": "FedLPPA：面向联邦弱监督医学图像分割的个性化提示学习与聚合"
   },
   {
     "id": "lfsynthseg",
@@ -341,10 +485,19 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:u_35RYKgDlwC",
     "code": "https://github.com/xu1px/LF-Synthseg",
-    "keywords": "Label-Free Learning · Synthetic Data",
-    "keywordsZh": "无标签学习 · 合成数据",
+    "keywords": [
+      "Annotation-Free Learning",
+      "Anatomy-Guided Tumor Synthesis",
+      "Joint Segmentation"
+    ],
+    "keywordsZh": [
+      "无标注学习",
+      "解剖引导肿瘤合成",
+      "联合分割"
+    ],
     "desc": "LF-SynthSeg uses healthy tissue intensity and anatomy to synthesize tumors in T2-weighted MRI, with joint tumor and tissue segmentation carrying the anatomical prior into training. Across five public datasets, it learns to delineate brain tumors without manually annotated tumor masks.",
-    "zh": "LF-SynthSeg 利用健康脑组织的强度与解剖先验合成 T2 加权肿瘤影像，再通过脑组织与肿瘤联合分割把解剖先验引入训练。研究在五个公开数据集上验证了无需人工肿瘤掩码的分割方案。"
+    "zh": "LF-SynthSeg 利用健康脑组织的强度与解剖先验合成 T2 加权肿瘤影像，再通过脑组织与肿瘤联合分割把解剖先验引入训练。研究在五个公开数据集上验证了无需人工肿瘤掩码的分割方案。",
+    "titleZh": "LF-SynthSeg：免标注的脑组织辅助肿瘤合成与分割"
   },
   {
     "id": "mefn",
@@ -358,8 +511,16 @@
     "desc": "MEFN aligns PET and CT representations, calibrates uncertainty separately for each modality, and combines voxel-level evidence using Dempster–Shafer theory. Evaluation on AutoPET and HECKTOR assesses both delineation accuracy and the uncertainty accompanying a segmentation.",
     "zh": "MEFN 先对齐 PET 与 CT 表征并分别校准各模态的不确定性，再用 Dempster–Shafer 证据理论融合体素级分割证据。研究在 AutoPET 和 HECKTOR 上评估了肿瘤勾画效果及分割不确定性。",
     "preprint": "https://arxiv.org/abs/2406.18327",
-    "keywords": "Multimodal Fusion · Uncertainty Estimation",
-    "keywordsZh": "多模态融合 · 不确定性估计",
+    "keywords": [
+      "Evidential Learning",
+      "Uncertainty Estimation",
+      "PET/CT Fusion"
+    ],
+    "keywordsZh": [
+      "证据学习",
+      "不确定性估计",
+      "PET/CT 融合"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:eJXPG6dFmWUC",
     "role": "Joint first author",
@@ -369,7 +530,8 @@
     "equalAuthors": [
       "Yuxuan Qi",
       "Li Lin"
-    ]
+    ],
+    "titleZh": "面向可信 PET/CT 肿瘤分割的多模态证据融合网络"
   },
   {
     "id": "procns",
@@ -383,8 +545,16 @@
     "zh": "ProCNS 针对稀疏标注扩展为稠密监督时的伪标签误差累积，利用校准后的原型刻画区域的空间与语义亲和性。它在更新原型时屏蔽不可靠像素，并在这些区域以软伪标签保留监督信号。",
     "code": "https://github.com/LyxDLiI/ProCNS",
     "preprint": "https://arxiv.org/abs/2401.14074",
-    "keywords": "Annotation-Efficient Learning · Prototype Calibration",
-    "keywordsZh": "标注高效学习 · 原型校准",
+    "keywords": [
+      "Weakly Supervised Segmentation",
+      "Prototype Calibration",
+      "Pseudo-Label Noise Suppression"
+    ],
+    "keywordsZh": [
+      "弱监督分割",
+      "原型校准",
+      "伪标签噪声抑制"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:dfsIfKJdRG4C",
     "role": "Joint first author",
@@ -395,7 +565,8 @@
     ],
     "correspondingAuthors": [
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "ProCNS：面向弱监督医学图像分割的渐进原型校准与噪声抑制"
   },
   {
     "id": "scholar-64",
@@ -409,14 +580,23 @@
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:fQNAKQ3IYiAC",
     "role": "Joint first author",
     "roleZh": "共同第一作者",
-    "keywords": "Missing-Modality Learning · Prompt Conditioning",
-    "keywordsZh": "缺失模态学习 · 条件提示",
+    "keywords": [
+      "Missing-Modality Learning",
+      "Cross-Modal Prompting",
+      "Non-Perfusion Segmentation"
+    ],
+    "keywordsZh": [
+      "缺失模态学习",
+      "跨模态提示",
+      "无灌注区分割"
+    ],
     "desc": "This study formulates retinal non-perfusion segmentation as a missing-modality problem. Modality-conditioned prompts and cross-attention transfer information from fluorescein angiography during training, allowing the model to delineate non-perfusion areas from color fundus photography alone at inference.",
     "zh": "该研究将视网膜无灌注区分割建模为缺失模态学习问题。训练时，通过模态条件提示和跨模态注意力吸收荧光造影信息，推理时仅凭彩色眼底照估计无灌注区域。",
     "correspondingAuthors": [
       "Haoyu Chen",
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "推理时无需荧光血管造影的眼底图像无灌注区分割"
   },
   {
     "id": "scholar-65",
@@ -430,13 +610,22 @@
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:LPZeul_q3PIC",
     "role": "Joint first author",
     "roleZh": "共同第一作者",
-    "keywords": "Universal Segmentation · Contextual Prompting",
-    "keywordsZh": "通用分割 · 上下文提示",
+    "keywords": [
+      "Contextual Prompting",
+      "Universal 3D Segmentation",
+      "Curvilinear Structures"
+    ],
+    "keywordsZh": [
+      "上下文提示",
+      "通用三维分割",
+      "曲线结构"
+    ],
     "desc": "UniCurvSeg uses task, imaging modality, and anatomical region as contextual prompts for a shared 3D segmenter. Cross-attention conditions the model on these prompts, enabling cross-task learning of vessel-like structures evaluated on nine datasets spanning CT, MRI, and MR angiography.",
     "zh": "UniCurvSeg 把任务、成像模态与解剖区域编码为上下文提示，通过交叉注意力调节共享的三维分割器。研究在覆盖 CT、MRI 和磁共振血管成像的九个数据集上评估了血管样结构的跨任务学习。",
     "correspondingAuthors": [
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "UniCurvSeg：基于上下文提示学习的通用血管样曲线结构分割"
   },
   {
     "id": "unioctseg",
@@ -449,8 +638,16 @@
     "code": "https://github.com/Halcyon1010/UniOCTSeg",
     "desc": "UniOCTSeg composes coarse retinal layer prompts from fine-grained labels, giving a single OCT model an explicit representation of alternative annotation schemes. An exponential-moving-average teacher progressively transfers supervision across the hierarchy, with evaluation on eight datasets spanning six annotation granularities.",
     "zh": "UniOCTSeg 将细粒度视网膜层提示组合成粗粒度提示，在统一的 OCT 分割模型中表示不同标注协议。指数移动平均教师由易到难地在层级间传递监督，实验覆盖八个数据集、六种标注粒度。",
-    "keywords": "Universal Segmentation · Prompt Learning",
-    "keywordsZh": "通用分割 · 提示学习",
+    "keywords": [
+      "Hierarchical Prompting",
+      "Teacher–Student Consistency",
+      "Multi-Granularity Segmentation"
+    ],
+    "keywordsZh": [
+      "层级提示",
+      "师生一致性",
+      "多粒度分割"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:eflP2zaiRacC",
     "role": "Joint first author",
@@ -458,7 +655,8 @@
     "equalAuthors": [
       "Jian Zhong",
       "Li Lin"
-    ]
+    ],
+    "titleZh": "UniOCTSeg：基于层级提示与渐进一致性学习的通用 OCT 视网膜层分割"
   },
   {
     "id": "scholar-17",
@@ -480,6 +678,17 @@
     "zh": "ASLSeg 将 Segment Anything 模型（SAM）纳入半监督肝肿瘤分割的迭代流程。任务分割器提供提示，适配网络细化 SAM 掩码，再将高置信度的结果纳入有标注训练集。",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "ASLSeg：将 SAM 纳入迭代训练的半监督肝肿瘤分割",
+    "keywords": [
+      "Semi-Supervised Learning",
+      "Foundation Model Adaptation",
+      "Iterative Pseudo-Labeling"
+    ],
+    "keywordsZh": [
+      "半监督学习",
+      "基础模型适配",
+      "迭代伪标签"
     ]
   },
   {
@@ -493,7 +702,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:ZHo1McVdvXMC",
     "desc": "BPaCo tackles class imbalance in the representation space by balancing negative-class gradients across batches and using class complements to keep rare classes represented in each batch. Logit compensation addresses class skew at the classifier, complementing the balanced contrastive objective.",
-    "zh": "BPaCo 从表征学习入手处理医学影像分类的长尾分布。跨批次类别平均平衡负类梯度，类别补全使少数类也能参与每个小批次的对比训练，分类分支则通过 logit 补偿进一步纠正类别偏斜。"
+    "zh": "BPaCo 从表征学习入手处理医学影像分类的长尾分布。跨批次类别平均平衡负类梯度，类别补全使少数类也能参与每个小批次的对比训练，分类分支则通过 logit 补偿进一步纠正类别偏斜。",
+    "titleZh": "BPaCo：面向长尾医学图像分类的均衡参数化对比学习",
+    "keywords": [
+      "Long-Tailed Recognition",
+      "Balanced Parametric Contrastive Learning",
+      "Logit Compensation"
+    ],
+    "keywordsZh": [
+      "长尾识别",
+      "均衡参数化对比学习",
+      "分类分数补偿"
+    ]
   },
   {
     "id": "scholar-66",
@@ -506,7 +726,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:35N4QoGY0k4C",
     "desc": "CSSD learns hepatic vessel segmentation jointly from a small set of high-quality CT annotations, a larger set of noisy labels, and unlabeled scans. Cross-sample attention transfers cues from cleaner labels, while dual-network consistency and self-denoising exploit the other two sources.",
-    "zh": "CSSD 将少量高质量标注、较多含噪标注和未标注 CT 纳入同一肝血管分割框架。跨样本注意力传递较干净的标注线索，双网络一致性与自去噪分别利用未标注和含噪样本。"
+    "zh": "CSSD 将少量高质量标注、较多含噪标注和未标注 CT 纳入同一肝血管分割框架。跨样本注意力传递较干净的标注线索，双网络一致性与自去噪分别利用未标注和含噪样本。",
+    "titleZh": "CSSD：基于交叉监督与自去噪的混合监督肝血管分割",
+    "keywords": [
+      "Hybrid Supervision",
+      "Cross-Supervision",
+      "Label Denoising"
+    ],
+    "keywordsZh": [
+      "混合监督",
+      "交叉监督",
+      "标注去噪"
+    ]
   },
   {
     "id": "scholar-47",
@@ -519,7 +750,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:4OULZ7Gr8RgC",
     "desc": "This unsupervised registration method estimates local deformations from MRI patches with a fully convolutional network. A differential operator regularizes the velocity fields in a coarse-to-fine registration scheme. Experiments on three T1-weighted MRI datasets assess alignment accuracy and topology preservation.",
-    "zh": "该方法用无监督全卷积网络从 MRI 图块估计局部形变，并以微分算子约束粗到细配准中的速度场。研究在三个 T1 加权 MRI 数据集上评估了配准精度与解剖拓扑保持。"
+    "zh": "该方法用无监督全卷积网络从 MRI 图块估计局部形变，并以微分算子约束粗到细配准中的速度场。研究在三个 T1 加权 MRI 数据集上评估了配准精度与解剖拓扑保持。",
+    "titleZh": "基于图块式全卷积网络的快速微分同胚图像配准",
+    "keywords": [
+      "Unsupervised Diffeomorphic Registration",
+      "Patch-Based Learning",
+      "Topology Preservation"
+    ],
+    "keywordsZh": [
+      "无监督微分同胚配准",
+      "图块学习",
+      "拓扑保持"
+    ]
   },
   {
     "id": "scholar-41",
@@ -532,7 +774,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:yD5IFk8b50cC",
     "desc": "Fusion Side Tuning adapts high-resolution image classifiers through a lightweight network that fuses intermediate features from a frozen backbone. Informative-token selection further reduces training memory. At 512 × 512 resolution with ViT-B, the method uses 2% of the trainable parameters and 20% of the GPU memory required for full fine-tuning.",
-    "zh": "Fusion Side Tuning 冻结预训练主干，在轻量侧路融合中间层特征，并筛选信息量较高的图块标记以节省显存。在 512 × 512 输入和 ViT-B 主干下，可训练参数量与训练显存分别为全量微调的 2% 和 20%。"
+    "zh": "Fusion Side Tuning 冻结预训练主干，在轻量侧路融合中间层特征，并筛选信息量较高的图块标记以节省显存。在 512 × 512 输入和 ViT-B 主干下，可训练参数量与训练显存分别为全量微调的 2% 和 20%。",
+    "titleZh": "融合侧路微调：面向高分辨率医学图像分类的参数与显存高效方法",
+    "keywords": [
+      "Parameter-Efficient Fine-Tuning",
+      "Feature Fusion",
+      "High-Resolution Classification"
+    ],
+    "keywordsZh": [
+      "参数高效微调",
+      "特征融合",
+      "高分辨率分类"
+    ]
   },
   {
     "id": "scholar-31",
@@ -545,7 +798,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:isC4tDSrTZIC",
     "desc": "JOINEDTrans learns a spatial prior from retinal vessel segmentation and transfers it to optic disc and cup delineation and fovea localization. Its coarse-to-fine Transformer uses initial predictions to guide localized refinement, with evaluation on GAMMA, REFUGE, and PALM.",
-    "zh": "JOINEDTrans 从视网膜血管分割中学习空间先验，并迁移到视盘、视杯分割与黄斑中心定位。粗到细的 Transformer 以初步预测引导局部精修，并在 GAMMA、REFUGE 和 PALM 三个数据集上验证。"
+    "zh": "JOINEDTrans 从视网膜血管分割中学习空间先验，并迁移到视盘、视杯分割与黄斑中心定位。粗到细的 Transformer 以初步预测引导局部精修，并在 GAMMA、REFUGE 和 PALM 三个数据集上验证。",
+    "titleZh": "JOINEDTrans：先验引导的视盘与视杯分割及黄斑中心凹检测多任务 Transformer",
+    "keywords": [
+      "Anatomical Priors",
+      "Coarse-to-Fine Refinement",
+      "Multi-Task Learning"
+    ],
+    "keywordsZh": [
+      "解剖先验",
+      "由粗到细的精细化",
+      "多任务学习"
+    ]
   },
   {
     "id": "scholar-53",
@@ -558,7 +822,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:a0OBvERweLwC",
     "desc": "SMNet reconstructs isotropic MRI at variable upsampling scales from anisotropic scans and a high-resolution reference contrast. Separate branches handle cross-contrast alignment and spatial restoration, with reliability-weighted fusion controlling how reference features contribute to the reconstruction.",
-    "zh": "SMNet 利用各向异性扫描与高分辨率参考序列，在不同上采样倍率下重建各向同性 MRI。两个分支分别处理跨对比度对齐与空间细节恢复，并通过可靠性加权控制参考特征对重建的贡献。"
+    "zh": "SMNet 利用各向异性扫描与高分辨率参考序列，在不同上采样倍率下重建各向同性 MRI。两个分支分别处理跨对比度对齐与空间细节恢复，并通过可靠性加权控制参考特征对重建的贡献。",
+    "titleZh": "用于多对比度任意倍率各向同性 MRI 重建的联合超分辨率与模态转换网络",
+    "keywords": [
+      "Arbitrary-Scale Super-Resolution",
+      "Cross-Contrast Translation",
+      "Isotropic MRI Reconstruction"
+    ],
+    "keywordsZh": [
+      "任意倍率超分辨率",
+      "跨对比度转换",
+      "各向同性磁共振重建"
+    ]
   },
   {
     "id": "scholar-52",
@@ -576,6 +851,17 @@
     "zh": "MMCM 对不同 MRI 序列施加互补掩码，使被遮盖区域的重建依赖其他序列的表征。研究在 BraTS 2021 上检验了自监督编码器对脑肿瘤分割的迁移，包括少样本训练和单序列输入两种条件。",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "面向脑肿瘤分割的掩码模态互补建模",
+    "keywords": [
+      "Masked Modeling",
+      "Self-Supervised Pretraining",
+      "Multimodal MRI Segmentation"
+    ],
+    "keywordsZh": [
+      "掩码建模",
+      "自监督预训练",
+      "多模态磁共振分割"
     ]
   },
   {
@@ -589,7 +875,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:rO6llkc54NcC",
     "desc": "S-ACMT uses a fine-tuned SAM-Med2D as a second teacher in semi-supervised medical segmentation. Its pseudo-labels complement those from a task-specific teacher, giving the student distinct sources of supervision for unlabeled scans.",
-    "zh": "S-ACMT 将经过领域微调的 SAM-Med2D 引入半监督医学分割，作为第二教师。其伪标签与任务教师的伪标签互补，从两种监督来源学习未标注影像。"
+    "zh": "S-ACMT 将经过领域微调的 SAM-Med2D 引入半监督医学分割，作为第二教师。其伪标签与任务教师的伪标签互补，从两种监督来源学习未标注影像。",
+    "titleZh": "S-ACMT：以 SAM 为交叉监督第二教师的半监督医学图像分割",
+    "keywords": [
+      "Semi-Supervised Segmentation",
+      "Foundation Model Adaptation",
+      "Dual-Teacher Learning"
+    ],
+    "keywordsZh": [
+      "半监督分割",
+      "基础模型适配",
+      "双教师学习"
+    ]
   },
   {
     "id": "scholar-48",
@@ -604,7 +901,18 @@
     "desc": "SPMix addresses class imbalance in dermoscopy by using lesion saliency to select which patches to mix. The resulting tail-class examples retain discriminative lesion regions while gaining additional variation from head-class images.",
     "zh": "SPMix 用病灶显著性决定皮肤镜图像中参与混合的区域，为长尾分类构造少数类训练样本。合成样本保留有判别力的病灶区域，同时从常见类别引入更多图像变化。",
     "code": "https://github.com/Yancy10-1/SPMix/tree/master",
-    "preprint": "https://arxiv.org/abs/2406.10801"
+    "preprint": "https://arxiv.org/abs/2406.10801",
+    "titleZh": "面向长尾皮肤癌图像分类的显著性引导图块混合增强",
+    "keywords": [
+      "Long-Tailed Recognition",
+      "Saliency-Guided Mixup",
+      "Dermoscopy Classification"
+    ],
+    "keywordsZh": [
+      "长尾识别",
+      "显著性引导混合增强",
+      "皮肤镜图像分类"
+    ]
   },
   {
     "id": "scholar-30",
@@ -620,7 +928,18 @@
     "zh": "TFA-LT 探索视觉语言基础模型在医学影像长尾分类中的轻量适配。方法分两阶段训练两个线性适配器和一个集成分类头，并在两个类别不均衡的数据集上评估分类表现与显存开销。",
     "preprint": "https://arxiv.org/abs/2408.14770",
     "role": "Joint first author",
-    "roleZh": "共同第一作者"
+    "roleZh": "共同第一作者",
+    "titleZh": "面向长尾医学图像分类的文本引导基础模型适配",
+    "keywords": [
+      "Vision–Language Models",
+      "Parameter-Efficient Adaptation",
+      "Long-Tailed Recognition"
+    ],
+    "keywordsZh": [
+      "视觉语言模型",
+      "参数高效适配",
+      "长尾识别"
+    ]
   },
   {
     "id": "uni4eyeplus",
@@ -632,11 +951,20 @@
     "linkType": "paper",
     "desc": "Uni4Eye++ pools unlabeled 2D ophthalmic images and 3D volumes for masked pretraining. Entropy-guided masking targets informative regions, and dynamic reconstruction heads account for modality-specific image characteristics. The shared encoder is then transferred to classification and segmentation.",
     "zh": "Uni4Eye++ 将无标注二维眼科影像与三维体数据纳入同一掩码预训练框架。图像熵引导模型重建信息丰富的区域，动态重建头适配不同模态的成像特征，共享编码器随后迁移至分类和分割。",
-    "keywords": "Ophthalmic Imaging",
-    "keywordsZh": "眼科影像",
+    "keywords": [
+      "Multimodal Self-Supervised Pretraining",
+      "Entropy-Guided Masking",
+      "2D and 3D Ophthalmic Imaging"
+    ],
+    "keywordsZh": [
+      "多模态自监督预训练",
+      "熵引导掩码",
+      "二维与三维眼科影像"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:zA6iFVUQeVQC",
-    "code": "https://github.com/Davidczy/Uni4Eye_pp"
+    "code": "https://github.com/Davidczy/Uni4Eye_pp",
+    "titleZh": "Uni4Eye++：面向眼科影像分类与分割的通用掩码建模多模态预训练框架"
   },
   {
     "id": "scholar-67",
@@ -649,22 +977,44 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:pqnbT2bcN3wC",
     "desc": "This study asks whether OCT quality or sample quantity matters more when OCT is used to help localize the fovea in fundus images. The model combines global fundus context with local macular features. Experiments on GAMMA also test robustness to missing OCT during training.",
-    "zh": "该研究考察在联合 OCT 与眼底照定位黄斑中心时，OCT 质量与样本数量分别起到什么作用。模型融合眼底全局上下文与黄斑局部特征，并在 GAMMA 上分析训练时缺失 OCT 对定位的影响。"
+    "zh": "该研究考察在联合 OCT 与眼底照定位黄斑中心时，OCT 质量与样本数量分别起到什么作用。模型融合眼底全局上下文与黄斑局部特征，并在 GAMMA 上分析训练时缺失 OCT 对定位的影响。",
+    "titleZh": "高质量 OCT 的作用：基于眼底影像与模态融合的黄斑中心凹定位",
+    "keywords": [
+      "Multimodal Feature Fusion",
+      "Imaging Quality",
+      "Fovea Localization"
+    ],
+    "keywordsZh": [
+      "多模态特征融合",
+      "成像质量",
+      "黄斑中心凹定位"
+    ]
   },
   {
     "id": "scholar-68",
     "year": 2024,
-    "title": "相似度感知蒸馏的统一弱监督个性化联邦图像分割",
-    "authors": "潘建珊， 林立， 吴洁伟， 刘翼翔， 陈孝华， 林其友， 黄建业， 唐晓颖",
+    "title": "pFedWSD: unified weakly supervised personalized federated image segmentation via similarity-aware distillation",
+    "authors": "Jianshan Pan, Li Lin, Jiewei Wu, Yixiang Liu, Xiaohua Chen, Qiyou Lin, Jianye Huang, Xiaoying Tang",
     "venue": "Journal of Image and Graphics",
     "url": "https://www.cjig.cn/zh/article/doi/10.11834/jig.230295/",
     "linkType": "paper",
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:J_g5lzvAfSwC",
-    "keywords": "Personalized Federated Learning / Weak Supervision",
-    "keywordsZh": "个性化联邦学习／弱监督",
+    "keywords": [
+      "Personalized Federated Learning",
+      "Similarity-Aware Distillation",
+      "Heterogeneous Weak Annotations"
+    ],
+    "keywordsZh": [
+      "个性化联邦学习",
+      "相似度感知蒸馏",
+      "异构弱标注"
+    ],
     "desc": "pFedWSD uses cyclic distillation to consolidate knowledge across sites, then estimates site similarity from batch-normalization statistics to construct personalized teachers. The framework supports federated segmentation across institutions with both different data distributions and different forms of sparse annotation.",
-    "zh": "pFedWSD 先通过循环蒸馏积累各站点的共性知识，再以批归一化统计量估计站点相似度，为各站点构建个性化教师。该框架同时处理机构间的数据分布差异与稀疏标注形式差异。"
+    "zh": "pFedWSD 先通过循环蒸馏积累各站点的共性知识，再以批归一化统计量估计站点相似度，为各站点构建个性化教师。该框架同时处理机构间的数据分布差异与稀疏标注形式差异。",
+    "titleZh": "相似度感知蒸馏的统一弱监督个性化联邦图像分割",
+    "authorsZh": "潘建珊， 林立， 吴洁伟， 刘翼翔， 陈孝华， 林其友， 黄建业， 唐晓颖",
+    "venueZh": "中国图象图形学报"
   },
   {
     "id": "scholar-49",
@@ -677,7 +1027,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:ns9cj8rnVeAC",
     "desc": "CCMix learns a class-wise augmentation curriculum that adjusts mixup strength according to classification performance for each class. This lets tail-class examples borrow information from other classes in amounts matched to the learning difficulty observed during training.",
-    "zh": "CCMix 在类别层面制定数据增强课程，依据训练中各类的识别表现调节 Mixup 强度，使少数类样本按学习难度吸收其他类别的信息。"
+    "zh": "CCMix 在类别层面制定数据增强课程，依据训练中各类的识别表现调节 Mixup 强度，使少数类样本按学习难度吸收其他类别的信息。",
+    "titleZh": "CCMix：面向长尾医学图像分类的类别级混合增强课程",
+    "keywords": [
+      "Long-Tailed Recognition",
+      "Curriculum Learning",
+      "Class-Wise Mixup"
+    ],
+    "keywordsZh": [
+      "长尾识别",
+      "课程学习",
+      "类别级混合增强"
+    ]
   },
   {
     "id": "gamma",
@@ -689,10 +1050,19 @@
     "linkType": "paper",
     "desc": "The GAMMA challenge releases 300 paired fundus photographs and OCT volumes alongside a common protocol for evaluating multimodal glaucoma grading. Its analysis compares how submitted systems combine information from 2D photography and 3D scans.",
     "zh": "GAMMA 挑战提供 300 组配对眼底照与 OCT 体数据，并建立统一的多模态青光眼分级评测流程。论文比较了参赛方法如何结合二维摄影与三维扫描中的互补信息。",
-    "keywords": "Ophthalmic Imaging",
-    "keywordsZh": "眼科影像",
+    "keywords": [
+      "Multimodal Ophthalmic Imaging",
+      "Benchmark Dataset",
+      "Glaucoma Grading"
+    ],
+    "keywordsZh": [
+      "多模态眼科影像",
+      "基准数据集",
+      "青光眼分级"
+    ],
     "status": "published",
-    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:HoB7MX3m0LUC"
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:HoB7MX3m0LUC",
+    "titleZh": "GAMMA 挑战赛：基于多模态影像的青光眼分级"
   },
   {
     "id": "scholar-4",
@@ -705,7 +1075,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:qxL8FJ1GzNcC",
     "desc": "This controlled ResNet-50 study isolates training choices that affect diabetic retinopathy grading, including resolution, loss design, augmentation, and bilateral image pairing. The combined configuration reaches 0.8631 quadratic weighted kappa on EyePACS, with transfer assessed across datasets and architectures.",
-    "zh": "该研究以 ResNet-50 为固定框架，系统考察输入分辨率、损失函数、增强策略和双眼配对对糖尿病视网膜病变分级的作用。组合配置在 EyePACS 上的二次加权 Kappa 为 0.8631，并在其他数据集和网络架构上检验了可迁移性。"
+    "zh": "该研究以 ResNet-50 为固定框架，系统考察输入分辨率、损失函数、增强策略和双眼配对对糖尿病视网膜病变分级的作用。组合配置在 EyePACS 上的二次加权 Kappa 为 0.8631，并在其他数据集和网络架构上检验了可迁移性。",
+    "titleZh": "基于眼底图像的糖尿病视网膜病变分级：ResNet-50 关键组成的系统分析",
+    "keywords": [
+      "Controlled Ablation",
+      "Generalization Across Datasets",
+      "Diabetic Retinopathy Grading"
+    ],
+    "keywordsZh": [
+      "对照消融",
+      "跨数据集泛化",
+      "糖尿病视网膜病变分级"
+    ]
   },
   {
     "id": "scholar-39",
@@ -718,7 +1099,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:O3NaXMp0MMsC",
     "desc": "MEDKD addresses long-tailed medical classification by distilling several teachers, each trained on a different data subset, into a single classifier. The distillation objective handles target-class and non-target-class probabilities separately so different kinds of teacher information can be transferred.",
-    "zh": "MEDKD 将分别在不同数据子集上训练的多个专家模型蒸馏至单一分类器。蒸馏目标分开处理目标类与非目标类概率，使长尾分类器能够利用两类互补的教师信号。"
+    "zh": "MEDKD 将分别在不同数据子集上训练的多个专家模型蒸馏至单一分类器。蒸馏目标分开处理目标类与非目标类概率，使长尾分类器能够利用两类互补的教师信号。",
+    "titleZh": "MEDKD：以多专家解耦知识蒸馏改进长尾医学图像分类",
+    "keywords": [
+      "Multi-Expert Distillation",
+      "Decoupled Knowledge Transfer",
+      "Long-Tailed Recognition"
+    ],
+    "keywordsZh": [
+      "多专家蒸馏",
+      "解耦知识迁移",
+      "长尾识别"
+    ]
   },
   {
     "id": "prior",
@@ -730,11 +1122,20 @@
     "linkType": "paper",
     "desc": "PRIOR aligns medical images and reports at image and region scales. Cross-modal reconstruction and a bank of sentence prototypes help the shared representation retain localized imaging cues and clinical language. Evaluation spans five transfer tasks, including zero-shot classification, image–text retrieval, and dense prediction.",
     "zh": "PRIOR 在整幅影像与局部区域两个尺度对齐医学图像和报告，并通过跨模态重建与句子原型库保留局部成像线索和临床语言信息。研究在零样本分类、图文检索与稠密预测等五项任务上检验表征的迁移能力。",
-    "keywords": "Multimodal Learning / Computer Vision",
-    "keywordsZh": "多模态学习 / 计算机视觉",
+    "keywords": [
+      "Medical Vision–Language Pretraining",
+      "Prototype Learning",
+      "Local and Global Alignment"
+    ],
+    "keywordsZh": [
+      "医学图文预训练",
+      "原型学习",
+      "局部与全局对齐"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:RGFaLdJalmkC",
-    "code": "https://github.com/QtacierP/PRIOR"
+    "code": "https://github.com/QtacierP/PRIOR",
+    "titleZh": "PRIOR：医学影像与报告的原型表征联合学习"
   },
   {
     "id": "fedicra",
@@ -747,12 +1148,21 @@
     "code": "https://github.com/llmir/FedICRA",
     "desc": "FedICRA personalizes segmentation across institutions with different sparse labels and image distributions. Site-contrastive learning organizes selected feature channels around institution-specific structure, and element-wise aggregation blends local parameters with shared knowledge.",
     "zh": "FedICRA 面向采用不同稀疏标注、影像分布也不同的机构开展个性化联邦分割。它在选定通道上进行站点对比学习，以区分机构特异表征，再逐元素融合本地参数与全局共享知识。",
-    "keywords": "Data-efficient Learning",
-    "keywordsZh": "数据高效学习",
+    "keywords": [
+      "Personalized Federated Learning",
+      "Site-Contrastive Representation Learning",
+      "Adaptive Aggregation"
+    ],
+    "keywordsZh": [
+      "个性化联邦学习",
+      "站点对比表征学习",
+      "自适应聚合"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:NaGl4SEjCO4C",
     "role": "First author",
-    "roleZh": "第一作者"
+    "roleZh": "第一作者",
+    "titleZh": "基于自适应表征与聚合的统一弱监督个性化联邦医学图像分割"
   },
   {
     "id": "scholar-38",
@@ -769,6 +1179,17 @@
     "preprint": "https://arxiv.org/abs/2212.10541",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "UNO-QA：基于测试时聚类的无监督异常感知 OCTA 图像质量评估",
+    "keywords": [
+      "Unsupervised Anomaly Modeling",
+      "Test-Time Clustering",
+      "OCTA Quality Assessment"
+    ],
+    "keywordsZh": [
+      "无监督异常建模",
+      "测试时聚类",
+      "OCTA 图像质量评估"
     ]
   },
   {
@@ -785,10 +1206,19 @@
     "desc": "YoloCurvSeg uses one noisy skeleton annotation to build dense supervision for vessels and other curvilinear structures. A patchwise contrastive synthesizer combines simulated curves with inpainted image backgrounds. With this annotation budget, it retains over 97% of fully supervised performance on each of four public datasets.",
     "zh": "YoloCurvSeg 以一条含噪骨架标注为起点，为血管等曲线结构构造稠密训练监督。方法利用图块级对比学习，将模拟曲线与修复后的影像背景融合成带掩码的样本。以这一标注量训练的模型在四个公开数据集上均达到相应全监督性能的 97% 以上。",
     "preprint": "https://arxiv.org/abs/2212.05566",
-    "keywords": "Data-efficient Learning",
-    "keywordsZh": "数据高效学习",
+    "keywords": [
+      "Single-Skeleton Supervision",
+      "Contrastive Image Synthesis",
+      "Curvilinear Structure Segmentation"
+    ],
+    "keywordsZh": [
+      "单骨架监督",
+      "对比图像合成",
+      "曲线结构分割"
+    ],
     "status": "published",
-    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:JV2RwH3_ST0C"
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:JV2RwH3_ST0C",
+    "titleZh": "YoloCurvSeg：仅凭一个含噪骨架标注分割血管样曲线结构"
   },
   {
     "id": "scholar-22",
@@ -801,7 +1231,18 @@
     "status": "preprint",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:_Qo2XoVZTnwC",
     "desc": "LED treats fundus enhancement as the inverse of a learned degradation process. It first estimates how image quality changes from unpaired scans, then uses the resulting synthetic training pairs to fit a conditional diffusion model. Downstream evaluations probe preservation of diagnostically relevant structures.",
-    "zh": "LED 将眼底影像增强建模为已学习退化过程的逆问题。它先从未配对影像中学习质量退化，再用合成配对样本训练条件扩散模型，并通过下游分析评估关键诊断结构的保留情况。"
+    "zh": "LED 将眼底影像增强建模为已学习退化过程的逆问题。它先从未配对影像中学习质量退化，再用合成配对样本训练条件扩散模型，并通过下游分析评估关键诊断结构的保留情况。",
+    "titleZh": "从退化中学习增强：面向眼底图像增强的扩散模型",
+    "keywords": [
+      "Degradation Learning",
+      "Conditional Diffusion",
+      "Fundus Image Enhancement"
+    ],
+    "keywordsZh": [
+      "退化建模",
+      "条件扩散",
+      "眼底图像增强"
+    ]
   },
   {
     "id": "scholar-51",
@@ -814,7 +1255,18 @@
     "status": "preprint",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:lSLTfruPkqcC",
     "desc": "This photoacoustic microscopy study incorporates rotational acquisition geometry into super-resolution. Odd–even scanline registration corrects inter-row displacement before reconstruction, while motion-aware degradations and gradient-guided patch selection train a Transformer to recover fine vascular detail.",
-    "zh": "该研究将旋转采集的扫描机制引入光声显微超分辨率重建。重建前先配准奇偶扫描行以校正行间位移，再用包含运动位移的退化与梯度引导的图块采样训练 Transformer，以恢复精细血管结构。"
+    "zh": "该研究将旋转采集的扫描机制引入光声显微超分辨率重建。重建前先配准奇偶扫描行以校正行间位移，再用包含运动位移的退化与梯度引导的图块采样训练 Transformer，以恢复精细血管结构。",
+    "titleZh": "融合扫描先验的旋转扫描光声显微图像超分辨率",
+    "keywords": [
+      "Acquisition Priors",
+      "Photoacoustic Microscopy",
+      "Transformer Super-Resolution"
+    ],
+    "keywordsZh": [
+      "采集先验",
+      "光声显微成像",
+      "Transformer 超分辨率"
+    ]
   },
   {
     "id": "scholar-2",
@@ -828,13 +1280,22 @@
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:hC7cP41nSMkC",
     "code": "https://github.com/CRazorback/AADG",
     "preprint": "https://arxiv.org/abs/2207.13249",
-    "keywords": "Domain Generalization",
-    "keywordsZh": "领域泛化",
+    "keywords": [
+      "Domain Generalization",
+      "Augmentation Policy Search",
+      "Optimal Transport"
+    ],
+    "keywordsZh": [
+      "域泛化",
+      "数据增强策略搜索",
+      "最优传输"
+    ],
     "desc": "AADG learns data augmentation policies by maximizing Sinkhorn distances between augmented training domains in feature space. The learned policies are evaluated on 11 fundus datasets and two OCT angiography datasets, testing generalization to unseen datasets and a different imaging modality.",
     "zh": "AADG 以特征空间中增强训练域之间的 Sinkhorn 距离衡量域多样性，并自动搜索数据增强策略。实验覆盖 11 个眼底照数据集和两个 OCT 血管成像数据集，分别检验跨数据集与跨模态泛化。",
     "correspondingAuthors": [
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "AADG：用于视网膜图像分割域泛化的自动数据增强"
   },
   {
     "id": "scholar-13",
@@ -853,6 +1314,17 @@
     "preprint": "https://arxiv.org/abs/2201.03795",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "COROLLA：以监督对比学习实现青光眼分级的高效多模态融合框架",
+    "keywords": [
+      "Supervised Contrastive Learning",
+      "Fundus–OCT Fusion",
+      "Glaucoma Grading"
+    ],
+    "keywordsZh": [
+      "监督对比学习",
+      "眼底影像与 OCT 融合",
+      "青光眼分级"
     ]
   },
   {
@@ -866,7 +1338,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:j3f4tGmQtD8C",
     "desc": "DS³-Net synthesizes contrast-enhanced T1 MRI by learning from paired and unpaired scans. A predicted difficulty map guides pixelwise and patchwise objectives toward hard-to-reconstruct regions. On BraTS 2020, the method remains competitive with fully paired translation methods using 5% paired data.",
-    "zh": "DS³-Net 联合配对与未配对 MRI 合成对比增强 T1 序列，并用预测的难度图将像素级约束与图块级对比学习聚焦于难重建区域。在 BraTS 2020 上，仅使用 5% 配对数据时，其表现仍可与使用全部配对数据的方法相比。"
+    "zh": "DS³-Net 联合配对与未配对 MRI 合成对比增强 T1 序列，并用预测的难度图将像素级约束与图块级对比学习聚焦于难重建区域。在 BraTS 2020 上，仅使用 5% 配对数据时，其表现仍可与使用全部配对数据的方法相比。",
+    "titleZh": "DS³-Net：面向常规 MRI 至 T1 增强序列合成的难度感知半监督网络",
+    "keywords": [
+      "Difficulty-Aware Learning",
+      "Semi-Supervised Synthesis",
+      "Contrast-Enhanced MRI"
+    ],
+    "keywordsZh": [
+      "难度感知学习",
+      "半监督合成",
+      "对比增强磁共振成像"
+    ]
   },
   {
     "id": "scholar-20",
@@ -885,6 +1368,17 @@
     "equalAuthors": [
       "Huaqing He",
       "Li Lin"
+    ],
+    "titleZh": "JOINED：联合视盘与视杯分割及黄斑中心凹检测的先验引导多任务学习",
+    "keywords": [
+      "Anatomical Priors",
+      "Landmark Localization",
+      "Multi-Task Segmentation"
+    ],
+    "keywordsZh": [
+      "解剖先验",
+      "解剖标志点定位",
+      "多任务分割"
     ]
   },
   {
@@ -900,7 +1394,18 @@
     "desc": "RVms trains separate teachers for domains with appearance close to or far from the labeled source, then distills their complementary knowledge into one segmenter. Style augmentation and relative-intensity encoding support adaptation across several unlabeled targets from different centers and modalities.",
     "zh": "RVms 分别为外观接近与远离标注源域的数据训练教师，再将互补的域知识蒸馏至同一个血管分割器。风格增强与局部相对强度编码帮助模型适配跨机构、跨模态的多个无标注目标域。",
     "role": "Joint first author",
-    "roleZh": "共同第一作者"
+    "roleZh": "共同第一作者",
+    "titleZh": "以双教师多目标域适配实现跨域视网膜血管分割",
+    "keywords": [
+      "Multi-Target Domain Adaptation",
+      "Dual-Teacher Distillation",
+      "Retinal Vessel Segmentation"
+    ],
+    "keywordsZh": [
+      "多目标域适配",
+      "双教师蒸馏",
+      "视网膜血管分割"
+    ]
   },
   {
     "id": "scholar-19",
@@ -913,7 +1418,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:mB3voiENLucC",
     "desc": "A Transformer encoder conditions adversarial T1-to-T2 MRI translation on adjacent T1 slices, supplying through-plane context for the synthesized slice. The study evaluates image fidelity on both public and private datasets.",
-    "zh": "该研究在 T1 到 T2 的条件对抗生成中，用 Transformer 编码相邻 T1 切片，为目标切片的合成提供层间上下文，并在公开和内部数据集上评估合成影像的保真度。"
+    "zh": "该研究在 T1 到 T2 的条件对抗生成中，用 Transformer 编码相邻 T1 切片，为目标切片的合成提供层间上下文，并在公开和内部数据集上评估合成影像的保真度。",
+    "titleZh": "基于 Transformer 的 T1 加权至 T2 加权磁共振图像合成",
+    "keywords": [
+      "Cross-Contrast MRI Synthesis",
+      "Transformer Encoding",
+      "Adversarial Learning"
+    ],
+    "keywordsZh": [
+      "跨对比度磁共振合成",
+      "Transformer 编码",
+      "对抗学习"
+    ]
   },
   {
     "id": "uni4eye",
@@ -926,8 +1442,16 @@
     "code": "https://github.com/Davidczy/Uni4Eye",
     "desc": "Uni4Eye uses a common patch embedding to pretrain a vision Transformer jointly on 2D ophthalmic images and 3D volumes. Reconstructing both masked image intensities and gradients supplies complementary supervision, with transfer evaluated on six classification tasks.",
     "zh": "Uni4Eye 通过共享图块嵌入，将二维眼科影像与三维体数据纳入同一视觉 Transformer 的自监督预训练。模型联合重建被遮盖的图像强度及其梯度，并在六项分类任务上评估迁移能力。",
-    "keywords": "Ophthalmic Imaging",
-    "keywordsZh": "眼科影像",
+    "keywords": [
+      "Multimodal Self-Supervised Pretraining",
+      "Masked Image Modeling",
+      "Ophthalmic Classification"
+    ],
+    "keywordsZh": [
+      "多模态自监督预训练",
+      "掩码图像建模",
+      "眼科影像分类"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:r0BpntZqJG4C",
     "preprint": "https://arxiv.org/abs/2203.04614",
@@ -936,7 +1460,8 @@
     "equalAuthors": [
       "Zhiyuan Cai",
       "Li Lin"
-    ]
+    ],
+    "titleZh": "Uni4Eye：以掩码图像建模 Transformer 统一二维与三维眼科影像分类的自监督预训练"
   },
   {
     "id": "scholar-14",
@@ -956,6 +1481,17 @@
     "code": "https://github.com/lkpengcs/DCDA",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "基于解耦表征风格迁移与协同一致性学习的跨模态视网膜血管分割无监督域适配",
+    "keywords": [
+      "Unsupervised Domain Adaptation",
+      "Disentangled Style Transfer",
+      "Cross-Modality Segmentation"
+    ],
+    "keywordsZh": [
+      "无监督域适配",
+      "解耦风格迁移",
+      "跨模态分割"
     ]
   },
   {
@@ -969,7 +1505,18 @@
     "status": "preprint",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:ZeXyd9-uunAC",
     "desc": "MAF-Net jointly synthesizes contrast-enhanced MRI and segments gliomas from routine MRI sequences. Patch-level contrastive learning structures the shared latent space, while modality-level attention weights each available source before fusion. The preprint evaluates both synthesis and segmentation on BraTS 2020.",
-    "zh": "MAF-Net 将常规 MRI 序列到对比增强影像的合成与胶质瘤分割联合建模。图块级对比学习约束潜在表征，模态级注意力为各序列分配融合权重。预印本在 BraTS 2020 上同时评估了合成和分割。"
+    "zh": "MAF-Net 将常规 MRI 序列到对比增强影像的合成与胶质瘤分割联合建模。图块级对比学习约束潜在表征，模态级注意力为各序列分配融合权重。预印本在 BraTS 2020 上同时评估了合成和分割。",
+    "titleZh": "基于缺失模态合成与模态级注意力融合的多模态脑肿瘤分割",
+    "keywords": [
+      "Missing-Modality Synthesis",
+      "Modality-Level Attention",
+      "Brain Tumor Segmentation"
+    ],
+    "keywordsZh": [
+      "缺失模态合成",
+      "模态级注意力",
+      "脑肿瘤分割"
+    ]
   },
   {
     "id": "scholar-35",
@@ -984,7 +1531,18 @@
     "role": "First author",
     "roleZh": "第一作者",
     "desc": "This pipeline pairs image synthesis with enhancement to address unreliable labels and uneven illumination in corneal confocal microscopy. Multilayer patch contrastive learning supplies anatomically consistent training examples for corneal nerve segmentation, evaluated on two public datasets.",
-    "zh": "该流程结合影像合成与质量增强，处理角膜共聚焦显微图像中的标注误差与照明不均。多层图块对比学习用于构造神经分割训练样本，研究在两个公开数据集上检验其效果。"
+    "zh": "该流程结合影像合成与质量增强，处理角膜共聚焦显微图像中的标注误差与照明不均。多层图块对比学习用于构造神经分割训练样本，研究在两个公开数据集上检验其效果。",
+    "titleZh": "基于对比学习合成与质量增强的共聚焦显微图像角膜神经自动分割",
+    "keywords": [
+      "Contrastive Image Synthesis",
+      "Confocal Microscopy",
+      "Corneal Nerve Segmentation"
+    ],
+    "keywordsZh": [
+      "对比图像合成",
+      "共聚焦显微成像",
+      "角膜神经分割"
+    ]
   },
   {
     "id": "bsdanet",
@@ -998,12 +1556,21 @@
     "desc": "BSDA-Net learns the geometry of the foveal avascular zone by regressing boundary heatmaps and reconstructing signed distance maps alongside segmentation. A hierarchical fusion module passes the resulting structural features to a diagnostic classifier, linking geometric delineation with classification.",
     "zh": "BSDA-Net 在黄斑中心凹无血管区分割之外，联合回归边界热图和重建有符号距离图，以学习其几何形态。分层融合将结构表征传递给诊断分类器，使几何勾画与疾病判别共享信息。",
     "preprint": "https://arxiv.org/abs/2107.04823",
-    "keywords": "Ophthalmic Imaging",
-    "keywordsZh": "眼科影像",
+    "keywords": [
+      "Geometry-Aware Learning",
+      "Joint Segmentation and Classification",
+      "OCT Angiography"
+    ],
+    "keywordsZh": [
+      "几何感知学习",
+      "联合分割与分类",
+      "光学相干断层血管成像"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:hMod-77fHWUC",
     "role": "First author",
-    "roleZh": "第一作者"
+    "roleZh": "第一作者",
+    "titleZh": "BSDA-Net：基于边界形状与距离感知的 OCTA 图像分割和分类联合学习框架"
   },
   {
     "id": "scholar-8",
@@ -1018,7 +1585,18 @@
     "desc": "FARGO treats retinal vessels as anatomical context for delineating the foveal avascular zone in en face OCT angiograms. A separate coarse-to-fine vessel branch refines small and low-contrast structures using spatial and channel attention.",
     "zh": "FARGO 在正面投影的 OCT 血管影像中，以视网膜血管作为分割黄斑中心凹无血管区的解剖上下文。独立的粗到细血管分支利用空间和通道注意力细化细小、低对比度的结构。",
     "role": "Joint first author",
-    "roleZh": "共同第一作者"
+    "roleZh": "共同第一作者",
+    "titleZh": "FARGO：OCTA 图像的黄斑中心凹无血管区与视网膜血管联合分割框架",
+    "keywords": [
+      "Multi-Task Segmentation",
+      "Anatomical Context",
+      "OCT Angiography"
+    ],
+    "keywordsZh": [
+      "多任务分割",
+      "解剖上下文",
+      "光学相干断层血管成像"
+    ]
   },
   {
     "id": "scholar-69",
@@ -1031,7 +1609,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:4DMP91E08xMC",
     "desc": "This study links liver vessel segmentation to quantitative topology. A dual-attention U-Net trained adversarially produces vessel masks, which are skeletonized and analyzed by branch length and bifurcation order.",
-    "zh": "该研究将肝血管分割延伸到定量拓扑分析。采用对抗训练的双注意力 U-Net 生成血管掩码，再对血管骨架计算分支长度与分叉级次。"
+    "zh": "该研究将肝血管分割延伸到定量拓扑分析。采用对抗训练的双注意力 U-Net 生成血管掩码，再对血管骨架计算分支长度与分叉级次。",
+    "titleZh": "基于双重注意力的生成对抗训练用于血管分割与拓扑分析",
+    "keywords": [
+      "Adversarial Learning",
+      "Dual Attention",
+      "Vascular Topology Analysis"
+    ],
+    "keywordsZh": [
+      "对抗学习",
+      "双重注意力",
+      "血管拓扑分析"
+    ]
   },
   {
     "id": "scholar-7",
@@ -1044,7 +1633,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:4TOpqqG69KYC",
     "desc": "I-SECRET learns fundus image enhancement by combining paired synthetic degradations with unpaired clinical images. A pixelwise importance estimator guides supervised reconstruction and contrastive learning in the two branches.",
-    "zh": "I-SECRET 联合利用合成退化配对与未配对真实眼底照进行影像增强。像素级重要性估计分别引导两条分支中的监督重建与对比学习。"
+    "zh": "I-SECRET 联合利用合成退化配对与未配对真实眼底照进行影像增强。像素级重要性估计分别引导两条分支中的监督重建与对比学习。",
+    "titleZh": "I-SECRET：基于半监督对比约束的重要性感知眼底图像增强",
+    "keywords": [
+      "Semi-Supervised Learning",
+      "Importance-Guided Contrastive Learning",
+      "Fundus Image Enhancement"
+    ],
+    "keywordsZh": [
+      "半监督学习",
+      "重要性引导对比学习",
+      "眼底图像增强"
+    ]
   },
   {
     "id": "scholar-6",
@@ -1057,7 +1657,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:_kc_bZDykSQC",
     "desc": "This study uses lesion-centered patches as inputs to self-supervised contrastive learning, encouraging representations sensitive to small pathological features for diabetic retinopathy grading. Linear probing and transfer experiments on EyePACS assess the learned features.",
-    "zh": "该研究使用以病灶为中心的图块进行自监督对比学习，使表征对糖尿病视网膜病变分级所需的微小病理信号更敏感，并通过 EyePACS 上的线性评估与迁移实验检验所得特征。"
+    "zh": "该研究使用以病灶为中心的图块进行自监督对比学习，使表征对糖尿病视网膜病变分级所需的微小病理信号更敏感，并通过 EyePACS 上的线性评估与迁移实验检验所得特征。",
+    "titleZh": "基于病灶对比学习的眼底图像糖尿病视网膜病变分级",
+    "keywords": [
+      "Self-Supervised Contrastive Learning",
+      "Lesion-Aware Representations",
+      "Diabetic Retinopathy Grading"
+    ],
+    "keywordsZh": [
+      "自监督对比学习",
+      "病灶感知表征",
+      "糖尿病视网膜病变分级"
+    ]
   },
   {
     "id": "scholar-34",
@@ -1072,7 +1683,18 @@
     "desc": "This OCT angiography study shares an encoder between foveal avascular zone segmentation and three-way classification. Evaluation on FAZID tests whether anatomical features learned from segmentation help distinguish normal, diabetic, and myopic eyes.",
     "zh": "该研究在 OCT 血管成像中共享无血管区分割与三分类的编码器，并在 FAZID 上检验分割获得的解剖表征能否辅助区分正常、糖尿病与近视眼。",
     "role": "Joint first author",
-    "roleZh": "共同第一作者"
+    "roleZh": "共同第一作者",
+    "titleZh": "基于 OCTA 图像的眼病鉴别与黄斑中心凹无血管区分割多任务学习",
+    "keywords": [
+      "Multi-Task Learning",
+      "Foveal Avascular Zone Segmentation",
+      "OCT Angiography"
+    ],
+    "keywordsZh": [
+      "多任务学习",
+      "黄斑中心凹无血管区分割",
+      "光学相干断层血管成像"
+    ]
   },
   {
     "id": "scholar-23",
@@ -1088,6 +1710,17 @@
     "zh": "EPC-GAN 通过图块级对比式转换，从未配对的眼底图像中学习质量增强。眼底结构先验限制血管、视盘视杯及病灶被改动，同时允许模型校正光照和对比度。",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "基于对比学习的先验引导眼底图像质量增强",
+    "keywords": [
+      "Unpaired Image Translation",
+      "Patch Contrastive Learning",
+      "Fundus Image Enhancement"
+    ],
+    "keywordsZh": [
+      "非配对图像转换",
+      "图块对比学习",
+      "眼底图像增强"
     ]
   },
   {
@@ -1101,7 +1734,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:HDshCWvjkbEC",
     "desc": "The Lesion Guided Network refines coarse lesion maps before fusing them with fundus photographs for image-level diabetic retinopathy classification. On a dataset of 4,465 photographs, this refinement was evaluated against using the coarse maps directly and against an image-only classifier.",
-    "zh": "病灶引导网络先细化由粗标注检测器产生的病灶图，再将其与原始眼底照片融合，判别整幅影像是否存在糖尿病视网膜病变。研究以 4,465 张眼底照片构建数据集，对比了使用细化病灶图、直接使用粗病灶图和仅使用原图三种方案。"
+    "zh": "病灶引导网络先细化由粗标注检测器产生的病灶图，再将其与原始眼底照片融合，判别整幅影像是否存在糖尿病视网膜病变。研究以 4,465 张眼底照片构建数据集，对比了使用细化病灶图、直接使用粗病灶图和仅使用原图三种方案。",
+    "titleZh": "基于病灶引导网络的糖尿病视网膜病变自动识别",
+    "keywords": [
+      "Lesion Map Refinement",
+      "Lesion-Guided Feature Fusion",
+      "Diabetic Retinopathy Identification"
+    ],
+    "keywordsZh": [
+      "病灶图细化",
+      "病灶引导特征融合",
+      "糖尿病视网膜病变识别"
+    ]
   },
   {
     "id": "scholar-11",
@@ -1119,12 +1763,23 @@
     "zh": "该方法针对眼底出血粗标注中的定位误差，先用边界框回归网络细化人工框，再以带标签平滑的 RetinaNet 学习出血病灶检测。",
     "correspondingAuthors": [
       "Xiaoying Tang"
+    ],
+    "titleZh": "基于粗标注眼底图像的糖尿病视网膜病变出血灶自动检测",
+    "keywords": [
+      "Weak Annotations",
+      "Bounding-Box Refinement",
+      "Hemorrhage Detection"
+    ],
+    "keywordsZh": [
+      "弱标注",
+      "边界框细化",
+      "出血灶检测"
     ]
   },
   {
     "id": "scholar-25",
     "year": 2020,
-    "title": "Blu-gan: Bi-directional convlstm u-net with generative adversarial training for retinal vessel segmentation",
+    "title": "BLU-GAN: Bi-directional ConvLSTM U-Net with Generative Adversarial Training for Retinal Vessel Segmentation",
     "authors": "Li Lin, Jiewei Wu, Pujin Cheng, Kai Wang, Xiaoying Tang",
     "venue": "BenchCouncil IFCIB",
     "url": "https://doi.org/10.1007/978-981-16-1160-5_1",
@@ -1134,7 +1789,18 @@
     "role": "First author",
     "roleZh": "第一作者",
     "desc": "BLU-GAN replaces U-Net's direct skip connections with bidirectional convolutional LSTM units that integrate features across scales. Adversarial training and dense feature reuse complement the recurrent design for fundus vessel delineation.",
-    "zh": "BLU-GAN 用双向卷积 LSTM 代替 U-Net 的直接跳跃连接，在不同尺度间融合特征，并结合对抗训练与密集特征复用进行眼底血管分割。"
+    "zh": "BLU-GAN 用双向卷积 LSTM 代替 U-Net 的直接跳跃连接，在不同尺度间融合特征，并结合对抗训练与密集特征复用进行眼底血管分割。",
+    "titleZh": "BLU-GAN：结合双向 ConvLSTM U-Net 与生成对抗训练的视网膜血管分割",
+    "keywords": [
+      "Bidirectional ConvLSTM",
+      "Adversarial Learning",
+      "Retinal Vessel Segmentation"
+    ],
+    "keywordsZh": [
+      "双向卷积长短期记忆网络",
+      "对抗学习",
+      "视网膜血管分割"
+    ]
   },
   {
     "id": "scholar-55",
@@ -1147,7 +1813,18 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:ULOm3_A8WrAC",
     "desc": "This glioma study extracts morphological descriptors from segmented tumor subregions and uses feature selection before fitting a linear survival model. It examines how imaging-derived measurements can support survival estimation.",
-    "zh": "该研究从胶质瘤各分割亚区提取形态特征，经特征筛选后拟合线性生存预测模型，考察影像量化指标在生存时间估计中的作用。"
+    "zh": "该研究从胶质瘤各分割亚区提取形态特征，经特征筛选后拟合线性生存预测模型，考察影像量化指标在生存时间估计中的作用。",
+    "titleZh": "基于特征选择与线性回归的胶质瘤生存期预测",
+    "keywords": [
+      "Tumor Morphology",
+      "Feature Selection",
+      "Survival Prediction"
+    ],
+    "keywordsZh": [
+      "肿瘤形态特征",
+      "特征选择",
+      "生存期预测"
+    ]
   },
   {
     "id": "sustech-sysu",
@@ -1161,8 +1838,16 @@
     "desc": "This dataset provides 1,219 fundus photographs annotated for exudates, optic disc location, and the foveal center, with diabetic retinopathy grades from three protocols. The shared annotations support lesion identification, landmark localization, and comparisons across grading conventions.",
     "zh": "该数据集开放 1,219 张眼底照，提供渗出病灶、视盘与黄斑中心的标注，以及三种协议下的糖尿病视网膜病变等级。数据可用于病灶识别、解剖标志定位及跨分级协议比较。",
     "data": "https://doi.org/10.6084/m9.figshare.12570770.v1",
-    "keywords": "Ophthalmic Imaging",
-    "keywordsZh": "眼科影像",
+    "keywords": [
+      "Dataset Curation",
+      "Exudate Detection",
+      "Multi-Protocol Retinopathy Grading"
+    ],
+    "keywordsZh": [
+      "数据集构建",
+      "渗出灶检测",
+      "多标准视网膜病变分级"
+    ],
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:d1gkVwhDpl0C",
     "role": "First author",
@@ -1175,19 +1860,32 @@
     "correspondingAuthors": [
       "Jin Yuan",
       "Xiaoying Tang"
-    ]
+    ],
+    "titleZh": "用于自动渗出灶检测与糖尿病视网膜病变分级的 SUSTech–SYSU 数据集"
   },
   {
     "id": "scholar-44",
     "year": 2017,
     "title": "Pilot design for channel estimation in a long-tap faster-than-Nyquist signaling transmission",
     "authors": "Shan Gao, Li Lin, Yueyu Lin, Han Zhang, Daru Pan",
-    "venue": "2017 IEEE 17th International Conference on Communication Technology (ICCT)",
+    "venue": "17th IEEE International Conference on Communication Technology (ICCT)",
     "url": "https://doi.org/10.1109/icct.2017.8359642",
     "linkType": "paper",
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:u-x6o8ySG0sC",
     "desc": "This work designs pilots for channel estimation in faster-than-Nyquist transmission with long intersymbol interference. An additional cyclic prefix yields an approximately circulant interference model, enabling frequency-domain estimation with fast Fourier transforms and a low pilot ratio.",
-    "zh": "该研究面向码间干扰记忆较长的超奈奎斯特传输设计导频。额外的循环前缀使干扰可近似为循环矩阵，从而用快速傅里叶变换进行低导频比例的频域信道估计。"
+    "zh": "该研究面向码间干扰记忆较长的超奈奎斯特传输设计导频。额外的循环前缀使干扰可近似为循环矩阵，从而用快速傅里叶变换进行低导频比例的频域信道估计。",
+    "titleZh": "面向长抽头超奈奎斯特信号传输的信道估计导频设计",
+    "keywords": [
+      "Faster-than-Nyquist Signaling",
+      "Cyclic Prefix",
+      "Frequency-Domain Channel Estimation"
+    ],
+    "keywordsZh": [
+      "超奈奎斯特信号传输",
+      "循环前缀",
+      "频域信道估计"
+    ],
+    "venueZh": "第 17 届 IEEE 国际通信技术会议（ICCT）"
   }
 ]

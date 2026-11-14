@@ -118,7 +118,9 @@
   const empty = document.querySelector('#empty');
   const groups = [...document.querySelectorAll('#pub-index .pub-group')];
   const normalize = (s) => s.normalize('NFKC').toLocaleLowerCase();
-  const sections = groups.map(el => ({el, rows:[...el.querySelectorAll('.pub-row')].map(row=>({row,text:normalize(row.textContent)}))}));
+  const sections = groups.map(el => ({el, rows:[...el.querySelectorAll('.pub-row')].map(row=>({
+    row, text: normalize(`${row.textContent} ${row.dataset.originalTitle || ''}`)
+  }))}));
   function filter(){
     const query = normalize(name.value).trim().split(/\s+/u).filter(Boolean);
     let total = 0;
