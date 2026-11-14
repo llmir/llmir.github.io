@@ -1,15 +1,16 @@
 # Li Lin Academic Homepage
 
-A bilingual academic homepage and chronological publication index for GitHub Pages. The visual reference is [Xi Xiao](https://xixiaouab.github.io/).
+A three-language academic homepage and chronological publication index for GitHub Pages. The visual reference is [Xi Xiao](https://xixiaouab.github.io/).
 
-- English homepage: `site/index.html`. 中文主页：`site/zh.html`。
-- Public academic CV in `site/cv.html` and `site/cv-zh.html`. It includes the research timeline, doctoral methods, patents, publication years, and open research.
+- Homepages: `site/index.html`, `site/zh.html` (简体), and `site/zh-hant.html` (繁體).
+- The publication index and public academic CV use the same language choices. The CV includes the research timeline, doctoral methods, patents, publication years, and open research.
 - 论文目录按年份归档，支持搜索；近期论文和完整目录使用同一份数据。
 - 正式论文的缩略图来自出版方或官方会议论文集。预印本使用相应版本的原文图。图号、版次、来源和许可信息见 `content/figures.json`。待配图的条目保留简介和原文链接。
 
 ## Preview
 
 ```sh
+python3 -m pip install -r requirements.txt
 python3 scripts/build.py --preview
 python3 scripts/check.py
 python3 -m http.server 8000 --bind 127.0.0.1 --directory site
@@ -36,7 +37,7 @@ See [GitHub Pages publishing source](https://docs.github.com/en/pages/getting-st
 }
 ```
 
-Use the two public identifiers from the widget embed. Each of the six pages requests the widget once per page load. On the homepages, the map reports pageviews for the period shown. On the CV and publication index pages, the same image loads as a tracking pixel. The statistics page shows visits, total pageviews and approximate locations. [MapMyVisitors HTML setup](https://mapmyvisitors.com/learn/tools/add-visitor-map-html/).
+Use the two public identifiers from the widget embed. Each page requests it once. On the homepages, the map links to MapMyVisitors and the three counts show the total, today, and the previous seven complete days. GitHub Actions refreshes these pageview counts every six hours when the provider is available. The map updates separately through the live widget. [MapMyVisitors HTML setup](https://mapmyvisitors.com/learn/tools/add-visitor-map-html/).
 
 After deployment, open the site on its public hostname and check the statistics page for a test visit. If the image fails to load, the homepage shows the basemap and keeps the statistics link available. The provider estimates locations from visitor IP addresses and describes its data handling in its [privacy policy](https://mapmyvisitors.com/b/policy).
 

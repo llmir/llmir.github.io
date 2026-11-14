@@ -6,11 +6,13 @@ import argparse,json,re
 
 import academic_cv
 import homepage
+from localize import LANGUAGES, localize
 
 ROOT=Path(__file__).resolve().parents[1]
 CONTENT,SITE=ROOT/'content',ROOT/'site'
 cli=argparse.ArgumentParser()
 cli.add_argument('--preview',action='store_true',help='write local noindex preview; keep analytics off')
+cli.add_argument('--visitor-stats',type=Path,default=CONTENT/'visitor-stats.json',help='read a MapMyVisitors aggregate snapshot')
 args=cli.parse_args()
 
 def load(name):
@@ -31,6 +33,11 @@ def visitor_links():
             f'https://mapmyvisitors.com/web/{stats_id}')
 
 visitors = visitor_links()
+visitor_totals = {}
+if visitors and args.visitor_stats.is_file():
+    snapshot = json.loads(args.visitor_stats.read_text(encoding='utf8'))
+    if snapshot.get('statsId') == p['visitors']['statsId']:
+        visitor_totals = snapshot
 visitor_privacy = 'https://mapmyvisitors.com/b/policy'
 date=s['asOf']
 year=int(date[:4])
@@ -81,17 +88,26 @@ def author_credit(paper, zh):
     labels=[('first' if paper.get('role')=='First author' else 'joint',role),('correspondence',correspondence)]
     return ''.join(f' <span class="contrib {css}">{e(label)}</span>' for css,label in labels if label)
 
-def header(zh,page='home'):
+def header(language,page='home'):
+    zh = language != 'en'
     L=lambda x,y:y if zh else x
-    home=L('index.html','zh.html')
-    cv=L('cv.html','cv-zh.html')
-    en,cn={'home':('index.html','zh.html'),'archive':('publications.html','publications-zh.html'),'cv':('cv.html','cv-zh.html')}[page]
-    file=L(en,cn)
-    canonical=p['site']+(file if file!='index.html' else '')
+    _, home, _, cv = LANGUAGES[language]
+    column = {'home':1,'archive':2,'cv':3}[page]
+    page_urls = {code: routes[column] for code, routes in LANGUAGES.items()}
+    canonical = p['site'] + page_urls[language].removeprefix('index.html')
+    alternate = '\n'.join(
+        f'<link rel="alternate" hreflang="{code}" href="{e(p["site"] + file.removeprefix("index.html"))}">'
+        for code, file in page_urls.items()
+    )
+    language_links = []
+    for code, (name, *_) in LANGUAGES.items():
+        selected = ' aria-current="true"' if code == language else ''
+        language_links.append(f'<li><a data-language-option href="{page_urls[code]}" hreflang="{code}" lang="{code}"{selected}>{name}</a></li>')
+    language_menu = '\n'.join(language_links)
     index='' if page=='home' else home
     ttl=L('Li Lin','林立 Li Lin')+{'home':'','archive':' · '+L('Publications','论文目录'),'cv':' · '+L('Academic CV','学术简历')}[page]
     return f'''<!doctype html>
-<html lang="{L('en','zh-CN')}">
+<html lang="{language}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,8 +115,7 @@ def header(zh,page='home'):
 <meta name="referrer" content="strict-origin-when-cross-origin">
 {'<meta name="robots" content="noindex,nofollow">' if args.preview else ''}
 <link rel="canonical" href="{e(canonical)}">
-<link rel="alternate" hreflang="en" href="{e(p['site']+(en if en!='index.html' else ''))}">
-<link rel="alternate" hreflang="zh-CN" href="{e(p['site']+cn)}">
+{alternate}
 <title>{ttl}</title>
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -124,8 +139,7 @@ def header(zh,page='home'):
 {L('Language','语言')}<span class="language-chevron" aria-hidden="true"></span>
 </summary>
 <ul aria-label="{L('Available languages','可用语言')}">
-<li><a data-language-option href="{en}" hreflang="en" lang="en"{' aria-current="true"' if not zh else ''}>English</a></li>
-<li><a data-language-option href="{cn}" hreflang="zh-CN" lang="zh-CN"{' aria-current="true"' if zh else ''}>简体中文</a></li>
+{language_menu}
 </ul></details></div></header>'''
 
 def footer(zh, track_visit=False):
@@ -223,18 +237,27 @@ def stats(zh):
     L=lambda x,y:y if zh else x
     basemap=f'<img src="assets/visitor-world.svg" width="804" height="367" alt="{L("World map","世界地图")}">'
     fallback=f'<div class="visitor-off" data-visitor-fallback{" hidden" if visitors else ""}>{basemap}</div>'
+    totals = visitor_totals if visitors else {}
+    view_metrics = (
+        ('total', L('Total views', '累计浏览量')),
+        ('today', L('Today', '今日浏览量')),
+        ('last7', L('Prior 7 days', '前 7 天')),
+    )
+    metric_date = totals.get('asOf')
+    as_of = f' title="{e(L("Updated from MapMyVisitors", "更新自 MapMyVisitors") + " · " + metric_date)}"' if metric_date else ''
+    metrics = f'<dl class="visitor-metrics"{as_of}>' + ''.join(
+        f'<div><dt>{label}</dt><dd><strong>{f"{totals[key]:,}" if key in totals else "—"}</strong></dd></div>'
+        for key, label in view_metrics
+    ) + '</dl>'
     if visitors:
         map_url,detail=visitors
-        mapbody=f'''<a class="visitor-image" data-visitor-widget href="{detail}"><img src="{e(map_url + '&w=420')}" width="420" height="229" loading="eager" fetchpriority="low" alt="{L('Red-dot visitor world map and pageview count','红点访客世界地图及页面浏览量')}"></a>
+        mapbody=f'''<a class="visitor-image" data-visitor-widget href="{detail}" aria-label="{L('Open visitor statistics on MapMyVisitors','在 MapMyVisitors 查看访客统计')}"><img src="{e(map_url + '&w=420')}" width="420" height="229" loading="eager" fetchpriority="low" alt="{L('Red-dot visitor world map and pageview count','红点访客世界地图及页面浏览量')}"></a>
 {fallback}<p class="map-status" data-visitor-unavailable hidden>{L('Visitor map unavailable','访客地图暂不可用')}</p>
-<p class="map-note">{a(detail,L('Visitor Map','访客地图'))} · {L('Approximate locations from IP addresses','地理位置为 IP 估算')} · {a(visitor_privacy,L('Privacy','隐私说明'))}</p>'''
+{metrics}'''
     else:
-        mapbody=f'''{fallback}<div class="visitor-metrics">
-<div><span>{L('Visits','访问次数')}</span><strong>—</strong></div>
-<div><span>{L('Pageviews','页面浏览量')}</span><strong>—</strong></div>
-<p>{L('Visitor Map','访客地图')}</p></div>'''
+        mapbody=f'{fallback}{metrics}'
     entries=s['yearly']; xmax=max(100,100*((max(v for _,v in entries)+99)//100))
-    bar=''.join(f'<div><span>{v}</span><div class="chart-well"><i class="{"partial" if y==s["partialYear"] else ""}" style="height:{100*v/xmax:.2f}%"></i></div><span>{y}{"*" if y==s["partialYear"] else ""}</span></div>' for y,v in entries)
+    bar=''.join(f'<div><span>{v}</span><div class="chart-well"><i class="{"partial" if y==s["partialYear"] else ""}" style="height:{100*v/xmax:.2f}%"></i></div><span>{y}</span></div>' for y,v in entries)
     accessible=', '.join(f'{y}: {v}' for y,v in entries)
     statrow=''.join(f'<div><strong>{n}</strong><span>{label}</span></div>' for n,label in [(s['hIndex'],L('h-index','h 指数')),(s['i10Index'],L('i10-index','i10 指数')),(s['indexedRecords'],L('Scholar records','收录条目'))])
     return f'''<aside class="stats-section" id="Contact" aria-label="{L('Citation and visitor statistics','引用与访客统计')}">
@@ -243,32 +266,33 @@ def stats(zh):
 <div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span><time datetime="{date}">{date}</time></div>
 <div class="scholar-total"><strong>{s['citations']:,}</strong><span>{L('TOTAL CITATIONS','总被引次数')}</span></div>
 <div class="scholar-metrics">{statrow}</div>
-<div class="scholar-chart"><p>{L('Citations by year','年度引用')}</p><div class="chart-bars" role="img" aria-label="{e(accessible)}">{bar}</div>
-<p class="chart-note">* {L('2026 through the snapshot date','2026 年数据截至上方日期')}</p></div>
+<div class="scholar-chart"><p>{L('Citations by year','年度引用')}</p><div class="chart-bars" role="img" aria-label="{e(accessible)}">{bar}</div></div>
 </section>
 <section class="visitor-card visitors" aria-label="{L('Visitor Map','访客地图')}">{mapbody}</section>
 </div></aside>'''
 
-def home(zh):
+def home(language):
+    zh = language != 'en'
     L=lambda x,y:y if zh else x
-    idx=L('publications.html','publications-zh.html')
+    _, _, idx, cv_url = LANGUAGES[language]
     recent=[w for w in papers if w['year']>=since]
     institution=catl_zh if zh else catl
-    return header(zh)+f'''<main id="main">
-{homepage.intro(zh,p)}
+    return header(language)+f'''<main id="main">
+{homepage.intro(zh,p,cv_url)}
 {homepage.biography(zh,thesis,p['primaryEmail'],stats(zh))}
 {homepage.news(zh,institution,thesis)}
-{homepage.experience(zh,L('cv.html','cv-zh.html'))}
+{homepage.experience(zh,cv_url)}
 <section class="container section publications" aria-labelledby="Publications">
 <div class="section-title"><h2 id="Publications">{L('Publications','学术论文')}</h2><div>{a(idx,L('Full publication index','完整论文目录'))} <span>·</span> {a(p['scholar'],'Google Scholar')}</div></div>
 <p class="section-note">{L(f'{since}–{year}',f'{since}–{year} 年')}</p>
 {rows(recent,zh)}<p class="all-pubs">{a(idx,L('All years and preprints','查看全部年份和预印本'))} →</p></section>
 {homepage.peer_review(zh,review_venues,venue_metric,venue_metrics)}
-</main>{footer(zh)}'''
+</main>{homepage.wechat_dialog(zh,p)}{footer(zh)}'''
 
-def archive(zh):
+def archive(language):
+    zh = language != 'en'
     L=lambda x,y:y if zh else x
-    return header(zh,'archive')+f'''<main id="main" class="container archive">
+    return header(language,'archive')+f'''<main id="main" class="container archive">
 <div class="section-title"><h1>{L('Publication Index','完整论文目录')}</h1><div>{a(p['scholar'],'Google Scholar')} <span>·</span> {a(dblp,'DBLP')}</div></div>
 <p class="section-note">{L('Journal articles, conference papers and preprints, organized by year. Venue metrics link to their sources.','按年份收录期刊论文、会议论文和预印本。期刊影响因子和会议评级均链接至数据来源。')}</p>
 <div id="filters" class="filters" hidden>
@@ -280,11 +304,16 @@ def archive(zh):
 <p id="empty" hidden>{L('No publications match your search.','没有符合条件的论文。')}</p>
 </main>{footer(zh, track_visit=True)}'''
 
-def cv(zh):
-    return academic_cv.render(zh, p, papers, load('patents'), thesis,
-                              header, footer, a, e, author_line, author_credit, venue_metric)
+def cv(language):
+    return academic_cv.render(language != 'en', p, papers, load('patents'), thesis,
+                              header(language, 'cv'), footer, a, e,
+                              author_line, author_credit, venue_metric, LANGUAGES[language][2])
 
 if __name__=='__main__':
-    for name,html in [('index',home(False)),('zh',home(True)),('publications',archive(False)),('publications-zh',archive(True)),('cv',cv(False)),('cv-zh',cv(True))]:
-        (SITE/(name+'.html')).write_text(html+'\n',encoding='utf8')
+    for language, (_, *pages) in LANGUAGES.items():
+        for name, render in zip(pages, (home, archive, cv), strict=True):
+            html = render(language)
+            if language == 'zh-Hant':
+                html = localize(html).replace('<h3 lang="zh-CN">', '<h3 lang="zh-Hant">')
+            (SITE/name).write_text(html+'\n',encoding='utf8')
     (SITE/'scholar.json').write_text(json.dumps(s,indent=2,ensure_ascii=False)+'\n',encoding='utf8')

@@ -3,13 +3,14 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import argparse, json
 from hashlib import sha256
+from localize import LANGUAGES
 
 root = Path(__file__).resolve().parents[1]
 site = root / "site"
 cli = argparse.ArgumentParser()
 cli.add_argument("--production", action="store_true")
 prod = cli.parse_args().production
-pages = ["index.html", "zh.html", "publications.html", "publications-zh.html", "cv.html", "cv-zh.html"]
+pages = {path: language for language, (_, *paths) in LANGUAGES.items() for path in paths}
 
 class Links(HTMLParser):
     def __init__(self):
@@ -26,8 +27,10 @@ class Links(HTMLParser):
     handle_startendtag = handle_starttag
 
 parsers = {}
-for name in pages:
+for name, language in pages.items():
     t = (site / name).read_text()
+    assert f'<html lang="{language}">' in t, name
+    assert t.count('data-language-option') == len(LANGUAGES), name
     l = Links()
     l.feed(t)
     assert not l.duplicates, (name, l.duplicates)

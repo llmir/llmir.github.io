@@ -55,6 +55,16 @@
       opener?.focus({preventScroll: true});
     });
   }
+  const wechat = document.querySelector('#wechat-dialog');
+  const wechatLink = document.querySelector('[data-wechat]');
+  if (wechat?.showModal && wechatLink) {
+    wechatLink.addEventListener('click', event => {
+      if (event.metaKey || event.altKey || event.shiftKey || event.ctrlKey) return;
+      event.preventDefault();
+      wechat.showModal();
+    });
+    wechat.addEventListener('close', () => wechatLink.focus({preventScroll: true}));
+  }
   const widget = document.querySelector('[data-visitor-widget]');
   if (widget) {
     const map = widget.querySelector('img');

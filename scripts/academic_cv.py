@@ -3,9 +3,8 @@
 from itertools import groupby
 
 
-def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_line, author_credit, venue_metric):
+def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_line, author_credit, venue_metric, idx):
     L = lambda en, cn: cn if zh else en
-    idx = L('publications.html', 'publications-zh.html')
     by_id = {paper['id']: paper for paper in papers}
 
     def work(key, label):
@@ -163,7 +162,7 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
     sections = {key: title for key, title in nav}
     local_nav = ''.join(a('#'+key, title) for key, title in nav)
     full_index = a(idx, L('Search all publications →', '搜索全部论文 →'))
-    return header(zh, 'cv') + f'''<main id="main" class="academic-cv">
+    return header + f'''<main id="main" class="academic-cv">
 <section class="cv-masthead" aria-labelledby="cv-name"><div class="container">
 <div class="cv-identity">
 <div><p class="cv-kicker">{L('Academic CV', '学术简历')}</p>

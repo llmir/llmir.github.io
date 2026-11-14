@@ -1,12 +1,13 @@
 """Biography, news, experience, and peer review on the bilingual homepage."""
 
 from html import escape
+import re
 
 
-def intro(zh, profile):
+def intro(zh, profile, cv_url):
     L = lambda en, cn: cn if zh else en
     profiles = (
-        ('cv', L('cv.html', 'cv-zh.html'), L('Academic CV', '学术简历')),
+        ('cv', cv_url, L('Academic CV', '学术简历')),
         ('scholar', profile['scholar'], 'Google Scholar'),
         ('github', profile['github'], 'GitHub'),
         ('orcid', profile['orcid'], 'ORCID'),
@@ -18,14 +19,16 @@ def intro(zh, profile):
         f'<use href="assets/profile-icons.svg#{icon}"></use></svg>{escape(label)}</a>'
         for icon, url, label in profiles
     )
+    if profile.get('wechatQr'):
+        links += f'<a href="{escape(profile["wechatQr"])}" data-wechat><svg class="profile-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="assets/profile-icons.svg#wechat"></use></svg>{L("WeChat", "微信")}</a>'
     emails = ' <span aria-hidden="true">·</span> '.join(
         f'<a href="mailto:{escape(address)}">{escape(address)}</a>'
         for address in (profile['primaryEmail'], profile['secondaryEmail'])
     )
     return f'''<section id="About" class="intro-band" aria-labelledby="name">
 <div class="container intro-grid">
-<img class="portrait" src="{escape(profile['portrait'])}" width="1300" height="1565"
-alt="{L('Li Lin', '林立的照片')}" fetchpriority="high">
+<div class="portrait-frame"><img class="portrait" src="{escape(profile['portrait'])}" width="1300" height="1565"
+alt="{L('Li Lin', '林立的照片')}" fetchpriority="high"></div>
 <div class="intro-text">
 <div class="identity"><h1 id="name">{L('Li Lin', '林立')} <span class="alternate-name"
 lang="{L('zh-CN', 'en')}">{L('林立', 'Li Lin')}</span></h1></div>
@@ -38,6 +41,18 @@ lang="{L('zh-CN', 'en')}">{L('林立', 'Li Lin')}</span></h1></div>
 <nav class="social-links" aria-label="{L('Academic profiles', '学术主页')}">{links}</nav>
 <p class="intro-interests">{L('AI for Healthcare · AI for Science · Computer Vision · Agentic AI · Recursive Self-Improvement (RSI)', '医疗人工智能 · 科学智能 · 计算机视觉 · 智能体 AI · 递归自我改进（RSI）')}</p>
 </div></div></section>'''
+
+
+def wechat_dialog(zh, profile):
+    if not profile.get('wechatQr'):
+        return ''
+    title = '微信' if zh else 'WeChat'
+    close = '关闭' if zh else 'Close'
+    instruction = '使用微信扫描二维码添加好友。' if zh else 'Scan this code in WeChat to connect.'
+    return f'''<dialog class="wechat-dialog" id="wechat-dialog" aria-labelledby="wechat-title">
+<div class="dialog-bar"><h2 id="wechat-title">{title}</h2><form method="dialog"><button autofocus>{close} <span aria-hidden="true">×</span></button></form></div>
+<div class="wechat-body"><img src="{escape(profile['wechatQr'])}" width="884" height="884" alt="{'微信二维码' if zh else 'WeChat contact QR code'}" loading="lazy" decoding="async"><p>{instruction}</p></div>
+</dialog>'''
 
 
 def biography(zh, thesis_url, email, sidebar):
@@ -132,10 +147,15 @@ def news(zh, affiliation_url, thesis_url):
          ' 从配对的医学影像与临床报告中学习可迁移表征，发表于 ICCV。'),
     )
 
+    venue_names = ('IEEE TMI', 'Information Fusion', 'npj Digital Medicine',
+                   'Medical Image Analysis', 'IEEE TPAMI', 'MICCAI', 'CVPR', 'ICCV')
+    venue_pattern = re.compile(r'(?<![A-Za-z])(' + '|'.join(map(re.escape, venue_names)) + r')(?![A-Za-z])')
+
     def timeline(items):
         content = ''.join(
             f'<li><time datetime="{date}">{date.replace("-", ".")}</time>'
-            f'<p><a href="{escape(url)}">{escape(title)}</a>{escape(L(en, cn))}</p></li>'
+            f'<p><a href="{escape(url)}">{escape(title)}</a>'
+            f'{venue_pattern.sub(r"<strong>\1</strong>", escape(L(en, cn)))}</p></li>'
             for date, url, title, en, cn in items
         )
         return f'<ul class="news-list">{content}</ul>'
