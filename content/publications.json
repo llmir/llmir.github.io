@@ -1444,7 +1444,6 @@
     "venue": "MICCAI",
     "url": "https://doi.org/10.1007/978-3-031-16452-1_9",
     "linkType": "paper",
-    "code": "https://github.com/Davidczy/Uni4Eye",
     "desc": "Uni4Eye uses a common patch embedding to pretrain a vision Transformer jointly on 2D ophthalmic images and 3D volumes. Reconstructing both masked image intensities and gradients supplies complementary supervision, with transfer evaluated on six classification tasks.",
     "zh": "Uni4Eye 通过共享图块嵌入，将二维眼科影像与三维体数据纳入同一视觉 Transformer 的自监督预训练。模型联合重建被遮盖的图像强度及其梯度，并在六项分类任务上评估迁移能力。",
     "keywords": [
