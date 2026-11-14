@@ -362,6 +362,38 @@
     "titleZh": "面向糖尿病视网膜病变治疗规划的多学科智能体框架"
   },
   {
+    "id": "diff4mmlits",
+    "year": 2026,
+    "title": "Diff4MMLiTS: Advanced Multimodal Liver Tumor Segmentation via Diffusion-Based Image Synthesis and Alignment",
+    "authors": "Shiyun Chen, Li Lin, Pujin Cheng, Zhicheng Jin, Jianjian Chen, Haidong Zhu, Kenneth K. Y. Wong, Xiaoying Tang",
+    "venue": "MLMI 2025 at MICCAI",
+    "url": "https://doi.org/10.1007/978-3-032-09513-8_64",
+    "linkType": "paper",
+    "status": "published",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:cFHS6HbyZ2cC",
+    "preprint": "https://arxiv.org/abs/2412.20418",
+    "role": "Joint first author",
+    "roleZh": "共同第一作者",
+    "keywords": [
+      "Mask-Conditioned Latent Diffusion",
+      "Cross-Phase Alignment",
+      "Liver Tumor Segmentation"
+    ],
+    "keywordsZh": [
+      "掩码条件潜空间扩散",
+      "跨期相配准",
+      "肝肿瘤分割"
+    ],
+    "desc": "Diff4MMLiTS constructs voxel-aligned liver tumor supervision for multiphase CT. It registers the liver at organ level, inpaints existing lesions, and uses mask-conditioned latent diffusion to insert a new tumor at a common location across phases for segmentation training.",
+    "zh": "Diff4MMLiTS 为多期相 CT 构造体素级对齐的肝肿瘤监督。该流程先作器官级配准并修复原病灶区域，再以掩码为条件进行潜空间扩散，在各期相对应位置合成新肿瘤，以训练分割模型。",
+    "equalAuthors": [
+      "Shiyun Chen",
+      "Li Lin"
+    ],
+    "titleZh": "Diff4MMLiTS：基于扩散图像合成与配准的多模态肝肿瘤分割",
+    "month": "2026-01"
+  },
+  {
     "id": "scholar-37",
     "year": 2025,
     "title": "Accurate and Anti‐Interference Control of Computer Vision‐Assisted Light‐Driven Liquid Crystal Elastomer Actuator",
@@ -409,37 +441,6 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:fPk4N6BV_jEC",
     "titleZh": "AniMer：基于科级分类感知 Transformer 的动物姿态与形状估计"
-  },
-  {
-    "id": "diff4mmlits",
-    "year": 2025,
-    "title": "Diff4MMLiTS: Advanced Multimodal Liver Tumor Segmentation via Diffusion-Based Image Synthesis and Alignment",
-    "authors": "Shiyun Chen, Li Lin, Pujin Cheng, Zhicheng Jin, Jianjian Chen, Haidong Zhu, Kenneth K. Y. Wong, Xiaoying Tang",
-    "venue": "MLMI at MICCAI",
-    "url": "https://doi.org/10.1007/978-3-032-09513-8_64",
-    "linkType": "paper",
-    "status": "published",
-    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:cFHS6HbyZ2cC",
-    "preprint": "https://arxiv.org/abs/2412.20418",
-    "role": "Joint first author",
-    "roleZh": "共同第一作者",
-    "keywords": [
-      "Mask-Conditioned Latent Diffusion",
-      "Cross-Phase Alignment",
-      "Liver Tumor Segmentation"
-    ],
-    "keywordsZh": [
-      "掩码条件潜空间扩散",
-      "跨期相配准",
-      "肝肿瘤分割"
-    ],
-    "desc": "Diff4MMLiTS constructs voxel-aligned liver tumor supervision for multiphase CT. It registers the liver at organ level, inpaints existing lesions, and uses mask-conditioned latent diffusion to insert a new tumor at a common location across phases for segmentation training.",
-    "zh": "Diff4MMLiTS 为多期相 CT 构造体素级对齐的肝肿瘤监督。该流程先作器官级配准并修复原病灶区域，再以掩码为条件进行潜空间扩散，在各期相对应位置合成新肿瘤，以训练分割模型。",
-    "equalAuthors": [
-      "Shiyun Chen",
-      "Li Lin"
-    ],
-    "titleZh": "Diff4MMLiTS：基于扩散图像合成与配准的多模态肝肿瘤分割"
   },
   {
     "id": "fedlppa",
@@ -1014,7 +1015,11 @@
     "zh": "pFedWSD 先通过循环蒸馏积累各站点的共性知识，再以批归一化统计量估计站点相似度，为各站点构建个性化教师。该框架同时处理机构间的数据分布差异与稀疏标注形式差异。",
     "titleZh": "相似度感知蒸馏的统一弱监督个性化联邦图像分割",
     "authorsZh": "潘建珊， 林立， 吴洁伟， 刘翼翔， 陈孝华， 林其友， 黄建业， 唐晓颖",
-    "venueZh": "中国图象图形学报"
+    "venueZh": "中国图象图形学报",
+    "correspondingAuthors": [
+      "Xiaoying Tang",
+      "唐晓颖"
+    ]
   },
   {
     "id": "scholar-49",
@@ -1330,7 +1335,7 @@
   {
     "id": "scholar-27",
     "year": 2022,
-    "title": "DS-Net: difficulty-perceived common-to-t1ce semi-supervised multimodal MRI synthesis network",
+    "title": "DS³-Net: Difficulty-Perceived Common-to-T1ce Semi-supervised Multimodal MRI Synthesis Network",
     "authors": "Ziqi Huang, Li Lin, Pujin Cheng, Kai Pan, Xiaoying Tang",
     "venue": "MICCAI",
     "url": "https://doi.org/10.1007/978-3-031-16446-0_54",
@@ -1339,7 +1344,7 @@
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:j3f4tGmQtD8C",
     "desc": "DS³-Net synthesizes contrast-enhanced T1 MRI by learning from paired and unpaired scans. A predicted difficulty map guides pixelwise and patchwise objectives toward hard-to-reconstruct regions. On BraTS 2020, the method remains competitive with fully paired translation methods using 5% paired data.",
     "zh": "DS³-Net 联合配对与未配对 MRI 合成对比增强 T1 序列，并用预测的难度图将像素级约束与图块级对比学习聚焦于难重建区域。在 BraTS 2020 上，仅使用 5% 配对数据时，其表现仍可与使用全部配对数据的方法相比。",
-    "titleZh": "DS³-Net：面向常规 MRI 至 T1 增强序列合成的难度感知半监督网络",
+    "titleZh": "DS³-Net：利用难度感知半监督学习从常规多模态 MRI 合成 T1 对比增强图像",
     "keywords": [
       "Difficulty-Aware Learning",
       "Semi-Supervised Synthesis",
@@ -1724,6 +1729,60 @@
     ]
   },
   {
+    "id": "scholar-25",
+    "year": 2021,
+    "title": "BLU-GAN: Bi-directional ConvLSTM U-Net with Generative Adversarial Training for Retinal Vessel Segmentation",
+    "authors": "Li Lin, Jiewei Wu, Pujin Cheng, Kai Wang, Xiaoying Tang",
+    "venue": "BenchCouncil FICC 2020",
+    "url": "https://doi.org/10.1007/978-981-16-1160-5_1",
+    "linkType": "paper",
+    "status": "published",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:qjMakFHDy7sC",
+    "role": "First author",
+    "roleZh": "第一作者",
+    "desc": "BLU-GAN replaces U-Net's direct skip connections with bidirectional convolutional LSTM units that integrate features across scales. Adversarial training and dense feature reuse complement the recurrent design for fundus vessel delineation.",
+    "zh": "BLU-GAN 用双向卷积 LSTM 代替 U-Net 的直接跳跃连接，在不同尺度间融合特征，并结合对抗训练与密集特征复用进行眼底血管分割。",
+    "titleZh": "BLU-GAN：结合双向 ConvLSTM U-Net 与生成对抗训练的视网膜血管分割",
+    "keywords": [
+      "Bidirectional ConvLSTM",
+      "Adversarial Learning",
+      "Retinal Vessel Segmentation"
+    ],
+    "keywordsZh": [
+      "双向卷积长短期记忆网络",
+      "对抗学习",
+      "视网膜血管分割"
+    ],
+    "correspondingAuthors": [
+      "Kai Wang",
+      "Xiaoying Tang"
+    ]
+  },
+  {
+    "id": "scholar-55",
+    "year": 2021,
+    "title": "Survival Prediction of Glioma Tumors Using Feature Selection and Linear Regression",
+    "authors": "Jiewei Wu, Yue Zhang, Weikai Huang, Li Lin, Kai Wang, Xiaoying Tang",
+    "venue": "BenchCouncil FICC 2020",
+    "url": "https://doi.org/10.1007/978-981-16-1160-5_8",
+    "linkType": "paper",
+    "status": "published",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:ULOm3_A8WrAC",
+    "desc": "This glioma study extracts morphological descriptors from segmented tumor subregions and uses feature selection before fitting a linear survival model. It examines how imaging-derived measurements can support survival estimation.",
+    "zh": "该研究从胶质瘤各分割亚区提取形态特征，经特征筛选后拟合线性生存预测模型，考察影像量化指标在生存时间估计中的作用。",
+    "titleZh": "基于特征选择与线性回归的胶质瘤生存期预测",
+    "keywords": [
+      "Tumor Morphology",
+      "Feature Selection",
+      "Survival Prediction"
+    ],
+    "keywordsZh": [
+      "肿瘤形态特征",
+      "特征选择",
+      "生存期预测"
+    ]
+  },
+  {
     "id": "scholar-43",
     "year": 2020,
     "title": "Automated Diabetic Retinopathy Identification via Lesion Guided Network",
@@ -1774,56 +1833,6 @@
       "弱标注",
       "边界框细化",
       "出血灶检测"
-    ]
-  },
-  {
-    "id": "scholar-25",
-    "year": 2020,
-    "title": "BLU-GAN: Bi-directional ConvLSTM U-Net with Generative Adversarial Training for Retinal Vessel Segmentation",
-    "authors": "Li Lin, Jiewei Wu, Pujin Cheng, Kai Wang, Xiaoying Tang",
-    "venue": "BenchCouncil IFCIB",
-    "url": "https://doi.org/10.1007/978-981-16-1160-5_1",
-    "linkType": "paper",
-    "status": "published",
-    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:qjMakFHDy7sC",
-    "role": "First author",
-    "roleZh": "第一作者",
-    "desc": "BLU-GAN replaces U-Net's direct skip connections with bidirectional convolutional LSTM units that integrate features across scales. Adversarial training and dense feature reuse complement the recurrent design for fundus vessel delineation.",
-    "zh": "BLU-GAN 用双向卷积 LSTM 代替 U-Net 的直接跳跃连接，在不同尺度间融合特征，并结合对抗训练与密集特征复用进行眼底血管分割。",
-    "titleZh": "BLU-GAN：结合双向 ConvLSTM U-Net 与生成对抗训练的视网膜血管分割",
-    "keywords": [
-      "Bidirectional ConvLSTM",
-      "Adversarial Learning",
-      "Retinal Vessel Segmentation"
-    ],
-    "keywordsZh": [
-      "双向卷积长短期记忆网络",
-      "对抗学习",
-      "视网膜血管分割"
-    ]
-  },
-  {
-    "id": "scholar-55",
-    "year": 2020,
-    "title": "Survival Prediction of Glioma Tumors Using Feature Selection and Linear Regression",
-    "authors": "Jiewei Wu, Yue Zhang, Weikai Huang, Li Lin, Kai Wang, Xiaoying Tang",
-    "venue": "BenchCouncil IFCIB",
-    "url": "https://doi.org/10.1007/978-981-16-1160-5_8",
-    "linkType": "paper",
-    "status": "published",
-    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:ULOm3_A8WrAC",
-    "desc": "This glioma study extracts morphological descriptors from segmented tumor subregions and uses feature selection before fitting a linear survival model. It examines how imaging-derived measurements can support survival estimation.",
-    "zh": "该研究从胶质瘤各分割亚区提取形态特征，经特征筛选后拟合线性生存预测模型，考察影像量化指标在生存时间估计中的作用。",
-    "titleZh": "基于特征选择与线性回归的胶质瘤生存期预测",
-    "keywords": [
-      "Tumor Morphology",
-      "Feature Selection",
-      "Survival Prediction"
-    ],
-    "keywordsZh": [
-      "肿瘤形态特征",
-      "特征选择",
-      "生存期预测"
     ]
   },
   {
