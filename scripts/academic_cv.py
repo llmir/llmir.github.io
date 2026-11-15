@@ -53,7 +53,8 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
                 L('Cross-domain generalization and adaptation', '跨域泛化与自适应'),
                 L('I studied how imaging models transfer across acquisition domains and annotation protocols. My work includes learned augmentation for unseen domains, complementary teachers for adaptation to multiple unlabeled targets, and anatomy-aware prompting for supervision at different levels of detail.',
                   '研究医学影像模型如何应对采集域和标注规范的变化，包括面向未见域的增强策略学习、面向多个未标注目标域的互补教师适配，以及跨标注粒度的解剖感知提示学习。'),
-                (work('scholar-2', 'AADG'), work('scholar-33', 'RVms'), work('unioctseg', 'UniOCTSeg'))),
+                (work('scholar-2', 'AADG'), work('scholar-33', 'RVms'),
+                 work('unioctseg', 'UniOCTSeg (MICCAI 2025)'), work('unioctsegplus', 'UniOCTSeg++ (IEEE TMI 2026)'))),
             topic(
                 L('Personalized federated learning across data silos', '数据孤岛下的个性化联邦学习'),
                 L('I developed personalized federated learning methods for institutions with heterogeneous imaging distributions and weak annotations. Site-aware representation learning, shared and local prompts, and adaptive aggregation or distillation let institutions share knowledge while retaining models suited to their own data.',
