@@ -1,29 +1,144 @@
 {
-  "Medical Image Analysis": ["JIF 14.0", 2025, "https://www.sciencedirect.com/journal/medical-image-analysis"],
-  "IEEE Transactions on Medical Imaging": ["JIF 12.4", 2025, "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=3"],
-  "IEEE Transactions on Image Processing": ["JIF 15.3", 2025, "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=2"],
-  "IEEE Transactions on Pattern Analysis and Machine Intelligence": ["JIF 20.4", 2025, "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=3"],
-  "IEEE Journal of Biomedical and Health Informatics": ["JIF 7.7", 2025, "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=2"],
-  "Information Fusion": ["JIF 17.4", 2025, "https://www.sciencedirect.com/journal/information-fusion"],
-  "Pattern Recognition": ["JIF 9.1", 2025, "https://www.sciencedirect.com/journal/pattern-recognition"],
-  "Neural Networks": ["JIF 7.2", 2025, "https://www.sciencedirect.com/journal/neural-networks"],
-  "Engineering Applications of Artificial Intelligence": ["JIF 9.0", 2025, "https://www.sciencedirect.com/browse/calls-for-papers?subject=computer-science"],
-  "Knowledge-Based Systems": ["JIF 8.0", 2025, "https://www.sciencedirect.com/journal/knowledge-based-systems"],
-  "Computers in Biology and Medicine": ["JIF 6.3", 2024, "https://www.library.sk/arl-sav/sk/detail-sav_un_epca-105108-Computers-in-Biology-and-Medicine/"],
-  "Computerized Medical Imaging and Graphics": ["JIF 5.5", 2025, "https://www.sciencedirect.com/journal/computerized-medical-imaging-and-graphics"],
-  "Artificial Intelligence in Medicine": ["JIF 7.8", 2025, "https://www.sciencedirect.com/journal/artificial-intelligence-in-medicine"],
-  "Neurocomputing": ["JIF 6.7", 2025, "https://www.sciencedirect.com/journal/neurocomputing"],
-  "Scientific Reports": ["JIF 4.9", 2025, "https://www.nature.com/srep/about"],
-  "npj Digital Medicine": ["JIF 18.0", 2025, "https://www.nature.com/npjdigitalmed/journal-impact"],
-  "Scientific Data": ["JIF 7.2", 2025, "https://www.nature.com/sdata/journal-impact"],
-  "Sensors": ["JIF 4.0", 2025, "https://www.mdpi.com/journal/sensors/history"],
-  "Diagnostics": ["JIF 3.8", 2025, "https://www.mdpi.com/journal/diagnostics/history"],
-  "Advanced Intelligent Systems": ["JIF 6.7", 2025, "https://onlinelibrary.wiley.com/journal/26404567"],
-  "Journal of Image and Graphics": ["CCF B / T2", 2025, "https://www.ccf.org.cn/ccftjgjxskwml/", "CCF B · 2019 Chinese journal catalog / CCF T2 · 2025 computing journal list"],
-  "CVPR": ["CCF A", 2026, "https://www.ccf.org.cn/Academic_Evaluation/AI/"],
-  "ICCV": ["CCF A", 2026, "https://www.ccf.org.cn/Academic_Evaluation/AI/"],
-  "AAAI": ["CCF A", 2026, "https://www.ccf.org.cn/Academic_Evaluation/AI/"],
-  "ACL": ["CCF A", 2026, "https://www.ccf.org.cn/Academic_Evaluation/AI/"],
-  "IEEE BIBM": ["CCF B", 2026, "https://www.ccf.org.cn/Academic_Evaluation/Cross_Compre_Emerging/"],
-  "MICCAI": ["CCF B", 2026, "https://www.ccf.org.cn/Academic_Evaluation/Cross_Compre_Emerging/"]
+  "Medical Image Analysis": [
+    "JIF 14.0",
+    2025,
+    "https://www.sciencedirect.com/journal/medical-image-analysis"
+  ],
+  "IEEE Transactions on Medical Imaging": [
+    "JIF 12.4",
+    2025,
+    "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=3"
+  ],
+  "IEEE Transactions on Image Processing": [
+    "JIF 15.3",
+    2025,
+    "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=2"
+  ],
+  "IEEE Transactions on Pattern Analysis and Machine Intelligence": [
+    "JIF 20.4",
+    2025,
+    "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=3"
+  ],
+  "IEEE Journal of Biomedical and Health Informatics": [
+    "JIF 7.7",
+    2025,
+    "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-September-2026-CAPES.pdf#page=2"
+  ],
+  "Information Fusion": [
+    "JIF 17.4",
+    2025,
+    "https://www.sciencedirect.com/journal/information-fusion"
+  ],
+  "Pattern Recognition": [
+    "JIF 9.1",
+    2025,
+    "https://www.sciencedirect.com/journal/pattern-recognition"
+  ],
+  "Neural Networks": [
+    "JIF 7.2",
+    2025,
+    "https://www.sciencedirect.com/journal/neural-networks"
+  ],
+  "Engineering Applications of Artificial Intelligence": [
+    "JIF 9.0",
+    2025,
+    "https://www.sciencedirect.com/browse/calls-for-papers?subject=computer-science"
+  ],
+  "Knowledge-Based Systems": [
+    "JIF 8.0",
+    2025,
+    "https://www.sciencedirect.com/journal/knowledge-based-systems"
+  ],
+  "Computers in Biology and Medicine": [
+    "JIF 6.3",
+    2024,
+    "https://www.library.sk/arl-sav/sk/detail-sav_un_epca-105108-Computers-in-Biology-and-Medicine/"
+  ],
+  "Computerized Medical Imaging and Graphics": [
+    "JIF 5.5",
+    2025,
+    "https://www.sciencedirect.com/journal/computerized-medical-imaging-and-graphics"
+  ],
+  "Artificial Intelligence in Medicine": [
+    "JIF 7.8",
+    2025,
+    "https://www.sciencedirect.com/journal/artificial-intelligence-in-medicine"
+  ],
+  "Neurocomputing": [
+    "JIF 6.7",
+    2025,
+    "https://www.sciencedirect.com/journal/neurocomputing"
+  ],
+  "Scientific Reports": [
+    "JIF 4.9",
+    2025,
+    "https://www.nature.com/srep/about"
+  ],
+  "npj Digital Medicine": [
+    "JIF 18.0",
+    2025,
+    "https://www.nature.com/npjdigitalmed/journal-impact"
+  ],
+  "Scientific Data": [
+    "JIF 7.2",
+    2025,
+    "https://www.nature.com/sdata/journal-impact"
+  ],
+  "Sensors": [
+    "JIF 4.0",
+    2025,
+    "https://www.mdpi.com/journal/sensors/history"
+  ],
+  "Diagnostics": [
+    "JIF 3.8",
+    2025,
+    "https://www.mdpi.com/journal/diagnostics/history"
+  ],
+  "Advanced Intelligent Systems": [
+    "JIF 6.7",
+    2025,
+    "https://onlinelibrary.wiley.com/journal/26404567"
+  ],
+  "Journal of Image and Graphics": [
+    "CCF B / T2",
+    2025,
+    "https://www.ccf.org.cn/ccftjgjxskwml/",
+    "CCF B · 2019 Chinese journal catalog / CCF T2 · 2025 computing journal list"
+  ],
+  "CVPR": [
+    "CCF A",
+    2026,
+    "https://www.ccf.org.cn/Academic_Evaluation/AI/"
+  ],
+  "ICCV": [
+    "CCF A",
+    2026,
+    "https://www.ccf.org.cn/Academic_Evaluation/AI/"
+  ],
+  "AAAI": [
+    "CCF A",
+    2026,
+    "https://www.ccf.org.cn/Academic_Evaluation/AI/"
+  ],
+  "ACL": [
+    "CCF A",
+    2026,
+    "https://www.ccf.org.cn/Academic_Evaluation/AI/"
+  ],
+  "IEEE BIBM": [
+    "CCF B",
+    2026,
+    "https://www.ccf.org.cn/Academic_Evaluation/Cross_Compre_Emerging/"
+  ],
+  "IEEE EMBC": [
+    "CAAI B",
+    2024,
+    "https://ai.cust.edu.cn/docs/2024-07/2535a4c6260e419caef71923ab8c6fd6.pdf#page=18",
+    "CAAI B · 2024 Chinese Association for Artificial Intelligence conference catalog"
+  ],
+  "MICCAI": [
+    "CCF B",
+    2026,
+    "https://www.ccf.org.cn/Academic_Evaluation/Cross_Compre_Emerging/"
+  ]
 }

@@ -1,4 +1,50 @@
 (() => {
+  const publicationView = document.querySelector('[data-publication-view]');
+  if (publicationView) {
+    const buttons = [...publicationView.querySelectorAll('[data-publication-mode]')];
+    const groups = [...document.querySelectorAll('.publications .pub-group')];
+    let showAll = new URLSearchParams(location.search).get('pubs') === 'all';
+
+    function updatePublications() {
+      for (const group of groups) {
+        let visible = false;
+        for (const row of group.querySelectorAll('.pub-row')) {
+          row.hidden = !showAll && !row.hasAttribute('data-representative');
+          visible ||= !row.hidden;
+        }
+        group.hidden = !visible;
+      }
+      for (const button of buttons) {
+        button.setAttribute('aria-pressed', String((button.dataset.publicationMode === 'all') === showAll));
+      }
+      if (location.protocol === 'file:') return;
+      const url = new URL(location.href);
+      if (showAll) url.searchParams.set('pubs', 'all');
+      else {
+        url.searchParams.delete('pubs');
+        if (document.getElementById(url.hash.slice(1))?.hidden) url.hash = 'Publications';
+      }
+      if (url.href !== location.href) history.replaceState(null, '', url);
+    }
+
+    function revealLinkedPublication() {
+      const paper = document.getElementById(location.hash.slice(1));
+      const reveal = paper?.matches('.publications .pub-row:not([data-representative])') && !showAll;
+      if (reveal) showAll = true;
+      updatePublications();
+      if (reveal) paper.scrollIntoView({ behavior: 'instant' });
+    }
+
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        showAll = button.dataset.publicationMode === 'all';
+        updatePublications();
+      });
+    }
+    publicationView.hidden = false;
+    window.addEventListener('hashchange', revealLinkedPublication);
+    revealLinkedPublication();
+  }
   const languageSwitcher = document.querySelector('.language-switcher');
   if (languageSwitcher) {
     const languageOptions = [...languageSwitcher.querySelectorAll('[data-language-option]')];
@@ -7,6 +53,10 @@
       for (const option of languageOptions) {
         const url = new URL(option.href);
         url.hash = section?.id || '';
+        if (publicationView) {
+          if (new URLSearchParams(location.search).get('pubs') === 'all') url.searchParams.set('pubs', 'all');
+          else url.searchParams.delete('pubs');
+        }
         option.href = url.href;
       }
     };

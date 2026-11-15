@@ -214,8 +214,8 @@ def experience(zh, cv_url):
 def peer_review(zh, review_venues, venue_metric, metrics):
     L = lambda en, cn: cn if zh else en
     groups = (
-        ('journals', L('Journal peer review', '期刊审稿')),
-        ('conferences', L('Conference peer review', '会议审稿')),
+        ('journals', L('Journal Reviewer', '期刊审稿人')),
+        ('conferences', L('Conference Reviewer', '会议审稿人')),
     )
     def metric_key(venue, conferences):
         if not venue.endswith(')'):

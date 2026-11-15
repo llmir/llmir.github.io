@@ -745,7 +745,7 @@
     "year": 2024,
     "title": "Fast diffeomorphic image registration using patch based fully convolutional networks",
     "authors": "Jiong Wu, Shuang Zhou, Li Lin, Xin Wang, Wenxue Tan",
-    "venue": "2024 46th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC)",
+    "venue": "IEEE EMBC",
     "url": "https://doi.org/10.1109/embc53108.2024.10781975",
     "linkType": "paper",
     "status": "published",
@@ -810,6 +810,16 @@
       "解剖先验",
       "由粗到细的精细化",
       "多任务学习"
+    ],
+    "role": "Joint first author",
+    "roleZh": "共同第一作者",
+    "equalAuthors": [
+      "Huaqing He",
+      "Jiaming Qiu",
+      "Li Lin"
+    ],
+    "correspondingAuthors": [
+      "Xiaoying Tang"
     ]
   },
   {
@@ -863,6 +873,11 @@
       "掩码建模",
       "自监督预训练",
       "多模态磁共振分割"
+    ],
+    "equalAuthors": [
+      "Jianwen Liang",
+      "Li Lin",
+      "Junyan Lyu"
     ]
   },
   {
@@ -887,7 +902,9 @@
       "半监督分割",
       "基础模型适配",
       "双教师学习"
-    ]
+    ],
+    "correspondence": "Corresponding author",
+    "correspondenceZh": "通讯作者"
   },
   {
     "id": "scholar-48",
@@ -965,7 +982,10 @@
     "status": "published",
     "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&oe=ASCII&user=QhpRmFQAAAAJ&pagesize=100&citation_for_view=QhpRmFQAAAAJ:zA6iFVUQeVQC",
     "code": "https://github.com/Davidczy/Uni4Eye_pp",
-    "titleZh": "Uni4Eye++：面向眼科影像分类与分割的通用掩码建模多模态预训练框架"
+    "titleZh": "Uni4Eye++：面向眼科影像分类与分割的通用掩码建模多模态预训练框架",
+    "correspondingAuthors": [
+      "Xiaoying Tang"
+    ]
   },
   {
     "id": "scholar-67",
@@ -1019,7 +1039,9 @@
     "correspondingAuthors": [
       "Xiaoying Tang",
       "唐晓颖"
-    ]
+    ],
+    "role": "First student author",
+    "roleZh": "学生第一作者"
   },
   {
     "id": "scholar-49",
@@ -1733,6 +1755,8 @@
     "title": "BLU-GAN: Bi-directional ConvLSTM U-Net with Generative Adversarial Training for Retinal Vessel Segmentation",
     "authors": "Li Lin, Jiewei Wu, Pujin Cheng, Kai Wang, Xiaoying Tang",
     "venue": "BenchCouncil FICC 2020",
+    "award": "Best Paper Award",
+    "awardZh": "最佳论文奖",
     "url": "https://doi.org/10.1007/978-981-16-1160-5_1",
     "linkType": "paper",
     "status": "published",

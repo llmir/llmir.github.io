@@ -20,6 +20,16 @@ def load(name):
 
 p,s,papers=(load(n) for n in ('profile','scholar','publications'))
 figures={d['id']:d for d in load('figures')}
+publication_dates=load('publication-dates')
+representatives=set(load('selected-publications'))
+if not representatives <= {paper['id'] for paper in papers}:
+    raise ValueError('Selected publications must be present in the publication catalog')
+
+def publication_date(paper):
+    date = publication_dates.get(paper['id'], {}).get('date', [paper['year']])
+    return tuple((date + [0, 0])[:3])
+
+papers.sort(key=publication_date, reverse=True)
 
 def visitor_links():
     config = p.get('visitors')
@@ -41,7 +51,6 @@ if visitors and args.visitor_stats.is_file():
 visitor_privacy = 'https://mapmyvisitors.com/b/policy'
 date=s['asOf']
 year=int(date[:4])
-since=year-1
 dblp='https://dblp.org/pid/38/4000-6.html'
 catl='https://www.catl.com/en/news/6308.html'
 catl_zh='https://www.catl.com/news/8099.html'
@@ -74,7 +83,7 @@ def author_line(paper, zh):
         correspond=person in paper.get('correspondingAuthors',[]) or '†' in name or owner and paper.get('correspondence')
         marks=[]
         if joint:
-            label='共同第一作者' if zh else 'Joint first author'
+            label='共同第一作者' if zh else 'Co-first author'
             marks.append(f'<sup class="author-mark joint" aria-label="{label}">*</sup>')
         if correspond:
             label='通讯作者' if zh else 'Corresponding author'
@@ -86,7 +95,10 @@ def author_line(paper, zh):
 def author_credit(paper, zh):
     role=paper.get('roleZh' if zh else 'role')
     correspondence=paper.get('correspondenceZh' if zh else 'correspondence')
-    labels=[('first' if paper.get('role')=='First author' else 'joint',role),('correspondence',correspondence)]
+    if role == 'Joint first author':
+        role = 'Co-first author'
+    role_style = {'First author':'first','First student author':'student-first'}.get(paper.get('role'),'joint')
+    labels=[(role_style,role),('correspondence',correspondence)]
     return ''.join(f' <span class="contrib {css}">{e(label)}</span>' for css,label in labels if label)
 
 def header(language,page='home'):
@@ -119,8 +131,9 @@ def header(language,page='home'):
 {alternate}
 <title>{ttl}</title>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/publication-design.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=publication-views" defer></script>
 </head>
 <body id="Home"{' class="cv-document"' if page=='cv' else ''}>
 <a class="skip" href="#main">{L('Skip to content','跳到正文')}</a>
@@ -208,7 +221,7 @@ data-desc="{e(desc)}" data-caption="{label}" aria-label="{L('Enlarge figure','�
     return f'''<figure class="pub-figure"><div class="pub-figure-area{layout}"{split}>{''.join(anchors)}</div>
 <figcaption>{' · '.join(sources)}</figcaption></figure>'''
 
-def row(paper,zh):
+def row(paper,zh,selected=None):
     L=lambda x,y:y if zh else x
     f=figures.get(paper['id'])
     figure=paper_figure(f,zh) if f else ''
@@ -226,19 +239,28 @@ def row(paper,zh):
     reading=' '.join(a(paper[k],L(x,y),'pub-link') for k,x,y in [('preprint','arXiv','arXiv'),('code','Code','代码'),('data','Data','数据')] if paper.get(k))
     dv=paper.get('zh' if zh else 'desc')
     venue=e(paper.get(L('venue','venueZh'), paper['venue']))
-    yr='' if not venue or paper['linkType']=='scholar' else f' {paper["year"]}'
-    return f'''<article class="pub-row{" with-figure" if f else ""}" id="{paper['id']}" data-year="{paper['year']}" data-status="{status}"{source_title}>
+    has_year=re.search(r'\b(?:19|20)\d{2}\b', venue)
+    yr='' if not venue or paper['linkType']=='scholar' or has_year else f' {paper["year"]}'
+    award=paper.get(L('award','awardZh'))
+    award_tag=f'<span class="status">{e(award)}</span>' if award else ''
+    selection = '' if selected is None else (' data-representative' if selected else ' hidden')
+    return f'''<article class="pub-row{" with-figure" if f else ""}" id="{paper['id']}" data-year="{paper['year']}" data-status="{status}"{source_title}{selection}>
 {figure}<div class="pub-text">
 <p class="pub-keywords">{e(keywords)}</p>
 <h3>{a(paper['url'],title)}</h3>
 <p class="pub-authors">{author_line(paper,zh)}{author_credit(paper,zh)}</p>
 {f'<p class="pub-desc">{e(dv)}</p>' if dv else ''}
-<div class="pub-meta"><span class="pub-venue">{venue}{yr}{venue_metric(paper['venue'])}</span>{tag}{a(paper['url'],label,'pub-link')}{reading}</div>
+<div class="pub-meta"><span class="pub-venue">{venue}{yr}{venue_metric(paper['venue'])}</span>{tag}{award_tag}{a(paper['url'],label,'pub-link')}{reading}</div>
 </div></article>'''
 
-def rows(records,zh):
-    return ''.join(f'<section class="pub-group" aria-label="{y}"><h3 class="pub-year">{y}</h3>'+''.join(row(paper,zh) for paper in rows)+'</section>'
-      for y,rows in groupby(records,key=lambda p:p['year']))
+def rows(records,zh,selection=None):
+    sections = []
+    for year, group in groupby(records, key=lambda paper: paper['year']):
+        members = list(group)
+        hidden = ' hidden' if selection is not None and all(paper['id'] not in selection for paper in members) else ''
+        cards = ''.join(row(paper, zh, None if selection is None else paper['id'] in selection) for paper in members)
+        sections.append(f'<section class="pub-group" aria-label="{year}"{hidden}><h3 class="pub-year">{year}</h3>{cards}</section>')
+    return ''.join(sections)
 
 def stats(zh):
     L=lambda x,y:y if zh else x
@@ -282,7 +304,6 @@ def home(language):
     zh = language != 'en'
     L=lambda x,y:y if zh else x
     _, _, idx, cv_url = LANGUAGES[language]
-    recent=[w for w in papers if w['year']>=since]
     institution=catl_zh if zh else catl
     return header(language)+f'''<main id="main">
 {homepage.intro(zh,p,cv_url)}
@@ -290,9 +311,15 @@ def home(language):
 {homepage.news(zh,institution,thesis)}
 {homepage.experience(zh,cv_url)}
 <section class="container section publications" aria-labelledby="Publications">
-<div class="section-title"><h2 id="Publications">{L('Publications','学术论文')}</h2><div>{a(idx,L('Full publication index','完整论文目录'))} <span>·</span> {a(p['scholar'],'Google Scholar')}</div></div>
-<p class="section-note">{L(f'{since}–{year}',f'{since}–{year} 年')}</p>
-{rows(recent,zh)}<p class="all-pubs">{a(idx,L('All years and preprints','查看全部年份和预印本'))} →</p></section>
+<div class="section-title"><h2 id="Publications">{L('Publications','学术论文')}</h2>
+<div class="publication-controls">
+<div class="publication-view" data-publication-view role="group" aria-label="{L('Publication view','论文展示方式')}" hidden>
+<button type="button" data-publication-mode="selected" aria-pressed="true">{L('Selected','代表作')} <span class="view-count">{len(representatives)}</span></button>
+<button type="button" data-publication-mode="all" aria-pressed="false">{L('All','全部论文')} <span class="view-count">{len(papers)}</span></button>
+</div>
+{a(idx+'#filters',L('Search publications','检索论文'),'publication-search')}
+</div></div>
+{rows(papers,zh,representatives)}</section>
 {homepage.peer_review(zh,review_venues,venue_metric,venue_metrics)}
 </main>{homepage.wechat_dialog(zh,p)}{footer(zh)}'''
 

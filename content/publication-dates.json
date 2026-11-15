@@ -1,0 +1,600 @@
+{
+  "eyegraph": {
+    "date": [
+      2026,
+      10
+    ],
+    "source": "https://ieeexplore.ieee.org/document/11733987"
+  },
+  "mfmcm": {
+    "date": [
+      2026,
+      9
+    ],
+    "source": "https://api.crossref.org/works/10.1016/j.inffus.2026.104345",
+    "field": "published-print"
+  },
+  "unioctsegplus": {
+    "date": [
+      2026,
+      9
+    ],
+    "source": "https://api.crossref.org/works/10.1109/tmi.2026.3710244",
+    "field": "published-print"
+  },
+  "focus": {
+    "date": [
+      2026,
+      8,
+      19
+    ],
+    "source": "https://api.crossref.org/works/10.1038/s41746-026-03151-x",
+    "field": "published-online"
+  },
+  "synlits": {
+    "date": [
+      2026,
+      6
+    ],
+    "source": "https://api.crossref.org/works/10.1109/tmi.2026.3663583",
+    "field": "published-print"
+  },
+  "animerplus": {
+    "date": [
+      2026,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1109/TPAMI.2025.3633828",
+    "field": "published-print"
+  },
+  "mirage": {
+    "date": [
+      2026,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1016/j.media.2025.103912",
+    "field": "published-print"
+  },
+  "scholar-61": {
+    "date": [
+      2026,
+      4,
+      8
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi61048.2026.11515892",
+    "field": "published-print"
+  },
+  "scholar-62": {
+    "date": [
+      2026,
+      4,
+      8
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi61048.2026.11515537",
+    "field": "published-print"
+  },
+  "lumos": {
+    "date": [
+      2026,
+      4,
+      8
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi61048.2026.11516004",
+    "field": "published-print"
+  },
+  "scholar-59": {
+    "date": [
+      2026,
+      5,
+      25
+    ],
+    "source": "https://api.crossref.org/works/10.3390/s26113343",
+    "field": "published-online"
+  },
+  "scholar-57": {
+    "date": [
+      2026,
+      8,
+      5
+    ],
+    "source": "https://api.crossref.org/works/10.21203/rs.3.rs-10335654/v1",
+    "field": "posted"
+  },
+  "diff4mmlits": {
+    "date": [
+      2026,
+      1,
+      2
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-032-09513-8_64",
+    "field": "published-online"
+  },
+  "scholar-37": {
+    "date": [
+      2025,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1002/aisy.202400496",
+    "field": "published-print"
+  },
+  "animer": {
+    "date": [
+      2025,
+      6,
+      10
+    ],
+    "source": "https://api.crossref.org/works/10.1109/cvpr52734.2025.01629",
+    "field": "published-print"
+  },
+  "fedlppa": {
+    "date": [
+      2025,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1109/TMI.2024.3483221",
+    "field": "published-print"
+  },
+  "lfsynthseg": {
+    "date": [
+      2025,
+      2
+    ],
+    "source": "https://api.crossref.org/works/10.1109/JBHI.2024.3489721",
+    "field": "published-print"
+  },
+  "mefn": {
+    "date": [
+      2025,
+      8
+    ],
+    "source": "https://api.crossref.org/works/10.1016/j.knosys.2025.113838",
+    "field": "published-print"
+  },
+  "procns": {
+    "date": [
+      2025,
+      4
+    ],
+    "source": "https://api.crossref.org/works/10.1109/JBHI.2024.3522958",
+    "field": "published-print"
+  },
+  "scholar-64": {
+    "date": [
+      2025,
+      4,
+      14
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi60581.2025.10980880",
+    "field": "published-print"
+  },
+  "scholar-65": {
+    "date": [
+      2025,
+      4,
+      14
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi60581.2025.10981246",
+    "field": "published-print"
+  },
+  "unioctseg": {
+    "date": [
+      2025,
+      9,
+      20
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-032-05325-1_60",
+    "field": "published-online"
+  },
+  "scholar-17": {
+    "date": [
+      2024,
+      5,
+      27
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi56570.2024.10635501",
+    "field": "published-print"
+  },
+  "scholar-21": {
+    "date": [
+      2024,
+      10,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-72378-0_36",
+    "field": "published-online"
+  },
+  "scholar-66": {
+    "date": [
+      2024,
+      10,
+      23
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-73284-3_35",
+    "field": "published-online"
+  },
+  "scholar-47": {
+    "date": [
+      2024,
+      7,
+      15
+    ],
+    "source": "https://api.crossref.org/works/10.1109/embc53108.2024.10781975",
+    "field": "published-print"
+  },
+  "scholar-41": {
+    "date": [
+      2024,
+      12,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1109/bibm62325.2024.10821946",
+    "field": "published-print"
+  },
+  "scholar-31": {
+    "date": [
+      2024,
+      7
+    ],
+    "source": "https://api.crossref.org/works/10.1016/j.compbiomed.2024.108613",
+    "field": "published-print"
+  },
+  "scholar-53": {
+    "date": [
+      2024,
+      12,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1109/bibm62325.2024.10822093",
+    "field": "published-print"
+  },
+  "scholar-52": {
+    "date": [
+      2024,
+      12,
+      3
+    ],
+    "source": "https://api.crossref.org/works/10.1109/bibm62325.2024.10822698",
+    "field": "published-print"
+  },
+  "scholar-42": {
+    "date": [
+      2024,
+      7,
+      12
+    ],
+    "source": "https://api.crossref.org/works/10.1109/icsip61881.2024.10671545",
+    "field": "published-print"
+  },
+  "scholar-48": {
+    "date": [
+      2024,
+      5,
+      27
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi56570.2024.10635293",
+    "field": "published-print"
+  },
+  "scholar-30": {
+    "date": [
+      2024,
+      5,
+      27
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi56570.2024.10635462",
+    "field": "published-print"
+  },
+  "uni4eyeplus": {
+    "date": [
+      2024,
+      7,
+      2
+    ],
+    "source": "https://doi.org/10.1109/TMI.2024.3422102",
+    "field": "IEEE final PDF, printed page 4419, Date of publication"
+  },
+  "scholar-67": {
+    "date": [
+      2024,
+      5,
+      27
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi56570.2024.10635780",
+    "field": "published-print"
+  },
+  "scholar-68": {
+    "date": [
+      2024,
+      3,
+      16
+    ],
+    "source": "https://www.cjig.cn/zh/article/doi/10.11834/jig.230295/"
+  },
+  "scholar-49": {
+    "date": [
+      2023,
+      10,
+      15
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-45676-3_31",
+    "field": "published-online"
+  },
+  "gamma": {
+    "date": [
+      2023,
+      12
+    ],
+    "source": "https://api.crossref.org/works/10.1016/j.media.2023.102938",
+    "field": "published-print"
+  },
+  "scholar-4": {
+    "date": [
+      2023,
+      5,
+      9
+    ],
+    "source": "https://api.crossref.org/works/10.3390/diagnostics13101664",
+    "field": "published-online"
+  },
+  "scholar-39": {
+    "date": [
+      2023,
+      10,
+      15
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-45676-3_32",
+    "field": "published-online"
+  },
+  "prior": {
+    "date": [
+      2023,
+      10,
+      1
+    ],
+    "source": "https://api.crossref.org/works/10.1109/iccv51070.2023.01953",
+    "field": "published-print"
+  },
+  "fedicra": {
+    "date": [
+      2023,
+      10,
+      15
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-45673-2_20",
+    "field": "published-online"
+  },
+  "scholar-38": {
+    "date": [
+      2023,
+      4,
+      18
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi53787.2023.10230810",
+    "field": "published-print"
+  },
+  "yolocurvseg": {
+    "date": [
+      2023,
+      12
+    ],
+    "source": "https://api.crossref.org/works/10.1016/j.media.2023.102937",
+    "field": "published-print"
+  },
+  "scholar-22": {
+    "date": [
+      2023,
+      3,
+      8
+    ],
+    "source": "https://arxiv.org/abs/2303.04603v1"
+  },
+  "scholar-51": {
+    "date": [
+      2023,
+      12,
+      12
+    ],
+    "source": "https://arxiv.org/abs/2312.07226v1"
+  },
+  "scholar-2": {
+    "date": [
+      2022,
+      12
+    ],
+    "source": "https://api.crossref.org/works/10.1109/tmi.2022.3193146",
+    "field": "published-print"
+  },
+  "scholar-13": {
+    "date": [
+      2022,
+      3,
+      28
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi52829.2022.9761712",
+    "field": "published-print"
+  },
+  "scholar-27": {
+    "date": [
+      2022,
+      9,
+      17
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-16446-0_54",
+    "field": "published-online"
+  },
+  "scholar-20": {
+    "date": [
+      2022,
+      12,
+      4
+    ],
+    "source": "https://proceedings.mlr.press/v172/he22a.html"
+  },
+  "scholar-33": {
+    "date": [
+      2022,
+      12,
+      16
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-21014-3_4",
+    "field": "published-online"
+  },
+  "scholar-19": {
+    "date": [
+      2022,
+      7,
+      11
+    ],
+    "source": "https://api.crossref.org/works/10.1109/embc48229.2022.9871183",
+    "field": "published-print"
+  },
+  "uni4eye": {
+    "date": [
+      2022,
+      9,
+      16
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-031-16452-1_9",
+    "field": "published-online"
+  },
+  "scholar-14": {
+    "date": [
+      2022,
+      3,
+      28
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi52829.2022.9761675",
+    "field": "published-print"
+  },
+  "scholar-15": {
+    "date": [
+      2022,
+      3,
+      9
+    ],
+    "source": "https://arxiv.org/abs/2203.04586v1"
+  },
+  "scholar-35": {
+    "date": [
+      2021,
+      4,
+      13
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi48211.2021.9433955",
+    "field": "published-print"
+  },
+  "bsdanet": {
+    "date": [
+      2021,
+      9,
+      21
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-030-87237-3_7",
+    "field": "published-online"
+  },
+  "scholar-8": {
+    "date": [
+      2021,
+      9,
+      21
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-030-87000-3_5",
+    "field": "published-online"
+  },
+  "scholar-69": {
+    "date": [
+      2021,
+      11,
+      1
+    ],
+    "source": "https://api.crossref.org/works/10.1109/embc46164.2021.9629656",
+    "field": "published-print"
+  },
+  "scholar-7": {
+    "date": [
+      2021,
+      9,
+      21
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-030-87237-3_9",
+    "field": "published-online"
+  },
+  "scholar-6": {
+    "date": [
+      2021,
+      9,
+      21
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-3-030-87196-3_11",
+    "field": "published-online"
+  },
+  "scholar-34": {
+    "date": [
+      2021,
+      11,
+      1
+    ],
+    "source": "https://api.crossref.org/works/10.1109/embc46164.2021.9631043",
+    "field": "published-print"
+  },
+  "scholar-23": {
+    "date": [
+      2021,
+      4,
+      13
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi48211.2021.9434005",
+    "field": "published-print"
+  },
+  "scholar-25": {
+    "date": [
+      2021,
+      3,
+      11
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-981-16-1160-5_1",
+    "field": "published-online"
+  },
+  "scholar-55": {
+    "date": [
+      2021,
+      3,
+      11
+    ],
+    "source": "https://api.crossref.org/works/10.1007/978-981-16-1160-5_8",
+    "field": "published-online"
+  },
+  "scholar-43": {
+    "date": [
+      2020,
+      12,
+      5
+    ],
+    "source": "https://api.crossref.org/works/10.1145/3451421.3451452",
+    "field": "published-print"
+  },
+  "scholar-11": {
+    "date": [
+      2020,
+      4
+    ],
+    "source": "https://api.crossref.org/works/10.1109/isbi45749.2020.9098319",
+    "field": "published-print"
+  },
+  "sustech-sysu": {
+    "date": [
+      2020,
+      11,
+      20
+    ],
+    "source": "https://api.crossref.org/works/10.1038/s41597-020-00755-0",
+    "field": "published-online"
+  },
+  "scholar-44": {
+    "date": [
+      2017,
+      10
+    ],
+    "source": "https://api.crossref.org/works/10.1109/icct.2017.8359642",
+    "field": "published-print"
+  }
+}

@@ -46,8 +46,8 @@ When `visitors` is `null` or the site is built with `--preview`, the homepage sh
 ## Maintain content
 
 - `content/profile.json`: contact and academic profile links.
-- `content/publications.json`: editable citation metadata in descending year order. This index contains 65 published papers and 4 preprints. The duplicate MEFN preprint has been joined to the published entry.
-- `content/scholar.json`: dated Scholar metrics and annual citations. Update only from the author's profile. The 70 Scholar records count includes duplicate versions, while the website lists 69 after the merge. The site shows the exact snapshot date and flags the incomplete current year. It does not promise daily updates.
+- `content/publications.json`: citation metadata for 65 published papers and 4 preprints. The duplicate MEFN preprint is linked from the published entry. `content/publication-dates.json` records publication dates with sources. `content/selected-publications.json` lists the papers in the homepage's default view.
+- `content/scholar.json`: dated Google Scholar metrics and annual citations. Configure the repository Actions secret `SERPAPI_KEY` to refresh this snapshot on the first successful build each Hong Kong calendar day. Builds reuse the latest valid published snapshot if the refresh is unavailable. The Scholar record count includes duplicate versions, while the website lists its reconciled bibliography. [SerpApi author API](https://serpapi.com/google-scholar-author-api).
 - `content/patents.json`: co-inventor entries indexed once per application or patent family, with grant numbers for verified granted records. Titles describe the technical subject. The records give the official legal titles.
 - `content/figures.json` records the source, edition, figure number, image hashes, and available licensing information. Cards have a common 16:9 frame. When a method diagram is unusually narrow or wide, a nearby result panel can share the frame. Each panel opens its full source image.
 - `content/venue-metrics.json` records the metric, data year, and source for each displayed JIF and conference grade.

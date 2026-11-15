@@ -114,6 +114,7 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
          L('YoloCurvSeg, joint recipient with Xiaoying Tang', 'YoloCurvSeg，与唐晓颖共同入选'),
          'https://zj.people.com.cn/n2/2023/1223/c186327-40689790.html'),
         ('2021', L('MICCAI Student Travel Award', 'MICCAI 学生差旅奖'), '', ''),
+        ('2020', by_id['scholar-25'][L('award','awardZh')], 'BLU-GAN · BenchCouncil FICC 2020', ''),
         ('2021–2025', L('HKU Postgraduate Scholarship', '香港大学研究生奖学金'), '', ''),
     )
     award_html = ''.join(
