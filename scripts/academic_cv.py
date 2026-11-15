@@ -10,6 +10,28 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
     def work(key, label):
         return a(f'{idx}#{key}', label, 'cv-index-link') + a(by_id[key]['url'], label, 'cv-print-link')
 
+    short_venues = {
+        'IEEE Transactions on Medical Imaging': 'IEEE TMI',
+        'IEEE Journal of Biomedical and Health Informatics': 'IEEE JBHI',
+        'IEEE Transactions on Pattern Analysis and Machine Intelligence': 'IEEE TPAMI',
+        'Medical Image Analysis': 'MedIA',
+        'Computers in Biology and Medicine': 'CIBM',
+        'Knowledge-Based Systems': 'KBS',
+        'BenchCouncil FICC 2020': L('FICC 2020, proc.', 'FICC 2020，论文集'),
+        'MLMI 2025 at MICCAI': L('MLMI at MICCAI 2025, proc.', 'MICCAI 2025 MLMI，论文集'),
+    }
+
+    def example(key, label):
+        paper = by_id[key]
+        venue = short_venues.get(paper['venue'], paper.get(L('venue', 'venueZh'), paper['venue']))
+        details = [f'{venue} {paper["year"]}']
+        if paper['status'] == 'preprint':
+            details.append(L('preprint', '预印本'))
+        if award := paper.get(L('award', 'awardZh')):
+            details.append(award)
+        detail = L(', ', '，').join(details)
+        return work(key, L(f'{label} ({detail})', f'{label}（{detail}）'))
+
     def topic(title, body, references=()):
         links = f'<p class="cv-topic-links">{" · ".join(references)}</p>' if references else ''
         return f'<section class="cv-topic"><h4>{e(title)}</h4><p>{e(body)}</p>{links}</section>'
@@ -44,40 +66,54 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
           '博士研究人员 · OMEGA Lab · 与南方科技大学 MedICAL Lab 联合培养'),
         L('Sep 2021 – Sep 2025', '2021.09–2025.09'),
         ''.join((
+            f'<p class="cv-entry-text">{L("My research in medical imaging and computer vision spans my doctorate and subsequent collaborations.", "我的医学影像与计算机视觉研究从博士阶段延续至后续合作。")}</p>',
             topic(
                 L('Data- and annotation-efficient learning', '数据与标注高效学习'),
-                L('I developed learning methods for settings with scarce, incomplete, or noisy expert annotations. My work spans anatomy-guided synthesis from minimal labels, prototype-based calibration of pseudo-labels, and semi-supervised adaptation of segmentation foundation models to leverage unlabeled scans.',
-                  '面向专家标注有限、不完整或含噪的情形，研究解剖先验引导的低标注数据合成、基于原型的伪标签校准，以及利用未标注影像进行半监督基础模型适配。'),
-                (work('yolocurvseg', 'YoloCurvSeg'), work('procns', 'ProCNS'), work('lfsynthseg', 'LF-SynthSeg'), work('scholar-17', 'ASLSeg'))),
+                L('I develop methods that learn from scarce, incomplete, or noisy supervision and imbalanced data. This work combines anatomy-guided synthesis, prototype-based pseudo-label calibration, and semi-supervised adaptation to make better use of unlabeled scans and underrepresented cases.',
+                  '面向标注有限、不完整、含噪及数据分布不均衡等问题，研究解剖先验引导的数据合成、基于原型的伪标签校准与半监督适配，提升模型利用未标注影像和低频病例的能力。'),
+                (example('scholar-59', 'TailBoost'), example('scholar-61', L('Annotation-Free TOF-MRA Segmentation', '无标注 TOF-MRA 分割')),
+                 example('procns', 'ProCNS'), example('lfsynthseg', 'LF-SynthSeg'), example('scholar-17', 'ASLSeg'), example('yolocurvseg', 'YoloCurvSeg'))),
             topic(
                 L('Cross-domain generalization and adaptation', '跨域泛化与自适应'),
-                L('I studied how imaging models transfer across acquisition domains and annotation protocols. My work includes learned augmentation for unseen domains, complementary teachers for adaptation to multiple unlabeled targets, and anatomy-aware prompting for supervision at different levels of detail.',
+                L('I study how imaging models transfer across acquisition domains and annotation protocols. My work includes learned augmentation for unseen domains, complementary teachers for adaptation to multiple unlabeled targets, and anatomy-aware prompting for supervision at different levels of detail.',
                   '研究医学影像模型如何应对采集域和标注规范的变化，包括面向未见域的增强策略学习、面向多个未标注目标域的互补教师适配，以及跨标注粒度的解剖感知提示学习。'),
-                (work('scholar-2', 'AADG'), work('scholar-33', 'RVms'),
-                 work('unioctseg', 'UniOCTSeg (MICCAI 2025)'), work('unioctsegplus', 'UniOCTSeg++ (IEEE TMI 2026)'))),
+                (example('unioctsegplus', 'UniOCTSeg++'), example('unioctseg', 'UniOCTSeg'), example('lumos', 'LUMOS'),
+                 example('scholar-33', 'RVms'), example('scholar-2', 'AADG'))),
             topic(
                 L('Personalized federated learning across data silos', '数据孤岛下的个性化联邦学习'),
                 L('I developed personalized federated learning methods for institutions with heterogeneous imaging distributions and weak annotations. Site-aware representation learning, shared and local prompts, and adaptive aggregation or distillation let institutions share knowledge while retaining models suited to their own data.',
                   '面向影像分布与弱标注形式各异的医疗机构，研究个性化联邦学习。通过中心感知表征、共享与本地提示、自适应聚合及蒸馏，在跨机构共享知识的同时保留模型对本地数据的适配能力。'),
-                (work('fedlppa', 'FedLPPA'), work('fedicra', 'FedICRA'), work('scholar-68', 'pFedWSD'), a(thesis, L('Doctoral thesis', '博士论文')))),
+                (example('fedlppa', 'FedLPPA'), example('scholar-68', 'pFedWSD'), example('fedicra', 'FedICRA'),
+                 a(thesis, L('Doctoral thesis (HKU 2025)', '博士论文（香港大学 2025）')))),
             topic(
                 L('Multimodal representation learning and foundation models', '多模态表征学习与基础模型'),
-                L('I studied how self-supervised and vision–language pretraining can learn representations that transfer across imaging tasks. The work spans joint masked modeling of 2D and 3D scans, learning from complementary MRI sequences, and aligning medical images with reports at global and local scales.',
-                  '研究自监督和视觉语言预训练如何学习可跨任务迁移的医学影像表征，包括二维与三维影像的统一掩码建模、互补 MRI 序列的协同学习，以及医学影像与报告的全局和局部对齐。'),
-                (work('uni4eye', 'Uni4Eye'), work('uni4eyeplus', 'Uni4Eye++'), work('prior', 'PRIOR'), work('scholar-52', 'MMCM'))),
+                L('I study transferable representations through masked modeling of 2D and 3D scans, complementary MRI pretraining, and image–report alignment. Related work addresses noisy image–text correspondence and grounds medical vision–language reasoning in clinical knowledge graphs.',
+                  '研究二维与三维影像掩码建模、互补 MRI 序列预训练与影像–报告对齐，以学习可跨任务迁移的表征。相关工作进一步处理影像与文本的含噪配对，并利用临床知识图谱支持医学视觉语言推理。'),
+                (example('eyegraph', 'EyeGraph'), example('mfmcm', 'MF-MCM'), example('scholar-52', 'MMCM'),
+                 example('mirage', 'MIRAGE'), example('uni4eyeplus', 'Uni4Eye++'), example('uni4eye', 'Uni4Eye'), example('prior', 'PRIOR'))),
             topic(
-                L('Image synthesis, reconstruction, and clinical analysis', '影像合成、重建与临床分析'),
-                L('I contributed to cross-contrast MRI synthesis and reconstruction from limited paired data or anisotropic scans. For clinical image analysis, I worked on anatomical priors for joint structure delineation and landmark detection, uncertainty-aware PET/CT fusion, and retinal non-perfusion mapping from fundus photography.',
-                  '研究有限配对数据或各向异性采集条件下的跨对比度 MRI 合成与重建。面向临床影像分析，探索以解剖先验辅助结构分割和标志点定位、考虑不确定性的 PET/CT 融合，以及基于眼底照片的视网膜无灌注区分析。'),
-                (work('scholar-27', 'DS³-Net'), work('scholar-53', 'SMNet'), work('scholar-31', 'JOINEDTrans'), work('mefn', 'MEFN'),
-                 work('scholar-64', L('Non-perfusion segmentation', '无灌注区分割')))),
+                L('Image synthesis and reconstruction', '影像合成与重建'),
+                L('I work on recovering or synthesizing complementary information when acquisitions differ in contrast, resolution, or spatial alignment. Applications include cross-contrast MRI reconstruction, diffusion synthesis for unaligned multiphase CT, and anatomy-guided CT synthesis for PET attenuation correction.',
+                  '针对成像对比度、分辨率和空间对齐状态的差异，研究如何恢复或合成互补影像信息，涵盖跨对比度 MRI 重建、配准不完全的多期 CT 扩散合成，以及用于 PET 衰减校正的解剖先验引导 CT 合成。'),
+                (example('synlits', 'SynLiTS'), example('scholar-62', 'DAPS'), example('diff4mmlits', 'Diff4MMLiTS'),
+                 example('scholar-53', 'SMNet'), example('scholar-27', 'DS³-Net'))),
+            topic(
+                L('Clinical image analysis and decision support', '临床影像分析与决策支持'),
+                L('I contribute to methods that turn imaging evidence into quantitative findings and patient-level assessments. This work spans anatomy-aware measurements, uncertainty-aware PET/CT fusion, 3D OCT diagnosis, and the evaluation of multidisciplinary agents for treatment planning.',
+                  '研究如何从影像证据提取定量信息并支持患者级评估，涵盖解剖先验引导的定量分析、考虑不确定性的 PET/CT 融合、三维 OCT 诊断，以及面向治疗方案制定的多学科智能体评测。'),
+                (example('focus', 'FOCUS'), example('scholar-57', 'DRAgent'), example('mefn', 'MEFN'),
+                 example('scholar-64', L('Non-perfusion Segmentation', '无灌注区分割')), example('scholar-31', 'JOINEDTrans'))),
+            topic(
+                L('3D computer vision', '三维计算机视觉'),
+                L('I also contribute to family-aware models for reconstructing animal pose and shape from single images. This work combines shared representations with family-level supervision to transfer across species.',
+                  '参与研究面向动物姿态与形状的单图三维重建，利用动物科级监督组织共享表征，提升跨物种迁移能力。'),
+                (example('animerplus', 'AniMer+'), example('animer', 'AniMer'))),
         )),
     )
     early_works = ' · '.join((
-        work('sustech-sysu', 'SUSTech–SYSU'), work('scholar-11', L('Hemorrhage detection', '出血病灶检测')),
-        work('scholar-25', L('BLU-GAN (Best Paper)', 'BLU-GAN（最佳论文）')),
-        work('scholar-35', L('Corneal nerve segmentation', '角膜神经分割')),
-        work('scholar-23', 'EPC-GAN'), work('bsdanet', 'BSDA-Net'),
+        example('bsdanet', 'BSDA-Net'), example('scholar-35', L('Corneal Nerve Segmentation', '角膜神经分割')),
+        example('scholar-23', 'EPC-GAN'), example('scholar-25', 'BLU-GAN'),
+        example('sustech-sysu', 'SUSTech–SYSU'), example('scholar-11', L('Hemorrhage Detection', '出血病灶检测')),
     ))
     early = role(
         e(L('Southern University of Science and Technology', '南方科技大学')),
@@ -88,17 +124,6 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
             '研究粗标注病灶检测、解剖结构分割，以及基于对比学习的影像合成与增强。以第一作者在 Scientific Data 发表 SUSTech–SYSU 数据集研究。BSDA-Net 于任内发布预印本，后发表于 MICCAI 2021。')}</p>
 <p class="cv-topic-links">{early_works}</p>''',
     )
-    continued_works = ' · '.join((
-        work('mfmcm', 'MF-MCM'), work('unioctsegplus', 'UniOCTSeg++'), work('focus', 'FOCUS'),
-        work('synlits', 'SynLiTS'), work('mirage', 'MIRAGE'),
-    ))
-    continued = f'''<article class="cv-entry">
-<div class="cv-entry-head"><h3>{L('Continued research in medical imaging', '持续开展的医学影像研究')}</h3><span>2026</span></div>
-<p class="cv-entry-text">{L(
-        'Recent publications extend this work to complementary MRI pretraining, learning across OCT annotation schemes, synthesis for misaligned multiphase CT, robust image–report pretraining, and patient-level diagnosis from 3D OCT.',
-        '近期发表的工作延续至互补 MRI 序列预训练、跨 OCT 标注规范学习、面向未充分配准多期 CT 的数据合成、稳健影像–报告预训练，以及基于三维 OCT 的患者级诊断。')}</p>
-<p class="cv-topic-links">{continued_works}</p></article>'''
-
     advisors = a('https://hub.hku.hk/cris/rp/rp00189', L('Kenneth K. Y. Wong', '黄建业')) + L(' and ', '、') + a(
         'https://hub.hku.hk/cris/rp/rp00131', L('Edmund Y. M. Lam', '林彦民'))
     schools = ''.join((
@@ -197,7 +222,7 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
 <div class="container cv-layout">
 <aside class="cv-sidebar"><nav class="cv-nav" aria-label="{L('CV sections','简历目录')}">{local_nav}</nav></aside>
 <div class="cv-content">
-<section class="cv-section" aria-labelledby="experience"><h2 id="experience">{sections['experience']}</h2>{current}{doctoral}{early}{continued}</section>
+<section class="cv-section" aria-labelledby="experience"><h2 id="experience">{sections['experience']}</h2>{current}{doctoral}{early}</section>
 <section class="cv-section" aria-labelledby="education"><h2 id="education">{sections['education']}</h2>{schools}</section>
 <section class="cv-section" aria-labelledby="bibliography"><div class="section-title"><h2 id="bibliography">{sections['bibliography']}</h2>{full_index}</div>
 {''.join(bibliography)}</section>
