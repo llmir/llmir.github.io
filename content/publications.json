@@ -1075,6 +1075,7 @@
     "venue": "Medical Image Analysis",
     "url": "https://doi.org/10.1016/j.media.2023.102938",
     "linkType": "paper",
+    "preprint": "https://arxiv.org/abs/2202.06511",
     "desc": "The GAMMA challenge releases 300 paired fundus photographs and OCT volumes alongside a common protocol for evaluating multimodal glaucoma grading. Its analysis compares how submitted systems combine information from 2D photography and 3D scans.",
     "zh": "GAMMA 挑战提供 300 组配对眼底照与 OCT 体数据，并建立统一的多模态青光眼分级评测流程。论文比较了参赛方法如何结合二维摄影与三维扫描中的互补信息。",
     "keywords": [

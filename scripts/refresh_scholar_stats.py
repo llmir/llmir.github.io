@@ -4,14 +4,21 @@ from datetime import date, datetime
 import json
 import os
 from pathlib import Path
-from urllib.parse import urlencode, urljoin
+from urllib.error import HTTPError
+from urllib.parse import parse_qs, urlencode, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
+
+from bs4 import BeautifulSoup
+from protego import Protego
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE_SIZE = 100
 METRICS = {"citations": "citations", "hIndex": "h_index", "i10Index": "i10_index"}
+PROFILE_LABELS = {"Citations": "citations", "h-index": "hIndex", "i10-index": "i10Index"}
+SCHOLAR_ORIGIN = "https://scholar.google.com"
+SCHOLAR_AGENT = "AcademicHomepageStats/1.0"
 
 
 def fetch_json(url):
@@ -83,6 +90,51 @@ def collect(profile_id, api_key, today):
         "yearly": yearly,
         "partialYear": today.year,
         "indexedRecords": len(records),
+        "source": "serpapi",
+    }
+
+
+def collect_public_profile(profile_id, today):
+    query = urlencode({"user": profile_id, "hl": "en", "pagesize": PAGE_SIZE})
+    url = f"{SCHOLAR_ORIGIN}/citations?{query}"
+    headers = {"User-Agent": SCHOLAR_AGENT}
+    request = Request(f"{SCHOLAR_ORIGIN}/robots.txt", headers=headers)
+    with urlopen(request, timeout=10) as response:
+        rules = Protego.parse(response.read().decode("utf-8"))
+    if not rules.can_fetch(url, SCHOLAR_AGENT):
+        raise PermissionError("Scholar author profile unavailable to automated clients")
+
+    request = Request(url, headers=headers)
+    with urlopen(request, timeout=15) as response:
+        actual = urlsplit(response.geturl())
+        if (actual.scheme, actual.hostname, actual.path) != ("https", "scholar.google.com", "/citations"):
+            raise ValueError("Unexpected Scholar profile landing page")
+        if parse_qs(actual.query).get("user") != [profile_id]:
+            raise ValueError("Unexpected Scholar profile identifier")
+        profile = BeautifulSoup(response.read(), "html.parser")
+
+    def number(element):
+        return int(element.get_text(strip=True).replace(",", ""))
+
+    more = profile.select_one("#gsc_bpf_more[disabled]")
+    records = profile.select("tr.gsc_a_tr")
+    if not more or not records:
+        raise ValueError("Incomplete public author record list")
+    totals = {}
+    for row in profile.select("#gsc_rsb_st tr"):
+        cells = row.find_all("td")
+        if cells and cells[0].get_text(strip=True) in PROFILE_LABELS:
+            totals[PROFILE_LABELS[cells[0].get_text(strip=True)]] = number(cells[1])
+    yearly = sorted([number(year), number(value)] for year, value in zip(
+        profile.select(".gsc_g_t"), profile.select(".gsc_g_al"), strict=True))
+    return {
+        "asOf": today.isoformat(),
+        "profileId": profile_id,
+        **totals,
+        "yearly": yearly,
+        "partialYear": today.year,
+        "indexedRecords": len(records),
+        "source": "public-profile",
     }
 
 
@@ -94,17 +146,21 @@ def refresh(snapshot_file, published_url, api_key, today):
     try:
         published = fetch_json(published_url)
         published_date = validate(published, profile_id, today)
-        if published_date > best_date:
+        same_day_refresh = published_date == best_date and published.get("source") and not best.get("source")
+        if published_date > best_date or same_day_refresh:
             best, best_date = published, published_date
     except (OSError, KeyError, TypeError, ValueError) as error:
         print(f"Published Scholar snapshot unavailable ({type(error).__name__})")
 
-    if api_key and best_date < today:
+    if best_date < today or not best.get("source"):
         try:
-            updated = collect(profile_id, api_key, today)
+            updated = collect(profile_id, api_key, today) if api_key else collect_public_profile(profile_id, today)
             validate(updated, profile_id, today)
             best = updated
-        except (OSError, KeyError, TypeError, ValueError) as error:
+            print(f"Refreshed Scholar from {best['source']}")
+        except HTTPError as error:
+            print(f"Scholar refresh unavailable (HTTP {error.code})")
+        except (OSError, KeyError, IndexError, TypeError, ValueError) as error:
             print(f"Scholar refresh unavailable ({type(error).__name__})")
 
     if best != checked_in:
