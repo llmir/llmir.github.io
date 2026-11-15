@@ -108,27 +108,42 @@ def biography(zh, thesis_url, profile, sidebar):
 <p>{healthcare}</p>{directions(methods)}<p class="bio-collaboration">{collab}</p></div></div></section>'''
 
 
-def news(zh, affiliation_url, thesis_url):
+def news(zh, affiliation_url, thesis_url, cv_url, papers):
     L = lambda en, cn: cn if zh else en
+    code = {paper['id']: paper['code'] for paper in papers if paper.get('code')}
+    related = {
+        '#eyegraph': (
+            (code['eyegraph'], L('Code', '代码')),
+            (f'{code["eyegraph"]}/blob/main/img/online_demo.mp4', L('Demo video', '演示视频')),
+        ),
+        '#unioctsegplus': ((code['unioctsegplus'], L('Code and data guide', '代码与数据说明')),),
+        '#mfmcm': ((code['mfmcm'], L('Training code', '训练代码')),),
+        '#scholar-57': ((f'{code["scholar-57"]}/tree/main/evaluation', L('Evaluation code', '评测代码')),),
+        '#mirage': ((code['mirage'], L('Training code', '训练代码')),),
+        '#animerplus': (('https://animerplus.github.io/', L('Project page', '项目页')),),
+    }
     notices = (
         ('2026-10', '#eyegraph', 'EyeGraph',
-         ' connects medical vision–language modeling with knowledge-graph reasoning. Published online in IEEE TMI.',
-         ' 将知识图谱推理引入医学视觉语言模型，已在 IEEE TMI 在线发表。'),
+         ' uses a medical knowledge graph to guide retinal image report generation. Published online in IEEE TMI.',
+         ' 将医学知识图谱推理引入眼底影像报告生成，已在 IEEE TMI 在线发表。'),
         ('2026-09', '#unioctsegplus', 'UniOCTSeg++',
          ' uses hierarchical prompts to share supervision across annotation granularities. Published in IEEE TMI.',
          ' 通过层级提示整合不同标注粒度的监督信息，发表于 IEEE TMI。'),
         ('2026-09', '#mfmcm', 'MF-MCM',
-         ' learns complementary representations across brain MRI sequences for segmentation with incomplete inputs. Published in Information Fusion.',
-         ' 学习脑部 MRI 序列间的互补表征，在部分序列缺失时仍可进行分割，发表于 Information Fusion。'),
+         ' uses complementary masks for MRI pretraining and tests transfer with missing sequences. Published in Information Fusion.',
+         ' 用跨序列互补掩码进行脑部 MRI 预训练，并研究缺失序列时的迁移表现，发表于 Information Fusion。'),
         ('2026-08', '#focus', 'FOCUS',
          ' evaluates a foundation-model workflow for 3D OCT diagnosis across four external centers. Published in npj Digital Medicine.',
          ' 构建基于基础模型的三维 OCT 诊断流程，并在四家外部中心进行评估，发表于 npj Digital Medicine。'),
         ('2026-08', '#scholar-57', 'DRAgent',
-         ' preprint presents a multi-agent framework for diabetic retinopathy treatment planning and evaluates it with clinicians and clinical guidelines.',
-         ' 预印本提出面向糖尿病视网膜病变治疗规划的多智能体框架，结合临床指南与医生评审进行评估。'),
+         ' preprint evaluates multi-agent treatment planning for diabetic retinopathy with guideline checks and clinician review.',
+         ' 预印本研究多专科智能体如何协作规划糖尿病视网膜病变的治疗方案，采用指南核查与医生评审。'),
         ('2026-06', '#synlits', 'SynLiTS',
          ' combines phase-conditioned synthesis with feature fusion for unaligned liver CT. Published in IEEE TMI.',
          ' 结合期相条件合成与特征融合，从配准不完全的多期肝脏 CT 中学习，发表于 IEEE TMI。'),
+        ('2026-06', 'https://huggingface.co/datasets/Hal1010/HROCT-Bench', 'HROCT-Bench',
+         ' updated six open retinal OCT subsets for evaluating segmentation across annotation granularities.',
+         ' 更新 6 个公开的视网膜 OCT 子集，支持跨标注粒度的分割评测。'),
         ('2026-03', '#mirage', 'MIRAGE',
          ' studies how to reduce the effect of mismatched and semantically related pairs in medical image–text pretraining. Published in Medical Image Analysis.',
          ' 研究如何减轻图文错配及语义相近样本对医学图文预训练的干扰，发表于 Medical Image Analysis。'),
@@ -163,17 +178,25 @@ def news(zh, affiliation_url, thesis_url):
     venue_pattern = re.compile(r'(?<![A-Za-z])(' + '|'.join(map(re.escape, venue_names)) + r')(?![A-Za-z])')
 
     def timeline(items):
-        content = ''.join(
-            f'<li><time datetime="{date}">{date.replace("-", ".")}</time>'
-            f'<p><a href="{escape(url)}">{escape(title)}</a>'
-            f'{venue_pattern.sub(r"<strong>\1</strong>", escape(L(en, cn)))}</p></li>'
-            for date, url, title, en, cn in items
-        )
-        return f'<ul class="news-list">{content}</ul>'
+        rows = []
+        for date, url, title, en, cn in items:
+            summary = venue_pattern.sub(r'<strong>\1</strong>', escape(L(en, cn)))
+            resources = ''.join(
+                f' <span class="news-resource"><span aria-hidden="true">·</span> '
+                f'<a href="{escape(link)}">{escape(label)}</a></span>'
+                for link, label in related.get(url, ())
+            )
+            rows.append(
+                f'<li><time datetime="{date}">{date.replace("-", ".")}</time>'
+                f'<p><a href="{escape(url)}">{escape(title)}</a>{summary}{resources}</p></li>'
+            )
+        return f'<ul class="news-list">{"".join(rows)}</ul>'
 
     return f'''<section class="container section news-section" aria-labelledby="News">
-<h2 id="News">{L('News', '学术动态')}</h2>{timeline(notices[:8])}
-<details class="news-archive"><summary>{L('Earlier updates', '往期动态')}</summary>{timeline(notices[8:])}</details>
+<div class="section-title"><h2 id="News">{L('News', '学术动态')}</h2>
+<div><a href="{escape(cv_url)}#resources">{escape(L('Code & data', '开放成果'))} →</a></div></div>
+{timeline(notices[:7])}
+<details class="news-archive"><summary>{L('Earlier updates', '往期动态')}</summary>{timeline(notices[7:])}</details>
 </section>'''
 
 

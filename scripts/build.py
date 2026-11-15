@@ -336,7 +336,7 @@ def home(language):
     return header(language)+f'''<main id="main">
 {homepage.intro(zh,p,cv_url)}
 {homepage.biography(zh,thesis,p,stats(zh))}
-{homepage.news(zh,institution,thesis)}
+{homepage.news(zh,institution,thesis,cv_url,papers)}
 {homepage.experience(zh,cv_url)}
 <section class="container section publications" aria-labelledby="Publications">
 <div class="section-title"><h2 id="Publications">{L('Publications','学术论文')}</h2>

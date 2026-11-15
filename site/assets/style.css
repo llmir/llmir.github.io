@@ -69,6 +69,8 @@ h2,.section-title h1{font-size:1.75rem;font-weight:700;line-height:1.6;letter-sp
 .news-list li{display:grid;grid-template-columns:66px minmax(0,1fr);gap:6px 12px;border-top:1px solid var(--line);padding:7px 0;font-size:.9rem;line-height:1.52;align-items:baseline}
 .news-list time{color:#53647c;font-size:.77rem;font-weight:650;font-variant-numeric:tabular-nums}
 .news-list a{color:#235a95;font-weight:680}
+.news-resource{font-size:.88em;white-space:nowrap}
+.news-resource a{font-weight:560}
 .news-archive{border-top:1px solid var(--line);padding:5px 0;font-size:.83rem;color:#235a95}
 .news-archive summary{width:max-content;padding:3px 0;cursor:pointer}
 .news-archive .news-list{color:var(--text)}
