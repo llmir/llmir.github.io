@@ -1,6 +1,7 @@
 """Biography, news, experience, and peer review on the bilingual homepage."""
 
 from html import escape
+from itertools import groupby
 import re
 
 
@@ -110,6 +111,7 @@ def biography(zh, thesis_url, profile, sidebar):
 
 def news(zh, affiliation_url, thesis_url, cv_url, papers):
     L = lambda en, cn: cn if zh else en
+    dataset = next(paper['data'] for paper in papers if paper['id'] == 'sustech-sysu')
     code = {paper['id']: paper['code'] for paper in papers if paper.get('code')}
     related = {
         '#eyegraph': (
@@ -121,8 +123,21 @@ def news(zh, affiliation_url, thesis_url, cv_url, papers):
         '#scholar-57': ((f'{code["scholar-57"]}/tree/main/evaluation', L('Evaluation code', '评测代码')),),
         '#mirage': ((code['mirage'], L('Training code', '训练代码')),),
         '#animerplus': (('https://animerplus.github.io/', L('Project page', '项目页')),),
+        '#lumos': (('#scholar-61', L('TOF-MRA study', 'TOF-MRA 论文')), ('#scholar-62', 'DAPS')),
+        '#scholar-52': (('#scholar-53', 'SMNet'),),
+        '#yolocurvseg': (
+            (code['yolocurvseg'], L('Code and data', '代码与数据')),
+            (L('https://www.sustech.edu.cn/en/faculties/tangxiaoying.html',
+               'https://www.sustech.edu.cn/zh/faculties/tangxiaoying.html'), L('Recognition', '奖项资料')),
+        ),
+        '#scholar-7': (('#scholar-6', L('Lesion-aware learning paper', '病灶感知学习论文')),),
+        '#sustech-sysu': ((dataset, L('Download dataset', '下载数据集')),),
     }
-    notices = (
+    for project in ('unioctseg', 'mefn', 'animer', 'procns', 'fedlppa', 'lfsynthseg',
+                    'uni4eyeplus', 'fedicra', 'prior', 'scholar-2', 'bsdanet'):
+        related[f'#{project}'] = ((code[project], L('Code', '代码')),)
+
+    recent = (
         ('2026-10', '#eyegraph', 'EyeGraph',
          ' uses a medical knowledge graph to guide retinal image report generation. Published online in IEEE TMI.',
          ' 将医学知识图谱推理引入眼底影像报告生成，已在 IEEE TMI 在线发表。'),
@@ -144,37 +159,100 @@ def news(zh, affiliation_url, thesis_url, cv_url, papers):
         ('2026-06', 'https://huggingface.co/datasets/Hal1010/HROCT-Bench', 'HROCT-Bench',
          ' updated six open retinal OCT subsets for evaluating segmentation across annotation granularities.',
          ' 更新 6 个公开的视网膜 OCT 子集，支持跨标注粒度的分割评测。'),
-        ('2026-03', '#mirage', 'MIRAGE',
-         ' studies how to reduce the effect of mismatched and semantically related pairs in medical image–text pretraining. Published in Medical Image Analysis.',
-         ' 研究如何减轻图文错配及语义相近样本对医学图文预训练的干扰，发表于 Medical Image Analysis。'),
-        ('2026-03', '#animerplus', 'AniMer+',
-         ' extends family-aware pose and shape estimation to mammals and birds. Published in IEEE TPAMI.',
-         ' 利用动物分类学信息进行姿态与形状估计，将模型扩展至哺乳类和鸟类，发表于 IEEE TPAMI。'),
-        ('2025-11', affiliation_url, 'CATL HKRI',
-         ' · Joined as a Senior AI Engineer, working on AI for Science and Agentic AI.',
-         ' · 加入宁德时代香港研究院，担任高级 AI 工程师，从事科学智能与智能体 AI 研究。'),
-        ('2025-09', thesis_url, L('PhD at the University of Hong Kong', '香港大学博士'),
-         ' · Completed my PhD in Electrical and Electronic Engineering, with a thesis on federated and annotation-efficient learning.',
-         ' · 获电子与电气工程博士学位，论文研究面向医学影像分析的联邦学习与标注高效学习。'),
-        ('2025-09', '#unioctseg', 'UniOCTSeg',
-         ' introduces hierarchical prompting for joint learning across retinal layer annotation protocols. Published at MICCAI.',
-         ' 提出层级提示方法，在不同视网膜层标注规范下联合训练模型，发表于 MICCAI。'),
-        ('2025-06', '#animer', 'AniMer',
-         ' uses taxonomic structure for animal pose and shape estimation. Published at CVPR.',
-         ' 利用动物分类学中的层级关系估计动物姿态与形状，发表于 CVPR。'),
-        ('2025-03', '#fedlppa', 'FedLPPA',
-         ' studies personalized federated segmentation under heterogeneous weak supervision. Published in IEEE TMI.',
-         ' 研究各机构弱标注条件不一致时的个性化联邦分割，发表于 IEEE TMI。'),
-        ('2023-12', 'https://doi.org/10.1016/j.media.2023.102937', 'YoloCurvSeg',
-         ' constructs dense segmentation supervision from a single noisy skeleton annotation. Published in Medical Image Analysis.',
-         ' 从一条含噪骨架标注构造像素级分割监督，发表于 Medical Image Analysis。'),
-        ('2023-10', 'https://openaccess.thecvf.com/content/ICCV2023/html/Cheng_PRIOR_Prototype_Representation_Joint_Learning_from_Medical_Images_and_Reports_ICCV_2023_paper.html', 'PRIOR',
-         ' learns transferable representations from paired medical images and clinical reports. Published at ICCV.',
-         ' 从配对的医学影像与临床报告中学习可迁移表征，发表于 ICCV。'),
     )
 
-    venue_names = ('IEEE TMI', 'Information Fusion', 'npj Digital Medicine',
-                   'Medical Image Analysis', 'IEEE TPAMI', 'MICCAI', 'CVPR', 'ICCV')
+    earlier = (
+        ('2026-04', '#lumos', 'LUMOS',
+         ' uses reliability-weighted pseudo-labels to share supervision across OCT annotation levels. Two other papers at IEEE ISBI study synthetic training data for TOF-MRA vessel segmentation and anatomy-guided PET attenuation correction.',
+         ' 按可靠性对伪标签加权，在不同 OCT 标注层级之间传递监督。同届 IEEE ISBI 另有两项工作，分别研究基于合成数据的 TOF-MRA 血管分割和解剖先验引导的 PET 衰减校正。'),
+        ('2026-03', '#mirage', 'MIRAGE',
+         ' uses optimal transport and adaptive gradient balancing to reduce the effects of mismatched reports and false negatives in medical image–text pretraining. The study evaluates transfer on six tasks and appeared in Medical Image Analysis.',
+         ' 利用最优传输与自适应梯度平衡，降低医学图文预训练中报告错配和假负样本的干扰。在六项任务上评估迁移表现，发表于 Medical Image Analysis。'),
+        ('2026-03', '#animerplus', 'AniMer+',
+         ' extends single-image 3D reconstruction to quadrupedal mammals and birds with shared Transformer layers and taxon-specific experts. Evaluation includes out-of-domain animals. Published in IEEE TPAMI.',
+         ' 以共享 Transformer 层和面向不同分类群的专家模块，将单图三维重建扩展至四足哺乳动物和鸟类，并评估域外泛化表现。发表于 IEEE TPAMI。'),
+        ('2025-11', affiliation_url, 'CATL HKRI',
+         ' · Joined as a Senior AI Engineer. My work spans agent evaluation and self-improvement, autonomous research frameworks for materials, and multimodal battery characterization.',
+         ' · 加入宁德时代香港研究院，担任高级 AI 工程师，研究智能体评测与自我改进、面向材料的自主科研框架，以及多模态电池表征。'),
+        ('2025-09', thesis_url, L('PhD at the University of Hong Kong', '香港大学博士'),
+         ' · Completed my PhD in Electrical and Electronic Engineering with joint training at SUSTech. My thesis studies efficient learning from sparse annotations and personalized federated learning across medical imaging sites.',
+         ' · 获香港大学电子与电气工程博士学位，由港大与南科大联合培养。博士论文研究稀疏标注下的高效学习，以及跨机构医学影像的个性化联邦学习。'),
+        ('2025-09', '#unioctseg', 'UniOCTSeg',
+         ' combines hierarchical prompts with progressive consistency training to integrate six retinal-layer labeling schemes in one model. Evaluated on eight OCT datasets and published at MICCAI.',
+         ' 结合层级提示与渐进一致性训练，用一个模型整合六种视网膜层标注粒度。在八个 OCT 数据集上评估，发表于 MICCAI。'),
+        ('2025-08', '#mefn', 'MEFN',
+         ' calibrates uncertainty in PET and CT separately before fusing voxel-level evidence. Evaluated for both tumor delineation and uncertainty on AutoPET and HECKTOR. Published in Knowledge-Based Systems.',
+         ' 分别估计 PET 与 CT 的不确定性后，再融合体素级证据。在 AutoPET 和 HECKTOR 上评估肿瘤分割与不确定性估计，发表于 Knowledge-Based Systems。'),
+        ('2025-06', '#animer', 'AniMer',
+         ' uses family-level supervision to learn 3D pose and shape across quadrupeds. Its CtrlAni3D training data pair synthetic images with aligned mesh annotations. Published at CVPR.',
+         ' 利用科级分类信息学习不同四足动物的三维姿态与形状，并构建合成图像与三维网格精确对应的 CtrlAni3D 训练数据。发表于 CVPR。'),
+        ('2025-04', '#procns', 'ProCNS',
+         ' calibrates feature prototypes as training progresses and suppresses unreliable pseudo-labels to limit error accumulation under sparse supervision. Published in IEEE JBHI.',
+         ' 随训练逐步校准特征原型，抑制不可靠伪标签，缓解稀疏监督下伪标签误差的累积。发表于 IEEE JBHI。'),
+        ('2025-03', '#fedlppa', 'FedLPPA',
+         ' uses personalized prompts and parameter-wise aggregation to account for differences in institutional data distributions and weak annotation protocols. Evaluated across four segmentation tasks and published in IEEE TMI.',
+         ' 通过个性化提示与逐参数聚合，适应机构间的影像分布与弱标注差异。在四项分割任务上评估，发表于 IEEE TMI。'),
+        ('2025-02', '#lfsynthseg', 'LF-SynthSeg',
+         ' uses healthy tissue anatomy and intensity to synthesize tumor training pairs, enabling brain tumor segmentation without manually drawn tumor masks. Published in IEEE JBHI.',
+         ' 利用健康脑组织的解剖与强度信息合成肿瘤训练样本，在无需人工肿瘤掩码的条件下训练分割模型。发表于 IEEE JBHI。'),
+        ('2024-12', '#scholar-52', 'MMCM',
+         ' learns cross-sequence MRI representations through complementary masks. A second study, SMNet, combines cross-contrast alignment with arbitrary-scale isotropic reconstruction. Both appeared at IEEE BIBM.',
+         ' 通过互补掩码学习 MRI 跨序列表征。同期的 SMNet 将跨对比度配准与任意倍率各向同性重建结合。两项工作均发表于 IEEE BIBM。'),
+        ('2024-07', '#uni4eyeplus', 'Uni4Eye++',
+         ' extends masked pretraining across 2D ophthalmic images and 3D volumes, with reconstruction heads tailored to each modality. Published online in IEEE TMI.',
+         ' 将掩码预训练扩展到二维眼科图像和三维体数据，并为不同模态设置相应的重建头。已在 IEEE TMI 在线发表。'),
+        ('2024-07', '#scholar-31', 'JOINEDTrans',
+         ' transfers a vascular spatial prior to joint optic disc and cup segmentation and foveal localization. The coarse-to-fine design was evaluated on three public datasets and published in Computers in Biology and Medicine.',
+         ' 将视网膜血管的空间先验迁移到视盘、视杯分割与中心凹定位，采用由粗到细的结构在三个公开数据集上评估。发表于 Computers in Biology and Medicine。'),
+        ('2024-03', '#scholar-68', 'pFedWSD',
+         ' distills shared segmentation knowledge into personalized teachers using estimates of site similarity. The framework handles differences in both imaging distributions and sparse labels. Published in Journal of Image and Graphics.',
+         ' 估计机构间相似性，将共享分割知识蒸馏至个性化教师模型，同时处理影像分布与稀疏标注的异质性。发表于《中国图象图形学报》。'),
+        ('2023-12', '#yolocurvseg', 'YoloCurvSeg',
+         ' constructs dense segmentation supervision from one noisy skeleton by combining synthesized anatomy with backgrounds from unlabeled images. Published in Medical Image Analysis and named a representative algorithm at the China Medical AI Conference.',
+         ' 将合成解剖结构与无标注图像背景结合，仅用一条含噪骨架构建像素级分割监督。发表于 Medical Image Analysis，并入选中国医学人工智能大会代表性算法。'),
+        ('2023-10', '#fedicra', 'FedICRA',
+         ' learns site-aware representations and personalizes parameter aggregation across institutions with different imaging distributions and weak labels. Published in the MLMI workshop proceedings at MICCAI.',
+         ' 学习机构特异表征并实施个性化参数聚合，适应跨机构的影像分布与弱标注差异。发表于 MICCAI 的 MLMI 工作坊论文集。'),
+        ('2023-10', '#prior', 'PRIOR',
+         ' aligns medical images and reports at global and local scales, using sentence prototypes to preserve clinically relevant language. Transfer was evaluated on five downstream tasks. Published at ICCV.',
+         ' 在全局和局部尺度对齐影像与临床报告，以句子原型保留临床语义。迁移评测覆盖五项下游任务，发表于 ICCV。'),
+        ('2022-12', '#scholar-2', 'AADG',
+         ' searches for augmentation policies that expand the diversity of training domains in feature space. Evaluation tests transfer across unseen retinal datasets and imaging modalities. Published in IEEE TMI.',
+         ' 在特征空间搜索能拓展训练域多样性的数据增强策略，评估对未见视网膜数据集与其他成像模态的迁移表现。发表于 IEEE TMI。'),
+        ('2022-12', '#scholar-20', 'JOINED',
+         ' uses pixel-to-landmark distances as auxiliary supervision, jointly locating the fovea and delineating the optic disc and cup. Published in the MIDL proceedings.',
+         ' 以像素到解剖标志点的距离作为辅助监督，联合定位中心凹、分割视盘和视杯。发表于 MIDL 论文集。'),
+        ('2022-09', '#scholar-27', 'DS³-Net',
+         ' learns to synthesize contrast-enhanced T1 MRI from paired and unpaired scans. A difficulty map emphasizes regions that are harder to reconstruct. Published at MICCAI.',
+         ' 联合利用配对与非配对扫描合成 T1 增强 MRI，由难度图引导模型关注更难重建的区域。发表于 MICCAI。'),
+        ('2022-09', '#uni4eye', 'Uni4Eye',
+         ' pretrains a shared Transformer on 2D ophthalmic images and 3D volumes by reconstructing masked intensities and gradients. Transfer was evaluated on six classification tasks. Published at MICCAI.',
+         ' 通过重建掩码区域的强度与梯度，在二维眼科图像和三维体数据上联合预训练共享 Transformer。迁移评测覆盖六项分类任务，发表于 MICCAI。'),
+        ('2021-09', '#bsdanet', 'BSDA-Net',
+         ' uses boundary heatmaps and signed distance maps to represent the foveal avascular zone, sharing its geometry between delineation and classification. Published at MICCAI.',
+         ' 以边界热图和符号距离图表征黄斑中心凹无血管区，将几何信息用于联合分割与分类。发表于 MICCAI。'),
+        ('2021-09', '#scholar-7', 'I-SECRET',
+         ' learns fundus image enhancement from synthetic degradations and unpaired clinical images. Another paper studies lesion-centered contrastive learning for retinopathy grading. Both appeared at MICCAI.',
+         ' 从合成退化图像和非配对临床图像中学习眼底影像增强。同期工作以病灶为中心开展对比学习，用于视网膜病变分级。两项工作均发表于 MICCAI。'),
+        ('2021-04', '#scholar-35', L('Corneal nerve segmentation', '角膜神经分割'),
+         ' combines contrastive image synthesis with quality enhancement to address uneven illumination and imperfect labels in confocal microscopy. Published at IEEE ISBI.',
+         ' 结合对比式图像合成与质量增强，应对共聚焦显微镜影像的光照不均与标注误差。发表于 IEEE ISBI。'),
+        ('2021-03', '#scholar-25', 'BLU-GAN',
+         ' uses bidirectional ConvLSTM units to combine features across scales for retinal vessel segmentation. The paper received the Best Paper Award at BenchCouncil FICC 2020 and appeared in the 2021 proceedings.',
+         ' 用双向 ConvLSTM 融合跨尺度特征来分割视网膜血管，获 BenchCouncil FICC 2020 最佳论文奖，正式论文收录于 2021 年出版的论文集。'),
+        ('2020-11', '#sustech-sysu', 'SUSTech–SYSU',
+         ' released 1,219 fundus photographs with lesion and anatomical landmark annotations and diabetic retinopathy grades from three protocols. Published in Scientific Data.',
+         ' 开放 1,219 张眼底照片，提供病灶、解剖标志点标注及三套糖尿病视网膜病变分级。发表于 Scientific Data。'),
+        ('2020-04', '#scholar-11', L('Retinal hemorrhage detection', '眼底出血病灶检测'),
+         ' refines coarse bounding-box annotations before training a label-smoothed detector for retinal hemorrhages. Published at IEEE ISBI.',
+         ' 先校正粗略的病灶框标注，再以标签平滑训练眼底出血病灶检测模型。发表于 IEEE ISBI。'),
+    )
+
+    venue_names = ('IEEE TMI', 'Information Fusion', 'npj Digital Medicine', 'Medical Image Analysis',
+                   'IEEE TPAMI', 'Knowledge-Based Systems', 'IEEE JBHI', 'IEEE BIBM',
+                   'Computers in Biology and Medicine', 'Journal of Image and Graphics', '《中国图象图形学报》',
+                   'MICCAI', 'MLMI', 'CVPR', 'ICCV', 'MIDL', 'IEEE ISBI', 'BenchCouncil FICC 2020',
+                   'Scientific Data', 'China Medical AI Conference', '中国医学人工智能大会')
     venue_pattern = re.compile(r'(?<![A-Za-z])(' + '|'.join(map(re.escape, venue_names)) + r')(?![A-Za-z])')
 
     def timeline(items):
@@ -192,11 +270,18 @@ def news(zh, affiliation_url, thesis_url, cv_url, papers):
             )
         return f'<ul class="news-list">{"".join(rows)}</ul>'
 
+    archive = ''.join(
+        f'<h3 id="News-{year}">{year}</h3>{timeline(items)}'
+        for year, items in groupby(earlier, key=lambda notice: notice[0][:4])
+    )
+    year_range = f'{earlier[-1][0][:4]}–{earlier[0][0][:4]}'
     return f'''<section class="container section news-section" aria-labelledby="News">
 <div class="section-title"><h2 id="News">{L('News', '学术动态')}</h2>
 <div><a href="{escape(cv_url)}#resources">{escape(L('Code & data', '开放成果'))} →</a></div></div>
-{timeline(notices[:7])}
-<details class="news-archive"><summary>{L('Earlier updates', '往期动态')}</summary>{timeline(notices[7:])}</details>
+{timeline(recent)}
+<details class="news-archive" id="NewsArchive">
+<summary>{L('Earlier updates', '往期动态')} <span>({year_range})</span></summary>
+{archive}</details>
 </section>'''
 
 

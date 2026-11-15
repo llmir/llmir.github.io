@@ -73,6 +73,8 @@ h2,.section-title h1{font-size:1.75rem;font-weight:700;line-height:1.6;letter-sp
 .news-resource a{font-weight:560}
 .news-archive{border-top:1px solid var(--line);padding:5px 0;font-size:.83rem;color:#235a95}
 .news-archive summary{width:max-content;padding:3px 0;cursor:pointer}
+.news-archive summary span{margin-inline-start:3px;color:var(--muted);font-variant-numeric:tabular-nums}
+.news-archive h3{margin:14px 0 3px;font-size:.95rem;color:#294d74}
 .news-archive .news-list{color:var(--text)}
 .experience-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 26px;list-style:none;margin:5px 0 0;padding:0}
 .experience-list li{border-top:1px solid var(--line);padding:8px 0 7px;font-size:.84rem;color:var(--text)}
@@ -168,7 +170,8 @@ h2,.section-title h1{font-size:1.75rem;font-weight:700;line-height:1.6;letter-sp
 .chart-well .partial{background:repeating-linear-gradient(135deg,#2759a3,#2759a3 3px,#6691c9 3px,#6691c9 6px)}
 @media(max-width:900px){
  .biography-layout{display:flex;flex-direction:column}
- .stats-section{order:1;float:none;width:min(100%,310px);margin:17px 0 0}
+ .stats-section{order:1;float:none;width:100%;margin:17px 0 0}
+ .footer-widgets{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
 }
 @media(min-width:611px){
  .experience-list li:nth-child(even){grid-column:1}

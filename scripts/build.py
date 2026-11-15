@@ -147,6 +147,7 @@ def header(language,page='home'):
         '林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。',
     )
     sharing = '\n' + sharing_metadata(language, canonical, description) if page == 'home' else ''
+    style_version = {'home': '?v=responsive-stats', 'cv': '?v=cv-resources'}.get(page, '')
     return f'''<!doctype html>
 <html lang="{language}">
 <head>
@@ -158,7 +159,7 @@ def header(language,page='home'):
 <link rel="canonical" href="{e(canonical)}">
 {alternate}
 <title>{ttl}</title>{sharing}
-<link rel="stylesheet" href="assets/style.css{'?v=cv-resources' if page == 'cv' else ''}">
+<link rel="stylesheet" href="assets/style.css{style_version}">
 <link rel="stylesheet" href="assets/publication-design.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script src="assets/site.js?v=publication-views" defer></script>
