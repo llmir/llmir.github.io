@@ -158,7 +158,7 @@ def header(language,page='home'):
 <link rel="canonical" href="{e(canonical)}">
 {alternate}
 <title>{ttl}</title>{sharing}
-<link rel="stylesheet" href="assets/style.css{'?v=cv-justify' if page == 'cv' else ''}">
+<link rel="stylesheet" href="assets/style.css{'?v=cv-resources' if page == 'cv' else ''}">
 <link rel="stylesheet" href="assets/publication-design.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script src="assets/site.js?v=publication-views" defer></script>

@@ -21,10 +21,13 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
         'MLMI 2025 at MICCAI': L('MLMI at MICCAI 2025, proc.', 'MICCAI 2025 MLMI，论文集'),
     }
 
+    def publication_venue(paper):
+        venue = short_venues.get(paper['venue'], paper.get(L('venue', 'venueZh'), paper['venue']))
+        return f'{venue} {paper["year"]}'
+
     def example(key, label):
         paper = by_id[key]
-        venue = short_venues.get(paper['venue'], paper.get(L('venue', 'venueZh'), paper['venue']))
-        details = [f'{venue} {paper["year"]}']
+        details = [publication_venue(paper)]
         if paper['status'] == 'preprint':
             details.append(L('preprint', '预印本'))
         if award := paper.get(L('award', 'awardZh')):
@@ -164,19 +167,114 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
         f'<li><time>{date}</time><div>{a(url,label) if url else e(label)}{f"<small>{e(note)}</small>" if note else ""}</div></li>'
         for date, label, note, url in awards
     )
-    resources = (
-        (L('Dataset', '数据集'), 'SUSTech–SYSU', by_id['sustech-sysu'].get('data') or by_id['sustech-sysu']['url'],
-         L('Fundus images and expert annotations for lesion detection and grading', '用于病灶检测和分级的眼底影像与专家标注')),
-        (L('Code', '代码'), 'FedLPPA', by_id['fedlppa']['code'],
-         L('Personalized federated segmentation under heterogeneous weak supervision', '异构弱监督下的个性化联邦分割')),
-        (L('Code', '代码'), 'YoloCurvSeg', by_id['yolocurvseg']['code'],
-         L('Data synthesis and segmentation from sparse skeleton labels', '稀疏骨架标注下的数据合成与分割')),
-        (L('Code', '代码'), 'PRIOR', by_id['prior']['code'],
-         L('Joint visual and language pretraining with medical images and reports', '医学影像与报告的视觉语言联合预训练')),
+    paper_label = L('Paper', '论文')
+    code_label = L('Code', '代码')
+
+    def resource_code(key, label=None):
+        return a(by_id[key]['code'], label or code_label)
+
+    def resource_context(*keys):
+        return ' · '.join(publication_venue(by_id[key]) for key in keys)
+
+    def resource(name, context, description, links):
+        return f'''<li>
+<div class="cv-entry-head cv-resource-head"><h4>{e(name)}</h4><span>{e(context)}</span></div>
+<p class="cv-resource-description">{e(description)}</p>
+<p class="cv-resource-links">{' · '.join(links)}</p>
+</li>'''
+
+    resource_groups = (
+        (L('Datasets and Benchmarks', '数据集与评测基准'), (
+            resource(
+                'HROCT-Bench / UniOCTSeg++', resource_context('unioctsegplus'),
+                L('A retinal OCT layer segmentation benchmark spanning 11 datasets and eight annotation granularities. The release includes six preprocessed subsets and split files. The repository provides data access instructions and supervised and semi-supervised training scripts.',
+                  '面向视网膜 OCT 层分割的统一基准，涵盖 11 个数据集和 8 种标注粒度。已开放 6 个预处理子集及数据划分文件，代码仓库提供数据获取说明和全监督、半监督训练脚本。'),
+                (a('https://huggingface.co/datasets/Hal1010/HROCT-Bench', L('Open subsets', '开放子集')),
+                 resource_code('unioctsegplus', L('Code and data guide', '代码与数据说明')),
+                 work('unioctsegplus', paper_label))),
+            resource(
+                L('YoloCurvSeg Benchmark Data', 'YoloCurvSeg 基准数据'), resource_context('yolocurvseg'),
+                L('Five prepared benchmarks for weakly supervised vessel and nerve segmentation, with dense masks, noisy skeleton labels, and documented data splits. The release supports comparisons across annotation budgets and imaging domains.',
+                  '用于弱监督血管与神经分割的 5 个预处理基准，包含稠密掩码、含噪骨架标注和数据划分，支持比较不同标注预算及成像域下的分割表现。'),
+                (a(f'{by_id["yolocurvseg"]["code"]}/tree/master/datasets', L('Data and splits', '数据与划分')),
+                 work('yolocurvseg', paper_label))),
+            resource(
+                'SUSTech–SYSU', resource_context('sustech-sysu'),
+                L('1,219 fundus photographs with exudate annotations, optic disc boxes, fovea locations, and diabetic retinopathy grades from three protocols. The shared annotations support lesion detection and comparisons across grading conventions.',
+                  '1,219 张眼底照片，提供渗出物病灶标注、视盘框和中心凹位置，以及三种协议下的糖尿病视网膜病变分级，可用于病灶检测和跨分级标准评测。'),
+                (a('https://figshare.com/articles/dataset/The_SUSTech-SYSU_dataset_for_automated_exudate_detection_and_diabetic_retinopathy_grading/12570770',
+                   L('Dataset', '数据集')),
+                 resource_code('sustech-sysu', L('Annotation guide', '标注说明')),
+                 work('sustech-sysu', paper_label))),
+        )),
+        (L('Research Implementations and Models', '研究代码与模型'), (
+            resource(
+                'EyeGraph', resource_context('eyegraph'),
+                L('Vision–language pretraining and instruction-tuning code for retinal image interpretation, with a knowledge-graph reasoning module for report generation and a recorded demonstration.',
+                  '公开视网膜影像解读的视觉语言预训练与指令微调代码，以及支持报告生成的知识图谱推理模块和演示视频。'),
+                (resource_code('eyegraph'),
+                 a(f'{by_id["eyegraph"]["code"]}/blob/main/img/online_demo.mp4', L('Demo video', '演示视频')),
+                 work('eyegraph', paper_label))),
+            resource(
+                'MF-MCM', resource_context('mfmcm'),
+                L('Complementary masked pretraining for learning from multiple MRI sequences. The implementation includes pretraining, fine-tuning, and 3D evaluation for brain tumor segmentation.',
+                  '利用互补掩码从多序列 MRI 学习表征，提供面向脑肿瘤分割的预训练、微调和三维评测实现。'),
+                (resource_code('mfmcm'), work('mfmcm', paper_label))),
+            resource(
+                'DRAgent', f'{resource_context("scholar-57")} · {L("Preprint", "预印本")}',
+                L('A multidisciplinary agent implementation for studying treatment planning in diabetic retinopathy. The repository includes specialist agents, an evaluation split, and quantitative scoring scripts.',
+                  '面向糖尿病视网膜病变治疗方案研究的多学科智能体实现，提供专科智能体、评测划分和定量评分脚本。'),
+                (resource_code('scholar-57'), work('scholar-57', paper_label))),
+            resource(
+                'MIRAGE', resource_context('mirage'),
+                L('Medical image–text pretraining under noisy pairings. The repository provides data preparation, training configurations, and objectives for reducing the effect of mismatched image–report pairs.',
+                  '面向含噪影像–文本配对的医学预训练，公开数据准备流程、训练配置和用于减弱图文错配影响的学习目标实现。'),
+                (resource_code('mirage'), work('mirage', paper_label))),
+            resource(
+                'AniMer+ / AniMer', resource_context('animerplus', 'animer'),
+                L('Family-aware reconstruction of animal pose and shape from a single image. The project page shows predictions for mammals and birds, and both versions provide training and evaluation code.',
+                  '基于动物科级先验的单图三维姿态与形状重建。项目页展示哺乳类与鸟类的重建结果，两个版本均提供训练和评测实现。'),
+                (a('https://animerplus.github.io/', L('Project page', '项目页')),
+                 resource_code('animerplus', L('AniMer+ code', 'AniMer+ 代码')),
+                 resource_code('animer', L('AniMer code', 'AniMer 代码')),
+                 work('animerplus', 'AniMer+'), work('animer', 'AniMer'))),
+            resource(
+                'ProCNS', resource_context('procns'),
+                L('Progressive prototype calibration and noise suppression for segmentation from sparse annotations. The release provides processed data links and training and evaluation commands.',
+                  '通过渐进式原型校准和噪声抑制，从稀疏标注中学习分割。公开资源包含预处理数据入口及训练、评测命令。'),
+                (resource_code('procns'), work('procns', paper_label))),
+            resource(
+                'FedLPPA / FedICRA', resource_context('fedlppa', 'fedicra'),
+                L('Personalized federated segmentation across sites with different imaging distributions and weak labels. Both implementations document data preparation, client settings, and training and evaluation.',
+                  '面向跨机构影像分布和弱标注差异的个性化联邦分割。两套实现均提供数据准备说明、客户端配置及训练与评测流程。'),
+                (resource_code('fedlppa', L('FedLPPA code', 'FedLPPA 代码')),
+                 resource_code('fedicra', L('FedICRA code', 'FedICRA 代码')),
+                 work('fedlppa', 'FedLPPA'), work('fedicra', 'FedICRA'))),
+            resource(
+                'PRIOR', resource_context('prior'),
+                L('Prototype-based local and global alignment of medical images and reports. The repository includes the pretraining implementation and a released ResNet-50 image encoder.',
+                  '基于原型在局部和全局层面对齐医学影像及报告。代码仓库提供预训练实现及已发布的 ResNet-50 影像编码器权重。'),
+                (resource_code('prior'),
+                 a(f'{by_id["prior"]["code"]}/tree/main/pretrained', L('Encoder weights', '编码器权重')),
+                 work('prior', paper_label))),
+            resource(
+                'AADG', resource_context('scholar-2'),
+                L('Automatic augmentation search for domain generalization in retinal image segmentation. The repository includes policy search, training, and evaluation code for studying transfer to unseen acquisition domains.',
+                  '面向视网膜影像分割的自动数据增强搜索，提供策略搜索、训练及评测代码，用于研究模型在未见采集域的泛化表现。'),
+                (resource_code('scholar-2'), work('scholar-2', paper_label))),
+        )),
+        (L('Research Tools', '科研工具'), (
+            resource(
+                'UU Remote Ubuntu Plus', 'Ubuntu GNOME · MIT',
+                L('I maintain a NetEase UU bridge for remote development, experiment monitoring, and visualization on Ubuntu. It adds canvas presets up to 4K, Chinese input and clipboard compatibility, and an option to retain terminal sessions across reconnects.',
+                  '维护一套基于网易 UU 的 Ubuntu 远程桌面工具，用于远程开发、实验监控与结果可视化。提供最高 4K 的画布预设、中文输入与剪贴板兼容，以及可选的跨重连终端会话保留。'),
+                (a('https://github.com/llmir/uu-remote-ubuntu-plus', L('Source code', '源代码')),
+                 a('https://github.com/llmir/uu-remote-ubuntu-plus/blob/main/docs/architecture.md', L('Architecture', '系统架构')))),
+        )),
     )
     resources_html = ''.join(
-        f'<li><span>{e(kind)}</span><div>{a(url,label)}<small>{e(note)}</small></div></li>'
-        for kind, label, url, note in resources
+        f'<h3 class="cv-subheading">{e(title)}</h3><ul class="cv-resource-list">{"".join(entries)}</ul>'
+        for title, entries in resource_groups
     )
 
     preprint = L('Preprint', '预印本')
@@ -227,6 +325,6 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
 <section class="cv-section" aria-labelledby="bibliography"><div class="section-title"><h2 id="bibliography">{sections['bibliography']}</h2>{full_index}</div>
 {''.join(bibliography)}</section>
 <section class="cv-section" aria-labelledby="patents"><h2 id="patents">{sections['patents']}</h2>{''.join(patent_list)}</section>
-<section class="cv-section" aria-labelledby="resources"><h2 id="resources">{sections['resources']}</h2><ul class="cv-list">{resources_html}</ul></section>
+<section class="cv-section" aria-labelledby="resources"><h2 id="resources">{sections['resources']}</h2>{resources_html}</section>
 <section class="cv-section" aria-labelledby="honors"><h2 id="honors">{sections['honors']}</h2><ul class="cv-list">{award_html}</ul></section>
 </div></div></main>{footer(zh, track_visit=True)}'''
