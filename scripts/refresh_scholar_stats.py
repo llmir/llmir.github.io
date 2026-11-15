@@ -146,13 +146,15 @@ def refresh(snapshot_file, published_url, api_key, today, public_profile=False):
     try:
         published = fetch_json(published_url)
         published_date = validate(published, profile_id, today)
-        same_day_refresh = published_date == best_date and published.get("source") and not best.get("source")
+        published_source = published.get("source")
+        preferred_source = bool(api_key) and published_source == "serpapi"
+        same_day_refresh = published_date == best_date and published_source and (preferred_source or not best.get("source"))
         if published_date > best_date or same_day_refresh:
             best, best_date = published, published_date
     except (OSError, KeyError, TypeError, ValueError) as error:
         print(f"Published Scholar snapshot unavailable ({type(error).__name__})")
 
-    if public_profile or (api_key and (best_date < today or not best.get("source"))):
+    if public_profile or (api_key and (best_date < today or best.get("source") != "serpapi")):
         try:
             updated = collect_public_profile(profile_id, today) if public_profile else collect(profile_id, api_key, today)
             validate(updated, profile_id, today)
