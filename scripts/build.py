@@ -101,6 +101,29 @@ def author_credit(paper, zh):
     labels=[(role_style,role),('correspondence',correspondence)]
     return ''.join(f' <span class="contrib {css}">{e(label)}</span>' for css,label in labels if label)
 
+def sharing_metadata(language, canonical, description):
+    card_locales = {'en': ('en_US', 'en'), 'zh-CN': ('zh_CN', 'zh'), 'zh-Hant': ('zh_HK', 'zh-hant')}
+    locale, suffix = card_locales[language]
+    name = p['name'] if language == 'en' else '林立'
+    title = f"{name} · {'Academic Homepage' if language == 'en' else '学术主页'}"
+    image = f'{p["site"]}assets/social/share-{suffix}.png'
+    alt = ('Li Lin’s portrait, CATL HKRI role, University of Hong Kong PhD, and AI research areas.'
+           if language == 'en' else '林立的肖像、宁德时代香港研究院职务、香港大学博士学历及人工智能研究方向。')
+    open_graph = {
+        'type': 'website', 'title': title, 'description': description, 'url': canonical,
+        'site_name': name, 'image': image, 'image:width': 1200, 'image:height': 630,
+        'image:alt': alt, 'locale': locale,
+    }
+    twitter = {
+        'card': 'summary_large_image', 'title': title, 'description': description,
+        'image': image, 'image:alt': alt,
+    }
+    tags = [f'<meta property="og:{key}" content="{e(value)}">' for key, value in open_graph.items()]
+    tags.extend(f'<meta property="og:locale:alternate" content="{other_locale}">'
+                for other_locale, _ in card_locales.values() if other_locale != locale)
+    tags.extend(f'<meta name="twitter:{key}" content="{e(value)}">' for key, value in twitter.items())
+    return '\n'.join(tags)
+
 def header(language,page='home'):
     zh = language != 'en'
     L=lambda x,y:y if zh else x
@@ -119,17 +142,22 @@ def header(language,page='home'):
     language_menu = '\n'.join(language_links)
     index='' if page=='home' else home
     ttl=L('Li Lin','林立 Li Lin')+{'home':'','archive':' · '+L('Publications','论文目录'),'cv':' · '+L('Academic CV','学术简历')}[page]
+    description = L(
+        'Li Lin — AI for Science, Agentic AI, and AI for Healthcare. Research and publications in medical image analysis, data-efficient learning, and federated learning.',
+        '林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。',
+    )
+    sharing = '\n' + sharing_metadata(language, canonical, description) if page == 'home' else ''
     return f'''<!doctype html>
 <html lang="{language}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{L('Li Lin — AI for Science, Agentic AI, and AI for Healthcare. Research and publications in medical image analysis, data-efficient learning, and federated learning.','林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。')}">
+<meta name="description" content="{e(description)}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 {'<meta name="robots" content="noindex,nofollow">' if args.preview else ''}
 <link rel="canonical" href="{e(canonical)}">
 {alternate}
-<title>{ttl}</title>
+<title>{ttl}</title>{sharing}
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/publication-design.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">

@@ -46,40 +46,57 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
         ''.join((
             topic(
                 L('Data- and annotation-efficient learning', '数据与标注高效学习'),
-                L('I studied how to recover dense segmentation from sparse, noisy supervision. YoloCurvSeg separates the synthesis of curvilinear anatomy from the reconstruction of real image backgrounds and uses contrastive learning to combine them. Its single-skeleton setting used 0.03–1.40% of the fully annotated pixels across four benchmarks. ProCNS uses prototype calibration and region-level noise suppression to limit the accumulation of pseudo-label errors during training.',
-                  '研究如何从稀疏、含噪的监督中学习像素级分割。YoloCurvSeg 将曲线状解剖结构的合成与真实影像背景的重建分开，再利用对比学习将二者结合。在四个基准数据集上，单骨架方案使用的标注像素仅占完整标注的 0.03%–1.40%。ProCNS 通过原型校准与区域级噪声抑制，减少训练中伪标签误差的累积。'),
-                (work('yolocurvseg', 'YoloCurvSeg'), work('procns', 'ProCNS'), work('lfsynthseg', 'LF-SynthSeg'))),
+                L('I developed learning methods for settings with scarce, incomplete, or noisy expert annotations. My work spans anatomy-guided synthesis from minimal labels, prototype-based calibration of pseudo-labels, and semi-supervised adaptation of segmentation foundation models to leverage unlabeled scans.',
+                  '面向专家标注有限、不完整或含噪的情形，研究解剖先验引导的低标注数据合成、基于原型的伪标签校准，以及利用未标注影像进行半监督基础模型适配。'),
+                (work('yolocurvseg', 'YoloCurvSeg'), work('procns', 'ProCNS'), work('lfsynthseg', 'LF-SynthSeg'), work('scholar-17', 'ASLSeg'))),
             topic(
                 L('Cross-domain generalization and adaptation', '跨域泛化与自适应'),
-                L('My work separates shifts in the input distribution from changes in what a site annotates. AADG searches for augmentation policies that improve generalization to unseen imaging domains. UniOCTSeg++ uses hierarchical prompts and bidirectional consistency to share supervision across annotation granularities. On its external OCT test sets, training with 30% labeled data plus unlabeled scans yielded a Dice score of 86.26%, versus 86.83% with full supervision. I have also worked on parameter-efficient adaptation for high-resolution imaging.',
-                  '以设备与成像协议引起的输入分布偏移，以及不同中心的标注粒度差异为切入点。AADG 自动搜索数据增强策略，以提高模型在未见成像域中的泛化能力。UniOCTSeg++ 通过层级提示和双向一致性整合不同标注粒度的监督。在外部 OCT 测试中，采用 30% 标注数据和其余未标注影像时，Dice 为 86.26%，全监督结果为 86.83%。研究还涵盖高分辨率医学影像的参数高效适配。'),
-                (work('scholar-2', 'AADG'), work('unioctsegplus', 'UniOCTSeg++'), work('scholar-41', 'Fusion Side Tuning'))),
+                L('I studied how imaging models transfer across acquisition domains and annotation protocols. My work includes learned augmentation for unseen domains, complementary teachers for adaptation to multiple unlabeled targets, and anatomy-aware prompting for supervision at different levels of detail.',
+                  '研究医学影像模型如何应对采集域和标注规范的变化，包括面向未见域的增强策略学习、面向多个未标注目标域的互补教师适配，以及跨标注粒度的解剖感知提示学习。'),
+                (work('scholar-2', 'AADG'), work('scholar-33', 'RVms'), work('unioctseg', 'UniOCTSeg'))),
             topic(
                 L('Personalized federated learning across data silos', '数据孤岛下的个性化联邦学习'),
-                L('I developed federated methods for institutions whose scans and weak labels follow different distributions. FedICRA learns site-aware representations and adapts the aggregation of segmentation heads. FedLPPA adds prompts for each site’s data distribution and annotation sparsity, together with a dual decoder and parameter-wise aggregation. Its evaluation covered four segmentation tasks across fundus imaging, OCTA, endoscopy and MRI.',
-                  '面向跨机构的影像分布与弱标注差异，研究原始数据留在各机构时的协同训练。FedICRA 学习与中心相关的表征，并自适应聚合分割头。FedLPPA 用不同类型的提示建模各中心的数据分布与标注稀疏性，同时采用双解码器与逐参数聚合，在眼底照片、OCTA、内窥镜和 MRI 的四类分割任务上进行了评估。'),
-                (work('fedlppa', 'FedLPPA'), work('fedicra', 'FedICRA'), a(thesis, L('Doctoral thesis', '博士论文')))),
+                L('I developed personalized federated learning methods for institutions with heterogeneous imaging distributions and weak annotations. Site-aware representation learning, shared and local prompts, and adaptive aggregation or distillation let institutions share knowledge while retaining models suited to their own data.',
+                  '面向影像分布与弱标注形式各异的医疗机构，研究个性化联邦学习。通过中心感知表征、共享与本地提示、自适应聚合及蒸馏，在跨机构共享知识的同时保留模型对本地数据的适配能力。'),
+                (work('fedlppa', 'FedLPPA'), work('fedicra', 'FedICRA'), work('scholar-68', 'pFedWSD'), a(thesis, L('Doctoral thesis', '博士论文')))),
             topic(
-                L('Multimodal foundation models for medical image analysis', '面向医学影像分析的多模态基础模型'),
-                L('I work on reusable medical image representations from unlabeled scans, paired reports and complementary imaging sequences. Uni4Eye++ uses entropy-guided masking and modality-specific reconstruction heads to pretrain jointly on 2D and 3D scans. PRIOR aligns images and reports at global and local levels and evaluates transfer on five downstream tasks. In brain MRI, MF-MCM learns cross-sequence complementarity to support lesion segmentation when annotations or modalities are missing.',
-                  '从未标注影像、配对报告与互补成像序列中学习可迁移表征。Uni4Eye++ 用图像熵引导掩码，通过模态特定的重建头在二维和三维影像上开展联合预训练。PRIOR 在全局与局部层面对齐影像和报告，并在五项下游任务上评估迁移表现。MF-MCM 利用脑部 MRI 序列之间的互补信息，支持标注有限或序列缺失时的病灶分割。'),
-                (work('uni4eyeplus', 'Uni4Eye++'), work('prior', 'PRIOR'), work('mfmcm', 'MF-MCM'))),
+                L('Multimodal representation learning and foundation models', '多模态表征学习与基础模型'),
+                L('I studied how self-supervised and vision–language pretraining can learn representations that transfer across imaging tasks. The work spans joint masked modeling of 2D and 3D scans, learning from complementary MRI sequences, and aligning medical images with reports at global and local scales.',
+                  '研究自监督和视觉语言预训练如何学习可跨任务迁移的医学影像表征，包括二维与三维影像的统一掩码建模、互补 MRI 序列的协同学习，以及医学影像与报告的全局和局部对齐。'),
+                (work('uni4eye', 'Uni4Eye'), work('uni4eyeplus', 'Uni4Eye++'), work('prior', 'PRIOR'), work('scholar-52', 'MMCM'))),
             topic(
-                L('Image analysis in clinical workflows', '影像分析与临床工作流程'),
-                L('SynLiTS combines phase-conditioned synthesis with context-aware fusion for imperfectly aligned liver CT. MEFN estimates uncertainty before combining PET and CT evidence. FOCUS adapts a vision foundation model to analyze OCT slices and aggregates their predictions for patient-level diagnosis. The study evaluated the diagnostic workflow at four external centers.',
-                  'SynLiTS 结合期相条件合成和上下文感知融合，从配准不完全的多期肝脏 CT 中学习。MEFN 先估计各模态的不确定性，再融合 PET 与 CT 提供的证据。FOCUS 适配视觉基础模型分析 OCT 切片，将切片预测汇总为患者级诊断，并在四家外部中心评估该流程。'),
-                (work('synlits', 'SynLiTS'), work('mefn', 'MEFN'), work('focus', 'FOCUS'))),
+                L('Image synthesis, reconstruction, and clinical analysis', '影像合成、重建与临床分析'),
+                L('I contributed to cross-contrast MRI synthesis and reconstruction from limited paired data or anisotropic scans. For clinical image analysis, I worked on anatomical priors for joint structure delineation and landmark detection, uncertainty-aware PET/CT fusion, and retinal non-perfusion mapping from fundus photography.',
+                  '研究有限配对数据或各向异性采集条件下的跨对比度 MRI 合成与重建。面向临床影像分析，探索以解剖先验辅助结构分割和标志点定位、考虑不确定性的 PET/CT 融合，以及基于眼底照片的视网膜无灌注区分析。'),
+                (work('scholar-27', 'DS³-Net'), work('scholar-53', 'SMNet'), work('scholar-31', 'JOINEDTrans'), work('mefn', 'MEFN'),
+                 work('scholar-64', L('Non-perfusion segmentation', '无灌注区分割')))),
         )),
     )
+    early_works = ' · '.join((
+        work('sustech-sysu', 'SUSTech–SYSU'), work('scholar-11', L('Hemorrhage detection', '出血病灶检测')),
+        work('scholar-25', L('BLU-GAN (Best Paper)', 'BLU-GAN（最佳论文）')),
+        work('scholar-35', L('Corneal nerve segmentation', '角膜神经分割')),
+        work('scholar-23', 'EPC-GAN'), work('bsdanet', 'BSDA-Net'),
+    ))
     early = role(
         e(L('Southern University of Science and Technology', '南方科技大学')),
         L('Visiting Student and Research Assistant, MedICAL Lab', '访问学生与研究助理 · MedICAL Lab'),
         L('Jul 2019 – Aug 2021', '2019.07–2021.08'),
         f'''<p class="cv-entry-text">{L(
-            'I worked on medical image segmentation, lesion detection with coarse annotations and dataset development. I was the first author of the SUSTech–SYSU dataset paper in Scientific Data.',
-            '从事医学图像分割、粗标注病灶检测与数据集建设，并以第一作者在 Scientific Data 发表 SUSTech–SYSU 数据集。')}</p>
-<p class="cv-topic-links">{work('sustech-sysu','SUSTech–SYSU')+' · '+work('bsdanet','BSDA-Net')}</p>''',
+            'I studied lesion detection from coarse annotations, anatomical segmentation, and contrastive image synthesis and enhancement. I was the first-listed author of the SUSTech–SYSU dataset paper in Scientific Data. BSDA-Net first appeared as a preprint during this appointment and was subsequently published at MICCAI 2021.',
+            '研究粗标注病灶检测、解剖结构分割，以及基于对比学习的影像合成与增强。以第一作者在 Scientific Data 发表 SUSTech–SYSU 数据集研究。BSDA-Net 于任内发布预印本，后发表于 MICCAI 2021。')}</p>
+<p class="cv-topic-links">{early_works}</p>''',
     )
+    continued_works = ' · '.join((
+        work('mfmcm', 'MF-MCM'), work('unioctsegplus', 'UniOCTSeg++'), work('focus', 'FOCUS'),
+        work('synlits', 'SynLiTS'), work('mirage', 'MIRAGE'),
+    ))
+    continued = f'''<article class="cv-entry">
+<div class="cv-entry-head"><h3>{L('Continued research in medical imaging', '持续开展的医学影像研究')}</h3><span>2026</span></div>
+<p class="cv-entry-text">{L(
+        'Recent publications extend this work to complementary MRI pretraining, learning across OCT annotation schemes, synthesis for misaligned multiphase CT, robust image–report pretraining, and patient-level diagnosis from 3D OCT.',
+        '近期发表的工作延续至互补 MRI 序列预训练、跨 OCT 标注规范学习、面向未充分配准多期 CT 的数据合成、稳健影像–报告预训练，以及基于三维 OCT 的患者级诊断。')}</p>
+<p class="cv-topic-links">{continued_works}</p></article>'''
 
     advisors = a('https://hub.hku.hk/cris/rp/rp00189', L('Kenneth K. Y. Wong', '黄建业')) + L(' and ', '、') + a(
         'https://hub.hku.hk/cris/rp/rp00131', L('Edmund Y. M. Lam', '林彦民'))
@@ -179,7 +196,7 @@ def render(zh, profile, papers, patents, thesis, header, footer, a, e, author_li
 <div class="container cv-layout">
 <aside class="cv-sidebar"><nav class="cv-nav" aria-label="{L('CV sections','简历目录')}">{local_nav}</nav></aside>
 <div class="cv-content">
-<section class="cv-section" aria-labelledby="experience"><h2 id="experience">{sections['experience']}</h2>{current}{doctoral}{early}</section>
+<section class="cv-section" aria-labelledby="experience"><h2 id="experience">{sections['experience']}</h2>{current}{doctoral}{early}{continued}</section>
 <section class="cv-section" aria-labelledby="education"><h2 id="education">{sections['education']}</h2>{schools}</section>
 <section class="cv-section" aria-labelledby="bibliography"><div class="section-title"><h2 id="bibliography">{sections['bibliography']}</h2>{full_index}</div>
 {''.join(bibliography)}</section>
