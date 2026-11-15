@@ -1,5 +1,6 @@
 """Refresh the homepage's Google Scholar snapshot once per day."""
 
+import argparse
 from datetime import date, datetime
 import json
 import os
@@ -8,10 +9,6 @@ from urllib.error import HTTPError
 from urllib.parse import parse_qs, urlencode, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
-
-from bs4 import BeautifulSoup
-from protego import Protego
-
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE_SIZE = 100
@@ -95,6 +92,9 @@ def collect(profile_id, api_key, today):
 
 
 def collect_public_profile(profile_id, today):
+    from bs4 import BeautifulSoup
+    from protego import Protego
+
     query = urlencode({"user": profile_id, "hl": "en", "pagesize": PAGE_SIZE})
     url = f"{SCHOLAR_ORIGIN}/citations?{query}"
     headers = {"User-Agent": SCHOLAR_AGENT}
@@ -138,7 +138,7 @@ def collect_public_profile(profile_id, today):
     }
 
 
-def refresh(snapshot_file, published_url, api_key, today):
+def refresh(snapshot_file, published_url, api_key, today, public_profile=False):
     checked_in = json.loads(snapshot_file.read_text(encoding="utf-8"))
     profile_id = checked_in["profileId"]
     best = checked_in
@@ -152,9 +152,9 @@ def refresh(snapshot_file, published_url, api_key, today):
     except (OSError, KeyError, TypeError, ValueError) as error:
         print(f"Published Scholar snapshot unavailable ({type(error).__name__})")
 
-    if best_date < today or not best.get("source"):
+    if public_profile or (api_key and (best_date < today or not best.get("source"))):
         try:
-            updated = collect(profile_id, api_key, today) if api_key else collect_public_profile(profile_id, today)
+            updated = collect_public_profile(profile_id, today) if public_profile else collect(profile_id, api_key, today)
             validate(updated, profile_id, today)
             best = updated
             print(f"Refreshed Scholar from {best['source']}")
@@ -169,7 +169,11 @@ def refresh(snapshot_file, published_url, api_key, today):
 
 
 if __name__ == "__main__":
+    cli = argparse.ArgumentParser()
+    cli.add_argument("--public-profile", action="store_true",
+                     help="refresh manually from a permitted public author profile")
+    args = cli.parse_args()
     site = json.loads((ROOT / "content/profile.json").read_text(encoding="utf-8"))["site"]
     today = datetime.now(ZoneInfo("Asia/Hong_Kong")).date()
     refresh(ROOT / "content/scholar.json", urljoin(site, "scholar.json"),
-            os.environ.get("SERPAPI_KEY"), today)
+            os.environ.get("SERPAPI_KEY"), today, args.public_profile)
