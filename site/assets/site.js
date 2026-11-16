@@ -142,6 +142,34 @@
     map.addEventListener('error', showBasemap, {once: true});
     if (map.complete && !map.naturalWidth) showBasemap();
   }
+  const visitorStats = document.querySelector('[data-visitor-stats]');
+  if (visitorStats) {
+    const fields = [...visitorStats.querySelectorAll('[data-visitor-value]')];
+    const format = new Intl.NumberFormat(document.documentElement.lang);
+    let latest = Date.parse(visitorStats.dataset.visitorAsOf) || 0;
+    const refreshVisitorStats = async () => {
+      if (document.hidden) return;
+      try {
+        const minute = Math.floor(Date.now() / 60000);
+        const response = await fetch(`visitor-stats.json?minute=${minute}`, {cache: 'no-store'});
+        if (!response.ok) return;
+        const snapshot = await response.json();
+        const collected = Date.parse(snapshot.asOf);
+        if (snapshot.statsId !== visitorStats.dataset.visitorStats || !Number.isFinite(collected) || collected <= latest) return;
+        const values = fields.map(field => snapshot[field.dataset.visitorValue]);
+        if (values.some(value => !Number.isSafeInteger(value) || value < 0)) return;
+        fields.forEach((field, index) => { field.textContent = format.format(values[index]); });
+        visitorStats.title = `${visitorStats.dataset.visitorUpdatedLabel} · ${snapshot.asOf}`;
+        visitorStats.dataset.visitorAsOf = snapshot.asOf;
+        latest = collected;
+      } catch {
+        // The HTML already contains the last published counts.
+      }
+    };
+    refreshVisitorStats();
+    document.addEventListener('visibilitychange', refreshVisitorStats);
+    window.setInterval(refreshVisitorStats, 5 * 60 * 1000);
+  }
   const printCv = document.querySelector('[data-print-cv]');
   if (printCv) {
     const publications = document.querySelectorAll('.academic-cv .cv-bib');

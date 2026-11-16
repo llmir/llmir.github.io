@@ -147,7 +147,7 @@ def refresh(snapshot_file, published_url, api_key, today, public_profile=False):
         published = fetch_json(published_url)
         published_date = validate(published, profile_id, today)
         published_source = published.get("source")
-        preferred_source = bool(api_key) and published_source == "serpapi"
+        preferred_source = published_source == "serpapi"
         same_day_refresh = published_date == best_date and published_source and (preferred_source or not best.get("source"))
         if published_date > best_date or same_day_refresh:
             best, best_date = published, published_date

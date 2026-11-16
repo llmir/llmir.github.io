@@ -7,6 +7,12 @@ A three-language academic homepage and chronological publication index for GitHu
 - 论文目录按年份归档，支持搜索；近期论文和完整目录使用同一份数据。
 - 正式论文的缩略图来自出版方或官方会议论文集。预印本使用相应版本的原文图。图号、版次、来源和许可信息见 `content/figures.json`。待配图的条目保留简介和原文链接。
 
+## Source and reuse
+
+The original site generator, layout code, CSS, JavaScript, and deployment workflows are available under the [MIT License](LICENSE). Publication figures follow the terms of the sources in [`content/figures.json`](content/figures.json). The [font license](site/assets/fonts/OFL-Noto-Sans-KR.txt) and the basemap attribution are listed separately. Use your own photograph, contact details, QR code, and scholarly records when adapting the site.
+
+Clone or fork this repository to reuse the code. Set your site address and repository link in `content/profile.json`, and replace the publication records and figure files. Edit `scripts/homepage.py` and `scripts/academic_cv.py` for your biography, news, CV, and featured projects. When changing authors, update the name checks in `scripts/build.py` and `scripts/check.py` as well. Set `visitors` to `null` until you have your own widget.
+
 ## Preview
 
 ```sh
@@ -21,7 +27,7 @@ Open `http://127.0.0.1:8000/`. The preview build disables visitor tracking.
 ## Publish on GitHub Pages
 
 1. Check the reuse terms for figures before public deployment. The review bundle includes publisher figure assets and their attribution in `content/figures.json`.
-2. Put the contents of this source package in the root of the repository `llmir/llmir.github.io` and use its `main` branch.
+2. Put the source in the root of your Pages repository and use its `main` branch. A personal site on GitHub Pages uses the repository name `<username>.github.io`.
 3. In the repository, select **Settings → Pages → Source → GitHub Actions**. Then run **Deploy academic homepage** on the Actions tab or push an update to `main`. Only the `site/` directory is published.
 
 See [GitHub Pages publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
@@ -37,7 +43,7 @@ See [GitHub Pages publishing source](https://docs.github.com/en/pages/getting-st
 }
 ```
 
-Use the two public identifiers from the widget embed. Each page requests it once. On the homepages, the map links to MapMyVisitors and the three counts show the total, today, and the previous seven complete days. GitHub Actions refreshes these pageview counts every six hours when the provider is available. The map updates separately through the live widget. [MapMyVisitors HTML setup](https://mapmyvisitors.com/learn/tools/add-visitor-map-html/).
+Use the two public identifiers from the widget embed. Each page requests the widget once. On the homepages, the map links to MapMyVisitors and the three counts show the total, today, and the previous seven complete days. GitHub Actions schedules a refresh every 15 minutes and publishes the latest valid counts in `visitor-stats.json`. An open homepage checks for a newer snapshot every five minutes while visible and when the tab becomes active. The map updates separately through the live widget. [MapMyVisitors HTML setup](https://mapmyvisitors.com/learn/tools/add-visitor-map-html/).
 
 After deployment, open the site on its public hostname and check the statistics page for a test visit. If the image fails to load, the homepage shows the basemap and keeps the statistics link available. The provider estimates locations from visitor IP addresses and describes its data handling in its [privacy policy](https://mapmyvisitors.com/b/policy).
 

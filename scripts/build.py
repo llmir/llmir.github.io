@@ -162,7 +162,7 @@ def header(language,page='home'):
 <link rel="stylesheet" href="assets/style.css{style_version}">
 <link rel="stylesheet" href="assets/publication-design.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<script src="assets/site.js?v=publication-views" defer></script>
+<script src="assets/site.js?v=visitor-counts" defer></script>
 </head>
 <body id="Home"{' class="cv-document"' if page=='cv' else ''}>
 <a class="skip" href="#main">{L('Skip to content','跳到正文')}</a>
@@ -187,6 +187,7 @@ def header(language,page='home'):
 
 def footer(zh, track_visit=False):
     L=lambda x,y:y if zh else x
+    source = f' · {a(p["sourceCode"], L("Site source", "网站源码"))}' if p.get('sourceCode') else ''
     pixel = ''
     if visitors and track_visit:
         pixel = (f'<img src="{e(visitors[0])}" alt="" width="1" height="1"'
@@ -194,7 +195,7 @@ def footer(zh, track_visit=False):
         privacy = a(visitor_privacy, L('Visitor privacy','访客隐私'))
         pixel += f'<p>{privacy}</p>'
     return f'''<footer class="container footer">
-<p>© {year} {L('Li Lin','林立')} · <a href="#Home">{L('Back to top','回到顶部')} ↑</a></p>
+<p>© {year} {L('Li Lin','林立')} · <a href="#Home">{L('Back to top','回到顶部')} ↑</a>{source}</p>
 {pixel}
 </footer>
 <dialog id="figure" aria-labelledby="fig-title">
@@ -301,10 +302,16 @@ def stats(zh):
         ('today', L('Today', '今日浏览量')),
         ('last7', L('Prior 7 days', '前 7 天')),
     )
-    metric_date = totals.get('asOf')
-    as_of = f' title="{e(L("Updated from MapMyVisitors", "更新自 MapMyVisitors") + " · " + metric_date)}"' if metric_date else ''
-    metrics = f'<dl class="visitor-metrics"{as_of}>' + ''.join(
-        f'<div><dt>{label}</dt><dd><strong>{f"{totals[key]:,}" if key in totals else "—"}</strong></dd></div>'
+    metric_date = totals.get('asOf', '')
+    updated_label = L('Updated from MapMyVisitors', '更新自 MapMyVisitors')
+    as_of = f' title="{e(updated_label + " · " + metric_date)}"' if metric_date else ''
+    stats_data = (
+        f' data-visitor-stats="{e(p["visitors"]["statsId"])}" data-visitor-as-of="{e(metric_date)}"'
+        f' data-visitor-updated-label="{e(updated_label)}"' if visitors else ''
+    )
+    metrics = f'<dl class="visitor-metrics"{as_of}{stats_data}>' + ''.join(
+        f'<div><dt>{label}</dt><dd><strong data-visitor-value="{key}">'
+        f'{f"{totals[key]:,}" if key in totals else "—"}</strong></dd></div>'
         for key, label in view_metrics
     ) + '</dl>'
     if visitors:
@@ -380,3 +387,8 @@ if __name__=='__main__':
                 html = localize(html)
             (SITE/name).write_text(html+'\n',encoding='utf8')
     (SITE/'scholar.json').write_text(json.dumps(s,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+    visitor_output = SITE/'visitor-stats.json'
+    if visitors:
+        visitor_output.write_text(json.dumps(visitor_totals, indent=2)+'\n', encoding='utf8')
+    else:
+        visitor_output.unlink(missing_ok=True)
