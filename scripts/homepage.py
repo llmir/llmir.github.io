@@ -288,35 +288,40 @@ def news(zh, affiliation_url, thesis_url, cv_url, papers):
 def experience(zh, cv_url):
     L = lambda en, cn: cn if zh else en
     items = (
-        (L('CATL Hong Kong Research Institute (HKRI)', '宁德时代香港研究院（HKRI）'),
+        (('catl.svg', 'experience-catl', 190, 20), L('CATL Hong Kong Research Institute (HKRI)', '宁德时代香港研究院（HKRI）'),
          '', ((L('Senior AI Engineer', '高级 AI 工程师'), L('Nov 2025 – Present', '2025.11 至今')),)),
-        (L('The University of Hong Kong', '香港大学'),
+        (('hku.svg', 'experience-hku', 208, 40), L('The University of Hong Kong', '香港大学'),
          'OMEGA Lab',
          ((L('PhD in Electrical and Electronic Engineering', '电子与电气工程博士'), L('Sep 2021 – Sep 2025', '2021.09–2025.09')),)),
-        (L('Southern University of Science and Technology', '南方科技大学'),
+        (('sustech.png', '', 190, 189), L('Southern University of Science and Technology', '南方科技大学'),
          'MedICAL Lab', (
              (L('Joint PhD training with HKU', '博士联合培养（香港大学）'), L('Sep 2021 – Sep 2025', '2021.09–2025.09')),
              (L('Visiting Student and Research Assistant', '访问学生及研究助理'), L('Jul 2019 – Aug 2021', '2019.07–2021.08')),
          )),
-        (L('Sun Yat-sen University', '中山大学'),
+        (('sysu.png', '', 229, 229), L('Sun Yat-sen University', '中山大学'),
          '', ((L('MS in Information and Communication Engineering', '信息与通信工程硕士'), L('Sep 2018 – Jun 2021', '2018.09–2021.06')),)),
-        (L('South China Normal University', '华南师范大学'),
+        (('scnu.png', '', 220, 241), L('South China Normal University', '华南师范大学'),
          '', ((L('BEng in Communication Engineering', '通信工程学士'), L('Sep 2014 – Jun 2018', '2014.09–2018.06')),)),
     )
 
-    def entry(org, lab, appointments):
+    def entry(logo, org, lab, appointments):
+        file, css, width, height = logo
+        mark_class = f'experience-mark {css}'.rstrip()
+        card_class = ' class="experience-emblem"' if not css else ''
+        mark = (f'<span class="{mark_class}" aria-hidden="true">'
+                f'<img src="assets/institutions/{escape(file)}" alt="" width="{width}" height="{height}" loading="lazy" decoding="async"></span>')
         affiliation = f'<p class="experience-lab">{escape(lab)}</p>' if lab else ''
         details = ''.join(
             f'<div class="experience-detail"><p>{escape(role)}</p>'
             f'<span class="experience-date">{escape(date)}</span></div>'
             for role, date in appointments
         )
-        return f'<li><h3>{escape(org)}</h3>{affiliation}{details}</li>'
+        return f'<li{card_class}>{mark}<div><h3>{escape(org)}</h3>{affiliation}{details}</div></li>'
 
     return f'''<section class="container section experience-section" aria-labelledby="Experience">
 <div class="section-title"><h2 id="Experience">{L('Experience', '工作与教育经历')}</h2>
 <div><a href="{escape(cv_url)}#experience">{L('Academic CV', '完整学术简历')} →</a></div></div>
-<ul class="experience-list">{''.join(entry(*item) for item in items)}</ul></section>'''
+<ul class="experience-list experience-with-marks">{''.join(entry(*item) for item in items)}</ul></section>'''
 
 
 def peer_review(zh, review_venues, venue_metric, metrics):

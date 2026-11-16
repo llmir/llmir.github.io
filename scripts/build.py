@@ -147,7 +147,7 @@ def header(language,page='home'):
         '林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。',
     )
     sharing = '\n' + sharing_metadata(language, canonical, description) if page == 'home' else ''
-    style_version = {'home': '?v=responsive-stats', 'cv': '?v=cv-resources'}.get(page, '')
+    style_version = {'home': '?v=experience-marks', 'cv': '?v=cv-resources'}.get(page, '')
     return f'''<!doctype html>
 <html lang="{language}">
 <head>

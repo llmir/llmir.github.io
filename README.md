@@ -1,6 +1,6 @@
 # Li Lin Academic Homepage
 
-A three-language academic homepage and chronological publication index for GitHub Pages. The visual reference is [Xi Xiao](https://xixiaouab.github.io/).
+A three-language academic homepage and chronological publication index for GitHub Pages.
 
 - Homepages: `site/index.html`, `site/zh.html` (简体), and `site/zh-hant.html` (繁體).
 - The publication index and public academic CV use the same language choices. The CV includes the research timeline, doctoral methods, patents, publication years, and open research.
@@ -11,7 +11,9 @@ A three-language academic homepage and chronological publication index for GitHu
 
 The original site generator, layout code, CSS, JavaScript, and deployment workflows are available under the [MIT License](LICENSE). Publication figures follow the terms of the sources in [`content/figures.json`](content/figures.json). The [font license](site/assets/fonts/OFL-Noto-Sans-KR.txt) and the basemap attribution are listed separately. Use your own photograph, contact details, QR code, and scholarly records when adapting the site.
 
-Clone or fork this repository to reuse the code. Set your site address and repository link in `content/profile.json`, and replace the publication records and figure files. Edit `scripts/homepage.py` and `scripts/academic_cv.py` for your biography, news, CV, and featured projects. When changing authors, update the name checks in `scripts/build.py` and `scripts/check.py` as well. Set `visitors` to `null` until you have your own widget.
+For a new site, use the [Academic Homepage Template](https://github.com/llmir/academic-homepage-template) and edit the sample records in `content/`. The homepage, publication index, and CV build in all three languages from those records.
+
+Institutional marks are sourced from [CATL](https://www.catl.com/en/), [HKU](https://www.hku.hk/en/about-hku/university-identity/basic-specifications), [SUSTech](https://www.sustech.edu.cn/zh/school_logo.html), [Sun Yat-sen University](https://www.sysu.edu.cn/xxg/zdjj1.htm), and [South China Normal University](https://www.scnu.edu.cn/a/20150906/2.html).
 
 ## Preview
 
