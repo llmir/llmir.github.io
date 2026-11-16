@@ -80,11 +80,11 @@ h2,.section-title h1{font-size:1.75rem;font-weight:700;line-height:1.6;letter-sp
 .experience-list li{border-top:1px solid var(--line);padding:8px 0 7px;font-size:.84rem;color:var(--text)}
 .experience-list h3{font-size:1rem;color:#19324c;margin-bottom:3px}
 .experience-list.experience-with-marks{gap:9px 16px}
-.experience-with-marks li{display:flex;flex-direction:column;gap:7px;padding:10px 13px 12px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
-.experience-mark{display:flex;align-items:center;height:55px}
-.experience-mark img{width:auto;height:47px;object-fit:contain}
-.experience-catl img{width:min(100%,190px);height:auto}
-.experience-hku img{width:min(100%,286px);height:auto}
+.experience-with-marks li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:start;padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.experience-mark{display:flex;align-items:center;justify-content:center;height:49px;overflow:hidden}
+.experience-mark img{width:auto;height:45px;max-width:100%;object-fit:contain}
+.experience-catl{justify-content:flex-start}
+.experience-catl img{flex:none;width:97px;height:auto;max-width:none}
 .experience-lab{color:#466788;font-size:.78rem}
 .experience-detail{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:1px 12px}
 .experience-date{font-size:.77rem;font-weight:650;color:#53647c;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -297,11 +297,10 @@ dialog::backdrop{background:rgba(16,26,43,.79)}
  .news-list li{grid-template-columns:53px minmax(0,1fr);gap:7px;font-size:.84rem}
  .news-list time{font-size:.7rem}
  .experience-list{grid-template-columns:minmax(0,1fr)}
- .experience-with-marks li{padding:9px 11px 10px}
- .experience-with-marks .experience-emblem{display:grid;grid-template-columns:43px minmax(0,1fr);gap:10px;align-items:start}
- .experience-emblem .experience-mark{height:43px}
- .experience-emblem .experience-mark img{max-width:43px;height:43px}
- .experience-catl{height:32px}
+ .experience-with-marks li{grid-template-columns:44px minmax(0,1fr);gap:10px;padding:9px 11px}
+ .experience-mark{height:43px}
+ .experience-mark img{height:40px}
+ .experience-catl img{width:84px;height:auto}
  .service-list ul{grid-template-columns:minmax(0,1fr)}
  .pub-row{padding:13px 12px}
  .pub-row.with-figure{grid-template-columns:minmax(0,1fr);gap:9px}

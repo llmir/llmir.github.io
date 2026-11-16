@@ -290,7 +290,7 @@ def experience(zh, cv_url):
     items = (
         (('catl.svg', 'experience-catl', 190, 20), L('CATL Hong Kong Research Institute (HKRI)', '宁德时代香港研究院（HKRI）'),
          '', ((L('Senior AI Engineer', '高级 AI 工程师'), L('Nov 2025 – Present', '2025.11 至今')),)),
-        (('hku.svg', 'experience-hku', 208, 40), L('The University of Hong Kong', '香港大学'),
+        (('hku-crest.svg', '', 40, 40), L('The University of Hong Kong', '香港大学'),
          'OMEGA Lab',
          ((L('PhD in Electrical and Electronic Engineering', '电子与电气工程博士'), L('Sep 2021 – Sep 2025', '2021.09–2025.09')),)),
         (('sustech.png', '', 190, 189), L('Southern University of Science and Technology', '南方科技大学'),
@@ -307,7 +307,6 @@ def experience(zh, cv_url):
     def entry(logo, org, lab, appointments):
         file, css, width, height = logo
         mark_class = f'experience-mark {css}'.rstrip()
-        card_class = ' class="experience-emblem"' if not css else ''
         mark = (f'<span class="{mark_class}" aria-hidden="true">'
                 f'<img src="assets/institutions/{escape(file)}" alt="" width="{width}" height="{height}" loading="lazy" decoding="async"></span>')
         affiliation = f'<p class="experience-lab">{escape(lab)}</p>' if lab else ''
@@ -316,7 +315,7 @@ def experience(zh, cv_url):
             f'<span class="experience-date">{escape(date)}</span></div>'
             for role, date in appointments
         )
-        return f'<li{card_class}>{mark}<div><h3>{escape(org)}</h3>{affiliation}{details}</div></li>'
+        return f'<li>{mark}<div><h3>{escape(org)}</h3>{affiliation}{details}</div></li>'
 
     return f'''<section class="container section experience-section" aria-labelledby="Experience">
 <div class="section-title"><h2 id="Experience">{L('Experience', '工作与教育经历')}</h2>
