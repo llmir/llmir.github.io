@@ -293,7 +293,7 @@ def experience(zh, cv_url):
         (('hku-crest.svg', '', 40, 40), L('The University of Hong Kong', '香港大学'),
          'OMEGA Lab',
          ((L('PhD in Electrical and Electronic Engineering', '电子与电气工程博士'), L('Sep 2021 – Sep 2025', '2021.09–2025.09')),)),
-        (('sustech.png', '', 190, 189), L('Southern University of Science and Technology', '南方科技大学'),
+        (('sustech.png?v=transparent', 'experience-sustech', 413, 297), L('Southern University of Science and Technology', '南方科技大学'),
          'MedICAL Lab', (
              (L('Joint PhD training with HKU', '博士联合培养（香港大学）'), L('Sep 2021 – Sep 2025', '2021.09–2025.09')),
              (L('Visiting Student and Research Assistant', '访问学生及研究助理'), L('Jul 2019 – Aug 2021', '2019.07–2021.08')),
