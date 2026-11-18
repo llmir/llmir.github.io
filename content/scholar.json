@@ -1,7 +1,7 @@
 {
-  "asOf": "2026-11-15",
+  "asOf": "2026-11-18",
   "profileId": "QhpRmFQAAAAJ",
-  "citations": 1610,
+  "citations": 1612,
   "hIndex": 21,
   "i10Index": 33,
   "yearly": [
@@ -23,15 +23,14 @@
     ],
     [
       2025,
-      496
+      497
     ],
     [
       2026,
-      481
+      482
     ]
   ],
   "partialYear": 2026,
   "indexedRecords": 70,
-  "source": "public-profile",
-  "collectedAt": "2026-11-15T12:51:31+08:00"
+  "source": "serpapi"
 }

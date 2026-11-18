@@ -1,7 +1,7 @@
-"""Refresh the homepage's Google Scholar snapshot once per day."""
+"""Refresh the homepage's Google Scholar snapshot twice per day."""
 
 import argparse
-from datetime import date, datetime
+from datetime import date, datetime, time, timedelta
 import json
 import os
 from pathlib import Path
@@ -16,6 +16,7 @@ METRICS = {"citations": "citations", "hIndex": "h_index", "i10Index": "i10_index
 PROFILE_LABELS = {"Citations": "citations", "h-index": "hIndex", "i10-index": "i10Index"}
 SCHOLAR_ORIGIN = "https://scholar.google.com"
 SCHOLAR_AGENT = "AcademicHomepageStats/1.0"
+LOCAL_ZONE = ZoneInfo("Asia/Shanghai")
 
 
 def fetch_json(url):
@@ -24,10 +25,15 @@ def fetch_json(url):
         return json.load(response)
 
 
-def validate(snapshot, profile_id, today):
+def validate(snapshot, profile_id, now):
     acquired = date.fromisoformat(snapshot["asOf"])
-    if snapshot["profileId"] != profile_id or acquired > today:
+    if snapshot["profileId"] != profile_id or acquired > now.date():
         raise ValueError("Invalid profile or snapshot date")
+    collected = datetime.combine(acquired, time.min, LOCAL_ZONE)
+    if stamp := snapshot.get("collectedAt"):
+        collected = datetime.fromisoformat(stamp)
+        if collected.tzinfo is None or collected.astimezone(LOCAL_ZONE).date() != acquired or collected > now:
+            raise ValueError("Invalid Scholar collection time")
     counts = [snapshot[field] for field in (*METRICS, "indexedRecords")]
     if any(type(count) is not int or count < 0 for count in counts):
         raise ValueError("Invalid Scholar count")
@@ -37,12 +43,22 @@ def validate(snapshot, profile_id, today):
     years = [year for year, _ in yearly]
     if not yearly or years != sorted(set(years)):
         raise ValueError("Invalid Scholar citation years")
-    if any(type(year) is not int or not 1900 <= year <= today.year
+    if any(type(year) is not int or not 1900 <= year <= now.year
            or type(count) is not int or count < 0 for year, count in yearly):
         raise ValueError("Invalid yearly citation count")
     if snapshot["partialYear"] != acquired.year:
         raise ValueError("Invalid current year")
-    return acquired
+    return collected
+
+
+def latest_scheduled_refresh(now):
+    morning = now.replace(hour=8, minute=17, second=0, microsecond=0)
+    evening = morning + timedelta(hours=12)
+    if now >= evening:
+        return evening
+    if now >= morning:
+        return morning
+    return morning - timedelta(hours=12)
 
 
 def author_page(profile_id, api_key, start):
@@ -138,26 +154,29 @@ def collect_public_profile(profile_id, today):
     }
 
 
-def refresh(snapshot_file, published_url, api_key, today, public_profile=False):
+def refresh(snapshot_file, published_url, api_key, now, public_profile=False):
+    now = now.astimezone(LOCAL_ZONE)
     checked_in = json.loads(snapshot_file.read_text(encoding="utf-8"))
     profile_id = checked_in["profileId"]
     best = checked_in
-    best_date = validate(best, profile_id, today)
+    best_at = validate(best, profile_id, now)
     try:
-        published = fetch_json(published_url)
-        published_date = validate(published, profile_id, today)
+        published = fetch_json(f"{published_url}?checked={int(now.timestamp())}")
+        published_at = validate(published, profile_id, now)
         published_source = published.get("source")
-        preferred_source = published_source == "serpapi"
-        same_day_refresh = published_date == best_date and published_source and (preferred_source or not best.get("source"))
-        if published_date > best_date or same_day_refresh:
-            best, best_date = published, published_date
+        preferred_source = published_source and (published_source == "serpapi" or not best.get("source"))
+        if published_at > best_at or (published_at == best_at and preferred_source):
+            best, best_at = published, published_at
     except (OSError, KeyError, TypeError, ValueError) as error:
         print(f"Published Scholar snapshot unavailable ({type(error).__name__})")
 
-    if public_profile or (api_key and (best_date < today or best.get("source") != "serpapi")):
+    due = best_at < latest_scheduled_refresh(now) or best.get("source") != "serpapi"
+    if public_profile or (api_key and due):
         try:
+            today = now.date()
             updated = collect_public_profile(profile_id, today) if public_profile else collect(profile_id, api_key, today)
-            validate(updated, profile_id, today)
+            updated["collectedAt"] = now.isoformat(timespec="seconds")
+            validate(updated, profile_id, now)
             best = updated
             print(f"Refreshed Scholar from {best['source']}")
         except HTTPError as error:
@@ -167,7 +186,7 @@ def refresh(snapshot_file, published_url, api_key, today, public_profile=False):
 
     if best != checked_in:
         snapshot_file.write_text(json.dumps(best, indent=2) + "\n", encoding="utf-8")
-    print(f"Using Scholar snapshot from {best['asOf']}")
+    print(f"Using Scholar snapshot from {best.get('collectedAt') or best['asOf']}")
 
 
 if __name__ == "__main__":
@@ -176,6 +195,6 @@ if __name__ == "__main__":
                      help="refresh manually from a permitted public author profile")
     args = cli.parse_args()
     site = json.loads((ROOT / "content/profile.json").read_text(encoding="utf-8"))["site"]
-    today = datetime.now(ZoneInfo("Asia/Hong_Kong")).date()
+    now = datetime.now(LOCAL_ZONE)
     refresh(ROOT / "content/scholar.json", urljoin(site, "scholar.json"),
-            os.environ.get("SERPAPI_KEY"), today, args.public_profile)
+            os.environ.get("SERPAPI_KEY"), now, args.public_profile)

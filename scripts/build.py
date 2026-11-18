@@ -162,7 +162,7 @@ def header(language,page='home'):
 <link rel="stylesheet" href="assets/style.css{style_version}">
 <link rel="stylesheet" href="assets/publication-design.css">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<script src="assets/site.js?v=visitor-counts" defer></script>
+<script src="assets/site.js?v=scholar-refresh" defer></script>
 </head>
 <body id="Home"{' class="cv-document"' if page=='cv' else ''}>
 <a class="skip" href="#main">{L('Skip to content','跳到正文')}</a>
@@ -324,12 +324,15 @@ def stats(zh):
     entries=s['yearly']; xmax=max(100,100*((max(v for _,v in entries)+99)//100))
     bar=''.join(f'<div><span>{v}</span><div class="chart-well"><i class="{"partial" if y==s["partialYear"] else ""}" style="height:{100*v/xmax:.2f}%"></i></div><span>{y}</span></div>' for y,v in entries)
     accessible=', '.join(f'{y}: {v}' for y,v in entries)
-    statrow=''.join(f'<div><strong>{n}</strong><span>{label}</span></div>' for n,label in [(s['hIndex'],L('h-index','h 指数')),(s['i10Index'],L('i10-index','i10 指数')),(s['indexedRecords'],L('Scholar records','收录条目'))])
+    statrow=''.join(f'<div><strong data-scholar-value="{key}">{s[key]}</strong><span>{label}</span></div>' for key,label in [('hIndex',L('h-index','h 指数')),('i10Index',L('i10-index','i10 指数')),('indexedRecords',L('Scholar records','收录条目'))])
+    collected = s.get('collectedAt') or date
+    collected_label = collected[:16].replace('T', ' ')
+    time_label = L('Collection time (Shanghai)', '采集时间（上海）')
     return f'''<aside class="stats-section" id="Contact" aria-label="{L('Citation and visitor statistics','引用与访客统计')}">
 <div class="footer-widgets">
-<section class="scholar-card" aria-labelledby="sch-title">
-<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span><time datetime="{date}">{date}</time></div>
-<div class="scholar-total"><strong>{s['citations']:,}</strong><span>{L('TOTAL CITATIONS','总被引次数')}</span></div>
+<section class="scholar-card" aria-labelledby="sch-title" data-scholar-profile="{e(s['profileId'])}">
+<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span><time datetime="{e(collected)}" title="{time_label}">{e(collected_label)}</time></div>
+<div class="scholar-total"><strong data-scholar-value="citations">{s['citations']:,}</strong><span>{L('TOTAL CITATIONS','总被引次数')}</span></div>
 <div class="scholar-metrics">{statrow}</div>
 <div class="scholar-chart"><p>{L('Citations by year','年度引用')}</p><div class="chart-bars" role="img" aria-label="{e(accessible)}">{bar}</div></div>
 </section>

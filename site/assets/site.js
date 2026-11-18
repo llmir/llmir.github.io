@@ -142,33 +142,76 @@
     map.addEventListener('error', showBasemap, {once: true});
     if (map.complete && !map.naturalWidth) showBasemap();
   }
+  function refreshPublishedStats(path, update) {
+    const refresh = async () => {
+      if (document.hidden) return;
+      try {
+        const minute = Math.floor(Date.now() / 60000);
+        const response = await fetch(`${path}?minute=${minute}`, {cache: 'no-store'});
+        if (response.ok) update(await response.json());
+      } catch {
+        // Keep displaying the latest available snapshot.
+      }
+    };
+    refresh();
+    document.addEventListener('visibilitychange', refresh);
+    window.setInterval(refresh, 5 * 60 * 1000);
+  }
   const visitorStats = document.querySelector('[data-visitor-stats]');
   if (visitorStats) {
     const fields = [...visitorStats.querySelectorAll('[data-visitor-value]')];
     const format = new Intl.NumberFormat(document.documentElement.lang);
     let latest = Date.parse(visitorStats.dataset.visitorAsOf) || 0;
-    const refreshVisitorStats = async () => {
-      if (document.hidden) return;
-      try {
-        const minute = Math.floor(Date.now() / 60000);
-        const response = await fetch(`visitor-stats.json?minute=${minute}`, {cache: 'no-store'});
-        if (!response.ok) return;
-        const snapshot = await response.json();
-        const collected = Date.parse(snapshot.asOf);
-        if (snapshot.statsId !== visitorStats.dataset.visitorStats || !Number.isFinite(collected) || collected <= latest) return;
-        const values = fields.map(field => snapshot[field.dataset.visitorValue]);
-        if (values.some(value => !Number.isSafeInteger(value) || value < 0)) return;
-        fields.forEach((field, index) => { field.textContent = format.format(values[index]); });
-        visitorStats.title = `${visitorStats.dataset.visitorUpdatedLabel} · ${snapshot.asOf}`;
-        visitorStats.dataset.visitorAsOf = snapshot.asOf;
-        latest = collected;
-      } catch {
-        // The HTML already contains the last published counts.
-      }
-    };
-    refreshVisitorStats();
-    document.addEventListener('visibilitychange', refreshVisitorStats);
-    window.setInterval(refreshVisitorStats, 5 * 60 * 1000);
+    refreshPublishedStats('visitor-stats.json', snapshot => {
+      const collected = Date.parse(snapshot.asOf);
+      if (snapshot.statsId !== visitorStats.dataset.visitorStats || !Number.isFinite(collected) || collected <= latest) return;
+      const values = fields.map(field => snapshot[field.dataset.visitorValue]);
+      if (values.some(value => !Number.isSafeInteger(value) || value < 0)) return;
+      fields.forEach((field, index) => { field.textContent = format.format(values[index]); });
+      visitorStats.title = `${visitorStats.dataset.visitorUpdatedLabel} · ${snapshot.asOf}`;
+      visitorStats.dataset.visitorAsOf = snapshot.asOf;
+      latest = collected;
+    });
+  }
+  const scholarCard = document.querySelector('[data-scholar-profile]');
+  if (scholarCard) {
+    const stamp = scholarCard.querySelector('time');
+    const fields = [...scholarCard.querySelectorAll('[data-scholar-value]')];
+    const chart = scholarCard.querySelector('.chart-bars');
+    const format = new Intl.NumberFormat(document.documentElement.lang);
+    const initial = stamp.dateTime.length === 10 ? `${stamp.dateTime}T00:00:00+08:00` : stamp.dateTime;
+    let latest = Date.parse(initial) || 0;
+    refreshPublishedStats('scholar.json', snapshot => {
+      const collected = Date.parse(snapshot.collectedAt);
+      if (snapshot.profileId !== scholarCard.dataset.scholarProfile || !Number.isFinite(collected) || collected <= latest) return;
+      const values = fields.map(field => snapshot[field.dataset.scholarValue]);
+      const entries = snapshot.yearly;
+      if (values.some(value => !Number.isSafeInteger(value) || value < 0) || !Array.isArray(entries) || !entries.length) return;
+      if (entries.some(([year, count]) => !Number.isSafeInteger(year) || !Number.isSafeInteger(count) || count < 0)) return;
+
+      const limit = Math.max(100, 100 * Math.ceil(Math.max(...entries.map(([, count]) => count)) / 100));
+      const bars = entries.map(([year, count]) => {
+        const bar = document.createElement('div');
+        const countLabel = document.createElement('span');
+        const yearLabel = document.createElement('span');
+        const well = document.createElement('div');
+        const fill = document.createElement('i');
+        countLabel.textContent = count;
+        yearLabel.textContent = year;
+        well.className = 'chart-well';
+        fill.classList.toggle('partial', year === snapshot.partialYear);
+        fill.style.height = `${100 * count / limit}%`;
+        well.append(fill);
+        bar.append(countLabel, well, yearLabel);
+        return bar;
+      });
+      fields.forEach((field, index) => { field.textContent = format.format(values[index]); });
+      chart.replaceChildren(...bars);
+      chart.setAttribute('aria-label', entries.map(([year, count]) => `${year}: ${count}`).join(', '));
+      stamp.dateTime = snapshot.collectedAt;
+      stamp.textContent = snapshot.collectedAt.slice(0, 16).replace('T', ' ');
+      latest = collected;
+    });
   }
   const printCv = document.querySelector('[data-print-cv]');
   if (printCv) {
