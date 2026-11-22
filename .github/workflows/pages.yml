@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '7,22,37,52 * * * *'
-    - cron: '17 0,12 * * *'
+    - cron: '18 0,10 * * *'
 
 permissions: {}
 
@@ -30,7 +30,7 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Refresh Google Scholar metrics
         env:
-          SERPAPI_KEY: ${{ (github.event_name != 'schedule' || github.event.schedule == '17 0,12 * * *') && secrets.SERPAPI_KEY || '' }}
+          SERPAPI_KEY: ${{ (github.event_name != 'schedule' || github.event.schedule == '18 0,10 * * *') && secrets.SERPAPI_KEY || '' }}
         run: python scripts/refresh_scholar_stats.py
       - name: Refresh visitor counts
         run: python scripts/refresh_visitor_stats.py content/visitor-stats.json || echo 'Using the checked-in visitor snapshot'

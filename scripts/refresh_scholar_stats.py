@@ -52,13 +52,13 @@ def validate(snapshot, profile_id, now):
 
 
 def latest_scheduled_refresh(now):
-    morning = now.replace(hour=8, minute=17, second=0, microsecond=0)
-    evening = morning + timedelta(hours=12)
+    morning = now.replace(hour=8, minute=18, second=0, microsecond=0)
+    evening = morning.replace(hour=18)
     if now >= evening:
         return evening
     if now >= morning:
         return morning
-    return morning - timedelta(hours=12)
+    return evening - timedelta(days=1)
 
 
 def author_page(profile_id, api_key, start):
