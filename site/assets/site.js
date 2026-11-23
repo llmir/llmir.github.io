@@ -175,11 +175,11 @@
   }
   const scholarCard = document.querySelector('[data-scholar-profile]');
   if (scholarCard) {
-    const stamp = scholarCard.querySelector('time');
     const fields = [...scholarCard.querySelectorAll('[data-scholar-value]')];
     const chart = scholarCard.querySelector('.chart-bars');
     const format = new Intl.NumberFormat(document.documentElement.lang);
-    const initial = stamp.dateTime.length === 10 ? `${stamp.dateTime}T00:00:00+08:00` : stamp.dateTime;
+    const stamp = scholarCard.dataset.scholarCollectedAt ?? scholarCard.querySelector('time')?.dateTime ?? '';
+    const initial = stamp.length === 10 ? `${stamp}T00:00:00+08:00` : stamp;
     let latest = Date.parse(initial) || 0;
     refreshPublishedStats('scholar.json', snapshot => {
       const collected = Date.parse(snapshot.collectedAt);
@@ -208,8 +208,6 @@
       fields.forEach((field, index) => { field.textContent = format.format(values[index]); });
       chart.replaceChildren(...bars);
       chart.setAttribute('aria-label', entries.map(([year, count]) => `${year}: ${count}`).join(', '));
-      stamp.dateTime = snapshot.collectedAt;
-      stamp.textContent = snapshot.collectedAt.slice(0, 16).replace('T', ' ');
       latest = collected;
     });
   }
