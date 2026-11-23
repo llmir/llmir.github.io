@@ -7,6 +7,7 @@ import argparse,json,re
 import academic_cv
 import homepage
 from localize import LANGUAGES, localize
+from refresh_scholar_stats import SCHEDULED_REFRESH_TIMES
 
 ROOT=Path(__file__).resolve().parents[1]
 CONTENT,SITE=ROOT/'content',ROOT/'site'
@@ -147,7 +148,7 @@ def header(language,page='home'):
         '林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。',
     )
     sharing = '\n' + sharing_metadata(language, canonical, description) if page == 'home' else ''
-    style_version = {'home': '?v=experience-balanced', 'cv': '?v=cv-resources'}.get(page, '')
+    style_version = {'home': '?v=scholar-timing', 'cv': '?v=cv-resources'}.get(page, '')
     return f'''<!doctype html>
 <html lang="{language}">
 <head>
@@ -327,11 +328,17 @@ def stats(zh):
     statrow=''.join(f'<div><strong data-scholar-value="{key}">{s[key]}</strong><span>{label}</span></div>' for key,label in [('hIndex',L('h-index','h 指数')),('i10Index',L('i10-index','i10 指数')),('indexedRecords',L('Scholar records','收录条目'))])
     collected = s.get('collectedAt') or date
     collected_label = collected[:16].replace('T', ' ')
-    time_label = L('Collection time (Shanghai)', '采集时间（上海）')
+    refresh_times = ' / '.join(at.strftime('%H:%M') for at in SCHEDULED_REFRESH_TIMES)
+    schedule_label = L('Scheduled daily (UTC+8)', '每日计划刷新（北京时间）')
+    collected_caption = L('Last collected', '最近采集')
     return f'''<aside class="stats-section" id="Contact" aria-label="{L('Citation and visitor statistics','引用与访客统计')}">
 <div class="footer-widgets">
 <section class="scholar-card" aria-labelledby="sch-title" data-scholar-profile="{e(s['profileId'])}">
-<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span><time datetime="{e(collected)}" title="{time_label}">{e(collected_label)}</time></div>
+<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span></div>
+<div class="scholar-timing">
+<div>{schedule_label} <span>{refresh_times}</span></div>
+<div>{collected_caption} <time datetime="{e(collected)}">{e(collected_label)}</time></div>
+</div>
 <div class="scholar-total"><strong data-scholar-value="citations">{s['citations']:,}</strong><span>{L('TOTAL CITATIONS','总被引次数')}</span></div>
 <div class="scholar-metrics">{statrow}</div>
 <div class="scholar-chart"><p>{L('Citations by year','年度引用')}</p><div class="chart-bars" role="img" aria-label="{e(accessible)}">{bar}</div></div>

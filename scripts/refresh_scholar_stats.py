@@ -17,6 +17,7 @@ PROFILE_LABELS = {"Citations": "citations", "h-index": "hIndex", "i10-index": "i
 SCHOLAR_ORIGIN = "https://scholar.google.com"
 SCHOLAR_AGENT = "AcademicHomepageStats/1.0"
 LOCAL_ZONE = ZoneInfo("Asia/Shanghai")
+SCHEDULED_REFRESH_TIMES = (time(8, 18), time(18, 18))
 
 
 def fetch_json(url):
@@ -52,8 +53,9 @@ def validate(snapshot, profile_id, now):
 
 
 def latest_scheduled_refresh(now):
-    morning = now.replace(hour=8, minute=18, second=0, microsecond=0)
-    evening = morning.replace(hour=18)
+    morning, evening = (
+        datetime.combine(now.date(), at, now.tzinfo) for at in SCHEDULED_REFRESH_TIMES
+    )
     if now >= evening:
         return evening
     if now >= morning:
