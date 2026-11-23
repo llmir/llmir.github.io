@@ -1,5 +1,6 @@
 """Build both languages and the full chronological publication index."""
 from pathlib import Path
+from datetime import datetime
 from html import escape
 from itertools import groupby
 import argparse,json,re
@@ -7,7 +8,7 @@ import argparse,json,re
 import academic_cv
 import homepage
 from localize import LANGUAGES, localize
-from refresh_scholar_stats import SCHEDULED_REFRESH_TIMES
+from refresh_scholar_stats import LOCAL_ZONE, latest_scheduled_refresh
 
 ROOT=Path(__file__).resolve().parents[1]
 CONTENT,SITE=ROOT/'content',ROOT/'site'
@@ -51,6 +52,10 @@ if visitors and args.visitor_stats.is_file():
         visitor_totals = snapshot
 visitor_privacy = 'https://mapmyvisitors.com/b/policy'
 date=s['asOf']
+scholar_stamp = date
+if collected_at := s.get('collectedAt'):
+    collected_local = datetime.fromisoformat(collected_at).astimezone(LOCAL_ZONE)
+    scholar_stamp = latest_scheduled_refresh(collected_local).isoformat(timespec='minutes')
 year=int(date[:4])
 dblp='https://dblp.org/pid/38/4000-6.html'
 catl='https://www.catl.com/en/news/6308.html'
@@ -148,8 +153,8 @@ def header(language,page='home'):
         '林立的学术主页：AI for Science、Agentic AI 与 AI for Healthcare；医学影像分析、数据与标注高效学习、泛化与联邦学习。',
     )
     sharing = '\n' + sharing_metadata(language, canonical, description) if page == 'home' else ''
-    style_version = {'home': '?v=scholar-timing', 'cv': '?v=cv-resources'}.get(page, '')
-    script_version = 'scholar-schedule' if page == 'home' else 'scholar-refresh'
+    style_version = {'home': '?v=scholar-timestamp', 'cv': '?v=cv-resources'}.get(page, '')
+    script_version = 'scholar-timestamp' if page == 'home' else 'scholar-refresh'
     return f'''<!doctype html>
 <html lang="{language}">
 <head>
@@ -328,13 +333,12 @@ def stats(zh):
     accessible=', '.join(f'{y}: {v}' for y,v in entries)
     statrow=''.join(f'<div><strong data-scholar-value="{key}">{s[key]}</strong><span>{label}</span></div>' for key,label in [('hIndex',L('h-index','h 指数')),('i10Index',L('i10-index','i10 指数')),('indexedRecords',L('Scholar records','收录条目'))])
     collected = s.get('collectedAt') or date
-    refresh_times = ' / '.join(at.strftime('%H:%M') for at in SCHEDULED_REFRESH_TIMES)
-    schedule_label = L('Scheduled daily (UTC+8)', '每日计划刷新（北京时间）')
+    stamp_label = scholar_stamp[:16].replace('T', ' ')
+    stamp_title = L('Scheduled refresh time (UTC+8)', '计划刷新时间（北京时间）')
     return f'''<aside class="stats-section" id="Contact" aria-label="{L('Citation and visitor statistics','引用与访客统计')}">
 <div class="footer-widgets">
 <section class="scholar-card" aria-labelledby="sch-title" data-scholar-profile="{e(s['profileId'])}" data-scholar-collected-at="{e(collected)}">
-<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span></div>
-<p class="scholar-timing">{schedule_label} <span>{refresh_times}</span></p>
+<div class="scholar-top"><span id="sch-title">{a(p['scholar'],'Google Scholar')}</span><time data-scholar-scheduled-for datetime="{e(scholar_stamp)}" title="{stamp_title}">{e(stamp_label)}</time></div>
 <div class="scholar-total"><strong data-scholar-value="citations">{s['citations']:,}</strong><span>{L('TOTAL CITATIONS','总被引次数')}</span></div>
 <div class="scholar-metrics">{statrow}</div>
 <div class="scholar-chart"><p>{L('Citations by year','年度引用')}</p><div class="chart-bars" role="img" aria-label="{e(accessible)}">{bar}</div></div>
@@ -392,7 +396,8 @@ if __name__=='__main__':
             if language == 'zh-Hant':
                 html = localize(html)
             (SITE/name).write_text(html+'\n',encoding='utf8')
-    (SITE/'scholar.json').write_text(json.dumps(s,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
+    published_scholar = {**s, 'scheduledFor': scholar_stamp}
+    (SITE/'scholar.json').write_text(json.dumps(published_scholar,indent=2,ensure_ascii=False)+'\n',encoding='utf8')
     visitor_output = SITE/'visitor-stats.json'
     if visitors:
         visitor_output.write_text(json.dumps(visitor_totals, indent=2)+'\n', encoding='utf8')

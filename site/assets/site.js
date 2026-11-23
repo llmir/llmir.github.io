@@ -175,6 +175,7 @@
   }
   const scholarCard = document.querySelector('[data-scholar-profile]');
   if (scholarCard) {
+    const scheduleStamp = scholarCard.querySelector('[data-scholar-scheduled-for]');
     const fields = [...scholarCard.querySelectorAll('[data-scholar-value]')];
     const chart = scholarCard.querySelector('.chart-bars');
     const format = new Intl.NumberFormat(document.documentElement.lang);
@@ -184,6 +185,8 @@
     refreshPublishedStats('scholar.json', snapshot => {
       const collected = Date.parse(snapshot.collectedAt);
       if (snapshot.profileId !== scholarCard.dataset.scholarProfile || !Number.isFinite(collected) || collected <= latest) return;
+      const scheduledFor = snapshot.scheduledFor;
+      if (scheduleStamp && (typeof scheduledFor !== 'string' || !Number.isFinite(Date.parse(scheduledFor)))) return;
       const values = fields.map(field => snapshot[field.dataset.scholarValue]);
       const entries = snapshot.yearly;
       if (values.some(value => !Number.isSafeInteger(value) || value < 0) || !Array.isArray(entries) || !entries.length) return;
@@ -208,6 +211,10 @@
       fields.forEach((field, index) => { field.textContent = format.format(values[index]); });
       chart.replaceChildren(...bars);
       chart.setAttribute('aria-label', entries.map(([year, count]) => `${year}: ${count}`).join(', '));
+      if (scheduleStamp) {
+        scheduleStamp.dateTime = scheduledFor;
+        scheduleStamp.textContent = scheduledFor.slice(0, 16).replace('T', ' ');
+      }
       latest = collected;
     });
   }
